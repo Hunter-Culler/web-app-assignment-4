@@ -1,0 +1,18 @@
+/*
+    Ian Anderson
+	University of Colorado Denver CSCI 4800 E01
+	Web Application Developement
+	Vue.js classwork 1
+
+	March 17th, 2021
+
+	Status = Functional
+*/
+
+.hasError {
+    color: red;
+}
+
+.exists {
+	color: red;
+}

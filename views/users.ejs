@@ -1,0 +1,50 @@
+<!--
+	Hunter Culler and Ian Anderson
+	University of Colorado Denver CSCI 4800 E01
+	Web Application Developement
+	Group Assignment 4
+
+	March 31st, 2021
+
+	Status = Functional
+-->
+
+<div class="container">
+    <div class="list-container">
+        <% users.forEach( c=> { %>
+            <div class="user">
+                <p>
+                    <span>
+                        <%= user.username %>
+                    </span>
+                </p>
+                <p>
+                    <span>
+                        <%= user.fname %>
+                    </span>
+                </p>
+                <p>
+                    <span>
+                        <%= user.lname %>
+                    </span>
+                </p>
+                <p>
+                    <span>
+                        <%= user.dob %>
+                    </span>
+                </p>
+                <p>
+                    <span>
+                        <%= user.gender %>
+                    </span>
+                </p>
+                <p>
+                    <span>
+                        <%= user.email %>
+                    </span>
+                </p>
+            </div>
+
+            <% }); %>
+    </div>
+</div>
