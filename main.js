@@ -9,12 +9,20 @@
 	Status = Functional
 */
 
-const express = require("express"), app = express(),
+const express = require("express"),
+app = express(),
+layouts = require("express-ejs-layouts"),
+mongoose = require("mongoose"),
+methodOverride = require("method-override"),
+expressSession = require("express-session"),
+cookieParser = require("cookie-parser"),
+connectFlash = require("connect-flash"),
+passport = require("passport"),
 usersController = require("./controllers/usersController"),
 homeController = require("./controllers/homeController"),
 errorController = require("./controllers/errorController"),
-layouts = require("express-ejs-layouts"),
-mongoose = require("mongoose");
+User = require("./models/user");
+
 
 mongoose.Promise = global.Promise;
 
