@@ -13,10 +13,10 @@
 "use strict"
 
 const mongoose = require("mongoose"),
-passportLogicalMongoose = require("passport-local-mongoose"),
 { Schema } = require("mongoose"),
 passport = require('passport'),
-userSchema = new Schema(
+passportLogicalMongoose = require("passport-local-mongoose"),
+userSchema = new mongoose.Schema(
     {
         username: String,
         password: {
@@ -63,7 +63,7 @@ userSchema = new Schema(
     }
 );
 
-UserSchema.plugin(passportLogicalMongoose, {
+userSchema.plugin(passportLogicalMongoose, {
     usernameField: "username"
 });
 
