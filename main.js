@@ -24,22 +24,59 @@ mongoose.connect(
 	{ useNewUrlParser: true, useFindAndModify: false }
   );
 
+
+mongoose.set("useCreateIndex", true);
+
+const db = mongoose.connection;
+
+db.once("open", () => {
+  console.log("Successfully connected to MongoDB using Mongoose!");
+});
+
 app.set("port", process.env.PORT || 8080);
 
-app.set("view engine", "ejs");
+app.set(
+	"view engine",
+	 "ejs"
+	 );
 app.use(layouts);
-
-app.get("/", usersController.getLogInPage);
-
-app.use(express.static("public"));
-
 app.use(
     express.urlencoded({
         extended: false
     })
 );
 
+app.use(
+	methodOverride("_method", {
+	  methods: ["POST", "GET"]
+	})
+  );
+
 app.use(express.json());
+app.use(cookieParser("secret_passcode"));
+app.use(
+  expressSession({
+    secret: "secret_passcode",
+    cookie: {
+      maxAge: 4000000
+    },
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(connectFlash());
+
+app.get("/", usersController.getLogInPage);
+
+app.use(express.static("public"));
+
+
+
+
 
 app.get("/home", homeController.showHome);
 app.get("/signup", usersController.getSignUpPage);
