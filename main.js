@@ -18,10 +18,13 @@ mongoose = require("mongoose");
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect("mongodb://localhost:27017/social_media_website", 
-    {useNewUrlParser: true});
+mongoose.connect(
+	process.env.MONGODB_URI ||
+	"mongodb://localhost:27017/social_media_website",
+	{ useNewUrlParser: true, useFindAndModify: false }
+  );
 
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 8080);
 
 app.set("view engine", "ejs");
 app.use(layouts);

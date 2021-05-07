@@ -14,7 +14,7 @@
 const { reset } = require("nodemon");
 
 const User = require("../models/user"),
-Post = require("..models/post"),
+//Post = require("..models/post"),
 passport = require("passport"),
 mongoose = require("mongoose"),
 getUserParams = body => {
@@ -51,12 +51,15 @@ module.exports = {
             next(error);
         })
     },
+
     indexView: (req, res) => {
-        res.render("/users/index");
+        res.render("users/index");
     },
+
     new: (req, res) => {
-        res.render("/users/new");
+        res.render("users/new");
     },
+
     create: (req, res, next) => {
         let newUser = new User({
             name: {
@@ -78,15 +81,17 @@ module.exports = {
             next(error);
         })
     },
+
     redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;
-        if (redirectPath != undefined){
+        if (redirectPath !== undefined){
             res.redirect(redirectPath);
         }
         else{
             next();
         }
     },
+
     show: (req, res, next) => {
         let userId = req.params.id;
         User.findById(userId)
@@ -98,9 +103,11 @@ module.exports = {
             console.log(`Error fetching user by ID: ${error.message}`);
         })
     },
+
     showView: (req, res) => {
         res.render(users/show);
     },
+
     edit: (req, res) => {
         let userId = req.params.id;
         User.findById(userId)
@@ -114,7 +121,7 @@ module.exports = {
         })
     },
     showEdit: (req, res) => {
-        res.render("/users/edit");
+        res.render("users/edit");
     },
     update: (req, res, next) => {
         let userId = req.params.id,
@@ -173,11 +180,11 @@ module.exports = {
 }
 
 exports.getLogInPage = (req, res) => {
-    res.render("login");
+    res.render("/login");
 }
 
 exports.getSignUpPage = (req, res) => {
-    res.render("signup");
+    res.render("/signup");
 }
 
 // Function for signing into the site

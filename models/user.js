@@ -15,6 +15,7 @@
 const mongoose = require("mongoose"),
 { Schema } = require("mongoose"),
 passport = require('passport'),
+user = require("./user"),
 passportLogicalMongoose = require("passport-local-mongoose"),
 userSchema = new mongoose.Schema(
     {
