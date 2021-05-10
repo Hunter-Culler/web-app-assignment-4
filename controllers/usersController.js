@@ -156,6 +156,9 @@ module.exports = {
         var min = Math.ceil(10000);
         var max = Math.floor(99999);
         newUser.UniqueID = Math.floor(Math.random() * (max - min + 1)) + min;
+        newUser.save();
+        res.locals.redirect = "/login";
+        next();
     },
     delete: (req, res, next) => {
         let userId = req.params.id;
@@ -175,8 +178,101 @@ module.exports = {
         else next();
     },
     login: (req, res, next) => {
-        
-    }
+        const db = mongoose.connection;
+        var dbo = db
+
+        var queryUsername = { Username: req.body.username, Password: req.body.password };
+        var queryPassword = { Password: req.body.password };
+        var queryResult;
+
+        dbo.collection("users").findOne(queryUsername)
+        .then(result => {
+
+            if (result) {
+            res.locals.redirect = `/home/${result._id}`;
+            res.locals.currentUser = result;
+            next();
+            } else {
+            console.log("No document matches the provided query.");
+            res.render("signin");
+            next();
+            }
+        })
+        .catch(err => console.error(`Failed to find document: ${err}`));
+    },
+    logout: (req, res, next) => {
+        req.logout();
+        req.flash("success", "You have been logged out!");
+        res.locals.redirect = "/"
+        next();
+    },
+    showUserPage: (req, res, next) => {
+        let userId = req.params.id;
+        User.findById(userId)
+          .then(user => {
+            res.locals.currentUser = user;
+            next();
+          })
+          .catch(error => {
+            console.log(`Error fetching user by ID: ${error.message}`);
+          })
+    },
+    showViewUserPage: (req, res) => {
+        res.render("users/userPage");
+    },
+    showHome: (req, res, next) => {
+        let userId = req.params.id;
+        User.findById(userId)
+          .then(user => {
+            res.locals.currentUser = user;
+
+            Post.find().sort({ createdAt : `descending`})
+              .then(posts => {
+                res.locals.posts = posts;
+                next();
+              })
+              .catch(error => {
+                console.log(`Error fetching course data: ${error.message}`);
+                next(error);
+              })
+          })
+          .catch(error => {
+            console.log(`Error fetching user by ID: ${error.message}`);
+          })
+      },
+    showViewHome: (req, res) => {
+        res.render("users/home");
+    },
+    showPosts: (req, res, next) => {
+
+        let userId = req.params.id;
+    
+        const db = mongoose.connection;
+        var dbo = db
+    
+        User.findById(userId)
+          .then(user => {
+            res.locals.currentUser = user;
+
+            var queryID = { postingUserID: userId };
+    
+            Post.find(queryID)
+              .then(posts => {
+                res.locals.posts = posts;
+                next();
+              })
+              .catch(error => {
+                console.log(`Error fetching course data: ${error.message}`);
+                next(error);
+              })
+          })
+          .catch(error => {
+            console.log(`Error fetching user by ID: ${error.message}`);
+          })
+    },
+    showViewPosts: (req, res) => {
+        res.render("users/myPosts");
+    },
 }
 
 exports.getLogInPage = (req, res) => {

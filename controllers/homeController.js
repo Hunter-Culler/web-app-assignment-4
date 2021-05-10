@@ -13,8 +13,13 @@
 "use strict"
 
 module.exports = {
-	home: (req, res) => {
-		res.render("index");
-	},
-	
+    showSignIn: (req, res) => {
+        res.render("login");
+    },
+    showHomepage: (req, res) => {
+        res.render("home.ejs");
+    },
+    showSignUp: (req, res) => {
+        res.render("signup");
+    },
 }

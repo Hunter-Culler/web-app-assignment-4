@@ -29,10 +29,13 @@ User = require("./models/user");
 mongoose.Promise = global.Promise;
 
 mongoose.connect(
-	process.env.MONGODB_URI ||
 	"mongodb://localhost:27017/social_media_website",
 	{ useNewUrlParser: true, useFindAndModify: false }
-);
+)
+.then(() => {
+  console.log('database connected')
+})
+.catch((err) => console.log(err.message));
 
 mongoose.set("useCreateIndex", true);
 
@@ -42,7 +45,7 @@ db.once("open", () => {
   console.log("Successfully connected to MongoDB using Mongoose!");
 });
 
-app.set("port", process.env.PORT || 8080);
+app.set("port", process.env.PORT || 3000);
 
 app.set(
 	"view engine",
@@ -80,27 +83,43 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+/*
 router.use((req, res, next) => {
   res.locals.flashMessages = req.flash();
   res.locals.loggedIn = req.isAuthenticated();
   res.locals.currentUser = req.user;
   next();
 });
+*/
 
 router.use(connectFlash());
 
-router.get("/", usersController.getLogInPage);
-
 router.use(express.static("public"));
 
-router.get("/home", homeController.showHome);
-router.get("/signup", usersController.getSignUpPage);
-router.get("/users", usersController.getAllUsers);
-router.post("/sign_in", usersController.signIn);
-router.post("/signUp", usersController.signUp);
+router.get("/", homeController.showSignIn);
+router.get("/signup", homeController.showSignUp);
+router.post("/signup", usersController.create, usersController.redirectView);
 
-router.use(errorController.pageNotFoundError);
-router.use(errorController.internalServerError);
+router.get("/login", homeController.showSignIn);
+router.post("/login", usersController.login, usersController.redirectView);
+
+router.get("/logout", usersController.logout, usersController.redirectView);
+
+router.get("/home/:id", usersController.showHome, usersController.showViewHome);
+
+router.get("/users/:id/userPage", usersController.showUserPage, usersController.showViewUserPage);
+
+router.get("/users/:id/posts", usersController.showPosts, usersController.showViewPosts);
+
+router.post("/posts/:id/create",  postsController.create);
+
+router.get("/users/:id/edit", usersController.edit, usersController.showEdit);
+router.put("/users/:id/update", usersController.update, usersController.redirectView);
+
+//router.use(errorController.pageNotFoundError());
+//router.use(errorController.internalServerError());
+
+app.use("/", router);
 
 app.listen(app.get("port"), () => {
     console.log(`Server is running on port: ${app.get("port")}`)

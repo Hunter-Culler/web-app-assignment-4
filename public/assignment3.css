@@ -7,6 +7,10 @@
 	text-align: left;
 }
 
+.mainDiv {
+	height: 100%
+}
+
 .navbar-custom {
 	background-color: CornflowerBlue;
 }
