@@ -11,6 +11,7 @@
 
 const express = require("express"),
 app = express(),
+router = express.Router(),
 layouts = require("express-ejs-layouts"),
 mongoose = require("mongoose"),
 methodOverride = require("method-override"),
@@ -20,6 +21,7 @@ connectFlash = require("connect-flash"),
 passport = require("passport"),
 usersController = require("./controllers/usersController"),
 homeController = require("./controllers/homeController"),
+postsController = require("./controllers/postsController"),
 errorController = require("./controllers/errorController"),
 User = require("./models/user");
 
@@ -30,8 +32,7 @@ mongoose.connect(
 	process.env.MONGODB_URI ||
 	"mongodb://localhost:27017/social_media_website",
 	{ useNewUrlParser: true, useFindAndModify: false }
-  );
-
+);
 
 mongoose.set("useCreateIndex", true);
 
@@ -47,8 +48,8 @@ app.set(
 	"view engine",
 	 "ejs"
 	 );
-app.use(layouts);
-app.use(
+router.use(layouts);
+router.use(
     express.urlencoded({
         extended: false
     })
@@ -60,9 +61,9 @@ app.use(
 	})
   );
 
-app.use(express.json());
-app.use(cookieParser("secret_passcode"));
-app.use(
+router.use(express.json());
+router.use(cookieParser("secret_passcode"));
+router.use(
   expressSession({
     secret: "secret_passcode",
     cookie: {
@@ -73,27 +74,33 @@ app.use(
   })
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
+router.use(passport.initialize());
+router.use(passport.session());
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-app.use(connectFlash());
+router.use((req, res, next) => {
+  res.locals.flashMessages = req.flash();
+  res.locals.loggedIn = req.isAuthenticated();
+  res.locals.currentUser = req.user;
+  next();
+});
 
-app.get("/", usersController.getLogInPage);
+router.use(connectFlash());
 
-app.use(express.static("public"));
+router.get("/", usersController.getLogInPage);
 
+router.use(express.static("public"));
 
+router.get("/home", homeController.showHome);
+router.get("/signup", usersController.getSignUpPage);
+router.get("/users", usersController.getAllUsers);
+router.post("/sign_in", usersController.signIn);
+router.post("/signUp", usersController.signUp);
 
-
-
-app.get("/home", homeController.showHome);
-app.get("/signup", usersController.getSignUpPage);
-app.get("/users", usersController.getAllUsers);
-app.post("/sign_in", usersController.signIn);
-app.post("/signUp", usersController.signUp);
-
-//app.use(errorController.pageNotFoundError);
-//app.use(errorController.internalServerError);
+router.use(errorController.pageNotFoundError);
+router.use(errorController.internalServerError);
 
 app.listen(app.get("port"), () => {
     console.log(`Server is running on port: ${app.get("port")}`)
