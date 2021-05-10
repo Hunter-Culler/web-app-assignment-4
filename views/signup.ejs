@@ -30,7 +30,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" id="txtFirstname" name="txtFirstname" required class="form-control"
+                            <input type="text" id="txtFirstname" name="firstname" required class="form-control"
                                 placeholder="First Name">
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" id="txtLastname" name="txtFirstname" required class="form-control"
+                            <input type="text" id="txtLastname" name="lastname" required class="form-control"
                                 placeholder="Last Name">
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                             Date of Birth: *
                         </label>
                         <div class="col-sm-10">
-                            <input type="date" id=txtDOB name="txtDOB" required class="form-control">
+                            <input type="date" id=txtDOB name="dob" required class="form-control">
                             <div id="divDoBError" class="col-sm-5 invisible errorMessage"></div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                             Telephone:
                         </label>
                         <div class="col-sm-10">
-                            <input type="tel" id="txtTel" name="txtTel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                            <input type="tel" id="txtTel" name="telephone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                                 class="form-control" placeholder="123-456-7890">
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                             Email: *
                         </label>
                         <div class="col-sm-10">
-                            <input type="email" id="txtEmail" name="txtEmail" required class="form-control"
+                            <input type="email" id="txtEmail" name="email" required class="form-control"
                                 placeholder="myemail@website.com">
                         </div>
                     </div>
@@ -104,20 +104,20 @@
                     <div class="row form-group">
                         <label for="txtAddress" class="col-sm-2 col-form-label">Address: </label>
                         <div class="col-md-12 col-lg-6">
-                            <input type="text" id="txtAddress" name="txtAddress" class="form-control"
+                            <input type="text" id="txtAddress" name="street" class="form-control"
                                 placeholder="Street">
                         </div>
 
                         <div class="col">
-                            <input type="text" id="txtCity" name="txtCity" class="form-control" placeholder="City">
+                            <input type="text" id="txtCity" name="city" class="form-control" placeholder="City">
                         </div>
 
                         <div class="col">
-                            <input type="text" id="txtState" name="txtState" class="form-control" placeholder="State">
+                            <input type="text" id="txtState" name="state" class="form-control" placeholder="State">
                         </div>
 
                         <div class="col">
-                            <input type="text" id="txtZipcode" name="txtZip" class="form-control" placeholder="Zipcode"
+                            <input type="text" id="txtZipcode" name="zipCode" class="form-control" placeholder="Zipcode"
                                 pattern="[0-9]{5}">
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" id="txtUsername" name="txtUsername" required class="form-control"
+                            <input type="text" id="txtUsername" name="username" required class="form-control"
                                 placeholder="Username">
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="password" id="txtPassword" name="txtPassword" required class="form-control"
+                            <input type="password" id="txtPassword" name="password" required class="form-control"
                                 placeholder="Password">
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="password" id="txtConfirmPassword" name="txtConfirmPassword" required
+                            <input type="password" id="txtConfirmPassword" name="confirmPassword" required
                                 class="form-control">
                         </div>
                     </div>
@@ -161,7 +161,7 @@
                     <div class="form-group-row">
                         <label for="dlSecurity">Security Question:</label>
                         <!-- Dropdown menu for picking a security question, reveals the text entry field for answer when a question is picked -->
-                        <select id="dlSecurity" name="dlSecurity" onchange="updateSecurityView()">
+                        <select id="dlSecurity" name="sec_question" onchange="updateSecurityView()">
                             <option value="starter" selected>--Select a security question--
                             </option>
                             <option value="What is your mother's maiden name?">What is your mother's maiden name?
@@ -181,7 +181,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" id="txtSecurity" name="txtSecurity" required class="form-control">
+                            <input type="text" id="txtSecurity" name="sec_answer" required class="form-control">
                         </div>
                     </div>
                     <p>

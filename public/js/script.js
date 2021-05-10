@@ -89,7 +89,7 @@ function validateForm() {
     }
 
     formIsValid = checkPassword();
-
+    console.log("fiished validation");
     return formIsValid;
 }
 

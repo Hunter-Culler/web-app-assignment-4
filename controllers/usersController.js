@@ -14,19 +14,20 @@
 const { reset } = require("nodemon");
 
 const User = require("../models/user"),
-//Post = require("..models/post"),
+Post = require("../models/post"),
 passport = require("passport"),
 mongoose = require("mongoose"),
 getUserParams = body => {
     return {
-        username: body.username,
-        password: body.passoword,
         firstname: body.firstname,
         lastname: body.lastname,
+        username: body.username,
+        password: body.password,
         dob: body.dob,
         gender: body.gender,
         telephone: body.telephone,
         email: body.email,
+        id: body.id,
         address: {
             street: body.street,
             city: body.city,
@@ -47,7 +48,7 @@ module.exports = {
             next();
         })
         .catch(error => {
-            console.log(`Error fetching user data: ${error.message}`);
+            console.log(`(index) Error fetching user data: ${error.message}`);
             next(error);
         })
     },
@@ -59,7 +60,7 @@ module.exports = {
     new: (req, res) => {
         res.render("users/new");
     },
-
+/*
     create: (req, res, next) => {
         let newUser = new User({
             name: {
@@ -81,7 +82,7 @@ module.exports = {
             next(error);
         })
     },
-
+*/
     redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;
         if (redirectPath !== undefined){
@@ -100,7 +101,7 @@ module.exports = {
             next();
         })
         .catch(error => {
-            console.log(`Error fetching user by ID: ${error.message}`);
+            console.log(`(show) Error fetching user by ID: ${error.message}`);
         })
     },
 
@@ -116,7 +117,7 @@ module.exports = {
             next();
         })
         .catch(error => {
-            console.log(`Error fetching user by ID: ${error.message}`);
+            console.log(`(edit) Error fetching user by ID: ${error.message}`);
             next(error);
         })
     },
@@ -143,7 +144,7 @@ module.exports = {
             next();
         })
         .catch(error => {
-            console.log(`Error updating user by ID: ${error.message}`);
+            console.log(`(update) Error updating user by ID: ${error.message}`);
             next(error);
         });
     },
@@ -155,11 +156,46 @@ module.exports = {
         newUser.Handle = newUser.Username;
         var min = Math.ceil(10000);
         var max = Math.floor(99999);
-        newUser.UniqueID = Math.floor(Math.random() * (max - min + 1)) + min;
-        newUser.save();
-        res.locals.redirect = "/login";
-        next();
+        newUser.id = Math.floor(Math.random() * (max - min + 1)) + min;
+        User.register(newUser, req.body.password, (error, user) => {
+            if (user) {
+              req.flash("success", 'User Account Successfully Created!');
+              newUser.save();
+              res.locals.redirect = "/login";
+              next();
+            }
+            else {
+              req.flash("error", `Failed to create user account: ${error.message}`);
+              res.locals.redirect = "/signup";
+              next();
+            }
+        });
     },
+    validate: (req, res, next) => {
+
+        req.check("email", "email is not valid!").isEmail();
+    
+        req.check("password", "Password can not be empty.").notEmpty();
+    
+        req.getValidationResult().then((error) => {
+          if (!error.isEmpty()) {
+            let messages = error.array().map(e => e.msg);
+            req.flash("error", messages.join(" and "));
+            req.skip = true;
+            //console.log("here1");
+            res.local.redirect = "/homepage";
+            next();
+          }
+          else
+            next();
+        });
+    },
+    authenticate: passport.authenticate("local", {
+        failureRedirect: "/login",
+        failureFlash: "Failed to login.",
+        successRedirect: "/users/home",
+        successFlash: "Logged in!"
+    }),
     delete: (req, res, next) => {
         let userId = req.params.id;
         User.findByIdAndRemove(userId)
@@ -168,7 +204,7 @@ module.exports = {
             next();
         })
         .catch(error => {
-            console.log(`Error fetching user by ID: ${error.message}`);
+            console.log(`(delete) Error fetching user by ID: ${error.message}`);
             next(error);
         })
     },
@@ -181,21 +217,20 @@ module.exports = {
         const db = mongoose.connection;
         var dbo = db
 
-        var queryUsername = { Username: req.body.username, Password: req.body.password };
-        var queryPassword = { Password: req.body.password };
+        var queryUsername = { username: req.body.username , password: req.body.password };
+        var queryPassword = { password: req.body.password };
         var queryResult;
-
+        console.log(queryUsername);
         dbo.collection("users").findOne(queryUsername)
         .then(result => {
-
             if (result) {
-            res.locals.redirect = `/home/${result._id}`;
-            res.locals.currentUser = result;
-            next();
+                res.locals.redirect = `/home/${result._id}`;
+                res.locals.currentUser = result;
+                next();
             } else {
-            console.log("No document matches the provided query.");
-            res.render("signin");
-            next();
+                console.log("No document matches the provided query.");
+                res.render("login");
+                next();
             }
         })
         .catch(err => console.error(`Failed to find document: ${err}`));
@@ -214,7 +249,7 @@ module.exports = {
             next();
           })
           .catch(error => {
-            console.log(`Error fetching user by ID: ${error.message}`);
+            console.log(`(showUserPage) Error fetching user by ID: ${error.message}`);
           })
     },
     showViewUserPage: (req, res) => {
@@ -222,23 +257,24 @@ module.exports = {
     },
     showHome: (req, res, next) => {
         let userId = req.params.id;
+        console.log("Id to find:");
+        console.log(userId);
         User.findById(userId)
-          .then(user => {
+        .then(user => {
             res.locals.currentUser = user;
-
             Post.find().sort({ createdAt : `descending`})
-              .then(posts => {
+            .then(posts => {
                 res.locals.posts = posts;
                 next();
-              })
-              .catch(error => {
+            })
+            .catch(error => {
                 console.log(`Error fetching course data: ${error.message}`);
                 next(error);
-              })
-          })
-          .catch(error => {
-            console.log(`Error fetching user by ID: ${error.message}`);
-          })
+            })
+        })
+        .catch(error => {
+            console.log(`(showHome) Error fetching user by ID: ${error.message}`);
+        })
       },
     showViewHome: (req, res) => {
         res.render("users/home");
@@ -267,7 +303,7 @@ module.exports = {
               })
           })
           .catch(error => {
-            console.log(`Error fetching user by ID: ${error.message}`);
+            console.log(`(showPosts) Error fetching user by ID: ${error.message}`);
           })
     },
     showViewPosts: (req, res) => {
