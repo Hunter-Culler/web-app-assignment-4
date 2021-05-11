@@ -5,6 +5,20 @@ const User = require("../models/user");
 const Post = require("../models/post");
 
 module.exports = {
+    index: (req, res, next) => {
+        Post.find()
+        .then(posts => {
+            res.locals.posts = posts;
+            next();
+        })
+        .catch(error => {
+            console.log(`Error fetching post data: ${error.message}`);
+            next(error);
+        })
+    },
+    indexView: (req, res) => {
+        res.render("posts/index");
+    },
     new: (req, res) => {
         let userId = req.params.id;
 
@@ -48,18 +62,35 @@ module.exports = {
             console.log(`(create post) Error fetching user by ID: ${error.message}`);
         })
     },
-    delete: (req, res, next) => {
+    show: (req, res, next) => {
         let postId = req.params.id;
-        console.log(postId);
-        Post.findByIdAndRemove(postId)
-        .then(() =>{
-            res.locals.redirect = "/users";
+        Post.findById(postId)
+        .then(course => {
+            res.locals.post = post;
             next();
         })
         .catch(error => {
-            console.log(`(delete) Error fetching post by ID: ${error.message}`);
-            next(error);
+            console.log(`Error fetching course by ID: ${error.message}`);
         })
+    },
+    showView: (req, res) => {
+        res.render("posts/show");
+    },
+    delete: (req, res, next) => {
+        let postId = req.params.id;
+        Post.findById(postId)
+        .then(post => {
+            res.locals.redirect = `/home/${post.posterId}`;
+            Post.findByIdAndRemove(postId)
+            .then(() =>{
+                next();
+            })
+            .catch(error => {
+                console.log(`(delete) Error fetching post by ID: ${error.message}`);
+                next(error);
+            })
+        })
+        
     },
     redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;

@@ -4,27 +4,6 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-custom">
-            <div id="nav">
-                <a class="navbar-brand nav-align" style="color: white" href="#">Social Media Website</a>
-                <ul class="navbar nav-align">
-                    <li class="nav-item active">
-                        <a href="/" class="nav-link" href="<%= `/home/${currentUser.id}` %>" style="color:white">Home</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#" style="color:white">Profile</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#" style="color:white">Friends</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a href="/logout" class="nav-link"  style="color:white">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
     <div class="row d-flex justify-content-center">
         <div class="feed whiteText">
             <div class="card post">
@@ -46,7 +25,7 @@
                 <div class="card post">
                     <div class="card-header post-header text-start">
                         <img src="/images/avatar.png" alt="Avatar" class="avatar"> <%=post.username %>
-                        <button type="button" class="deletePostBtn" href="<%= `/post/${currentUser._id}/delete` %>"></button>
+                        <a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure?')">Delete</a>
                     </div>
                     <div class="card-body">
                         <p class="card-text" style="font-family: system-ui; font-size: 2em;">

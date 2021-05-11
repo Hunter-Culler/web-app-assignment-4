@@ -80,20 +80,17 @@ router.use(
 
 router.use(passport.initialize());
 router.use(passport.session());
+router.use(connectFlash());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-/*
 router.use((req, res, next) => {
   res.locals.flashMessages = req.flash();
   res.locals.loggedIn = req.isAuthenticated();
   res.locals.currentUser = req.user;
   next();
 });
-*/
-
-router.use(connectFlash());
 
 router.use(express.static("public"));
 
@@ -102,7 +99,7 @@ router.get("/signup", homeController.showSignUp);
 router.post("/signup", usersController.create, usersController.redirectView);
 
 router.get("/login", homeController.showSignIn);
-router.post("/login", usersController.login, usersController.redirectView);
+router.post("/login", usersController.authenticate, usersController.redirectView);
 
 router.get("/logout", usersController.logout, usersController.redirectView);
 
@@ -112,7 +109,10 @@ router.get("/users/:id/userPage", usersController.showUserPage, usersController.
 
 router.get("/users/:id/posts", usersController.showPosts, usersController.showViewPosts);
 
+router.get("/posts", postsController.index, postsController.indexView);
+router.get("/posts/new", postsController.new);
 router.post("/posts/:id/create",  postsController.create);
+router.get("/posts/:id", postsController.show, postsController.showView);
 router.delete("/posts/:id/delete", postsController.delete, postsController.redirectView);
 
 router.get("/users/:id/edit", usersController.edit, usersController.showEdit);

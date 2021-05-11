@@ -187,12 +187,28 @@ module.exports = {
             next();
         });
     },
-    authenticate: passport.authenticate("local", {
-        failureRedirect: "/login",
-        failureFlash: "Failed to login.",
-        successRedirect: "/users/home",
-        successFlash: "Logged in!"
-    }),
+    authenticate: (req, res, next) =>{
+        console.log("authenticating");
+        User.findOne({
+            username: req.body.username
+        })
+        .then(user => {
+            if (user && user.password === req.body.password){
+                res.locals.redirect = `/home/${user._id}`;
+                req.flash("success", `${user.firstname}'s logged in successfully!`);
+                res.locals.user = user;
+                next();
+            }else {
+                req.flash("error", "Your username or password is incorrect.");
+                res.locals.redirect = "/users/login";
+                next();
+            }
+        })
+        .catch(error => {
+            console.log(`Error logging in user: ${error.message}`);
+            next(error);
+        });
+    },
     delete: (req, res, next) => {
         let userId = req.params.id;
         User.findByIdAndRemove(userId)

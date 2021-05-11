@@ -14,10 +14,11 @@
 
 module.exports = {
     showSignIn: (req, res) => {
+        console.log("homecontroller rendered login page");
         res.render("login");
     },
     showHomepage: (req, res) => {
-        res.render("home.ejs");
+        res.render("home");
     },
     showSignUp: (req, res) => {
         res.render("signup");
