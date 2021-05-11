@@ -1,10 +1,25 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
+
 .footer {
-	position: fixed;
+	position: relative;
+	margin-left: 15px;
 	left: 0;
 	bottom: 0;
 	width: 100%;
 	color: grey;
 	text-align: left;
+}
+
+textarea {
+	resize: none;
+}
+
+.deletePostBtn {
+	height: 20px;
+	width: 20px;
+	float: right;
+	background-color: red;
+	background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414l-3.879-3.879zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z' clip-rule='evenodd'/></svg>");
 }
 
 .mainDiv {
@@ -28,11 +43,10 @@
 }
 
 .feed {
+	border: none;
 	margin: auto;
 	display: flex;
 	flex-flow: column;
-	height: 100%;
-	width: 50%;
 	background-color: white;
 }
 
@@ -45,14 +59,13 @@
 	width: 750px;
 }
 
-.feed .post {
-	border: solid 1px whitesmoke;
-	margin-left: 0px;
-	margin-right: 0px;
-	width: 100%;
+.post {
+	width: 50vw !important;
+	margin-top: 20px;
 }
 
-.feed .post .header {
+.post-header {
+	background-color: cornflowerblue;
 	border: none;
 	top: 1px;
 	left: 1px;
@@ -60,7 +73,7 @@
 	font-size: 1.2em
 }
 
-.feed .post .content {
+.post-content {
 	border:none;
 	margin-left: 5px;
 	margin-top:5px;
@@ -68,13 +81,13 @@
 	font-family: system-ui;
 }
 
-.feed .post .comment {
+.post .comment {
 	background-color: white;
 	margin-top: auto;
 	border: solid 1px whitesmoke;
 }
 
-.feed .post .comment .avatar {
+.post .comment .avatar {
 	text-align: left;
 	border: none;
 	width: 15px;
@@ -82,7 +95,7 @@
 	border-radius: 50%;
 }
 
-.feed .post .comment .text {
+.post .comment .text {
 	border: none;
 	margin-left: auto;
 	margin-right: auto;
@@ -91,9 +104,16 @@
 	font-size: 1.2em;
 }
 
-.feed .post .entry {
+.post .entry {
 	border: none;
 	background-color: whitesmoke;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.centerCol {
+	border: none;
+	width: 60vw;
+	height: calc(100vh - 75px - 50px);
+	overflow-y: scroll;
 }

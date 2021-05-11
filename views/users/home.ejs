@@ -1,8 +1,63 @@
-<div class="row d-flex mainDiv">
-    <div class="col-lg-4 justify-content-center d-none d-lg-block">
-        <div class="row justify-content-center">
-            <div class="feed p-2">
+<head>
+    <link rel="stylesheet" href="/css/assignment3.css">
+    
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-custom">
+            <div id="nav">
+                <a class="navbar-brand nav-align" style="color: white" href="#">Social Media Website</a>
+                <ul class="navbar nav-align">
+                    <li class="nav-item active">
+                        <a href="/" class="nav-link" href="<%= `/home/${currentUser.id}` %>" style="color:white">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" style="color:white">Profile</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" style="color:white">Friends</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/logout" class="nav-link"  style="color:white">Logout</a>
+                    </li>
+                </ul>
             </div>
-        </div>
+        </nav>
+    </header>
+    <div class="row d-flex justify-content-center">
+        <div class="feed whiteText">
+            <div class="card post">
+                <div class="form-data card-body">
+                    <div class="row d-flex justify-content-center"></div>
+                    <form action="<%=`/posts/${currentUser._id}/create` %>" method="POST">
+                        <div row>
+                            <textarea style="resize: none;" class="form-control" type="text" name="caption" id="txtCaption" rows="1"
+                                placeholder="type your thoughts here" autofocus required></textarea>
+                            <hr style="margin-top: 10px;">
+                            <div>
+                                <button type="submit" class="btn btn-primary">Post</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <% posts.forEach(post => { %>
+                <div class="card post">
+                    <div class="card-header post-header text-start">
+                        <img src="/images/avatar.png" alt="Avatar" class="avatar"> <%=post.username %>
+                        <button type="button" class="deletePostBtn" href="<%= `/post/${currentUser._id}/delete` %>"></button>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" style="font-family: system-ui; font-size: 2em;">
+                            <%= post.caption %>
+                        </p>
+                        <div style="font-size: 0.8em;">
+                            Published: <%= post.createdAt %>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+            </div>
     </div>
-</div>
+</body>

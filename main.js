@@ -23,7 +23,8 @@ usersController = require("./controllers/usersController"),
 homeController = require("./controllers/homeController"),
 postsController = require("./controllers/postsController"),
 errorController = require("./controllers/errorController"),
-User = require("./models/user");
+User = require("./models/user"),
+Post = require("./models/post");
 
 
 mongoose.Promise = global.Promise;
@@ -112,6 +113,7 @@ router.get("/users/:id/userPage", usersController.showUserPage, usersController.
 router.get("/users/:id/posts", usersController.showPosts, usersController.showViewPosts);
 
 router.post("/posts/:id/create",  postsController.create);
+router.delete("/posts/:id/delete", postsController.delete, postsController.redirectView);
 
 router.get("/users/:id/edit", usersController.edit, usersController.showEdit);
 router.put("/users/:id/update", usersController.update, usersController.redirectView);

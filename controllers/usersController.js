@@ -85,14 +85,13 @@ module.exports = {
 */
     redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;
-        if (redirectPath !== undefined){
+        if (redirectPath != undefined){
             res.redirect(redirectPath);
         }
         else{
             next();
         }
     },
-
     show: (req, res, next) => {
         let userId = req.params.id;
         User.findById(userId)
@@ -104,11 +103,9 @@ module.exports = {
             console.log(`(show) Error fetching user by ID: ${error.message}`);
         })
     },
-
     showView: (req, res) => {
         res.render(users/show);
     },
-
     edit: (req, res) => {
         let userId = req.params.id;
         User.findById(userId)
@@ -208,11 +205,6 @@ module.exports = {
             next(error);
         })
     },
-    redirectView: (req, res, next) => {
-        let redirectPath = res.locals.redirect;
-        if (redirectPath != undefined) res.redirect(redirectPath);
-        else next();
-    },
     login: (req, res, next) => {
         const db = mongoose.connection;
         var dbo = db
@@ -238,7 +230,8 @@ module.exports = {
     logout: (req, res, next) => {
         req.logout();
         req.flash("success", "You have been logged out!");
-        res.locals.redirect = "/"
+        res.locals.redirect = "/login";
+        console.log(res.locals.redirect);
         next();
     },
     showUserPage: (req, res, next) => {
@@ -257,8 +250,6 @@ module.exports = {
     },
     showHome: (req, res, next) => {
         let userId = req.params.id;
-        console.log("Id to find:");
-        console.log(userId);
         User.findById(userId)
         .then(user => {
             res.locals.currentUser = user;
@@ -273,7 +264,7 @@ module.exports = {
             })
         })
         .catch(error => {
-            console.log(`(showHome) Error fetching user by ID: ${error.message}`);
+            console.log(`Error fetching user by ID: ${error.message}`);
         })
       },
     showViewHome: (req, res) => {
@@ -290,17 +281,17 @@ module.exports = {
           .then(user => {
             res.locals.currentUser = user;
 
-            var queryID = { postingUserID: userId };
+            var queryID = { posterID: userId };
     
             Post.find(queryID)
-              .then(posts => {
-                res.locals.posts = posts;
-                next();
-              })
-              .catch(error => {
-                console.log(`Error fetching course data: ${error.message}`);
-                next(error);
-              })
+            .then(posts => {
+            res.locals.posts = posts;
+            next();
+            })
+            .catch(error => {
+            console.log(`Error fetching course data: ${error.message}`);
+            next(error);
+            })
           })
           .catch(error => {
             console.log(`(showPosts) Error fetching user by ID: ${error.message}`);
