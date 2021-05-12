@@ -12,6 +12,7 @@
 "use strict"
 
 const { reset } = require("nodemon");
+const hashtag = require("../models/hashtag");
 
 const User = require("../models/user"),
     Post = require("../models/post"),
@@ -379,21 +380,30 @@ module.exports = {
     showHome: (req, res, next) => {
         let userId = req.params.id;
         User.findById(userId)
-            .then(user => {
-                res.locals.currentUser = user;
-                Post.find().sort({ createdAt: `descending` })
-                    .then(posts => {
-                        res.locals.posts = posts;
-                        next();
-                    })
-                    .catch(error => {
-                        console.log(`Error fetching user table data: ${error.message}`);
-                        next(error);
-                    })
+        .then(user => {
+            res.locals.currentUser = user;
+            Post.find().sort({ createdAt: `descending` })
+            .then(posts => {
+                res.locals.posts = posts;
+                hashtag.find().sort({occurrences: `descending`})
+                .then(hashtags => {
+                    res.locals.hashtags = hashtags;
+                    next();
+                })
+                .catch(error => {
+                    console.log(`Error fetching hashtag data: ${error.message}`);
+                    next(error);
+                })
             })
             .catch(error => {
-                console.log(`Error fetching user by ID: ${error.message}`);
+                console.log(`Error fetching post data: ${error.message}`);
+                next(error);
             })
+        })
+        .catch(error => {
+            console.log(`Error fetching user by ID: ${error.message}`);
+        })
+    
     },
 
     //----------------------------------------------------------------------------------------------//

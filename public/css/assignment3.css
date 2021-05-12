@@ -139,8 +139,14 @@ textarea {
 	padding: 10px;
 }
 
-.left, .right {
+.left {
 	width: 25%;
+}
+
+.right {
+	text-align: right;
+	width: 25%;
+	float: right;
 }
 
 .middle {

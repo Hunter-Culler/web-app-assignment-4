@@ -129,6 +129,8 @@ router.delete("/posts/:id/delete", postsController.delete, postsController.redir
 router.get("/users/:id/edit", usersController.edit, usersController.showEdit);
 router.put("/users/:id/update", usersController.update, usersController.redirectView);
 
+router.get("")
+
 //router.use(errorController.pageNotFoundError());
 //router.use(errorController.internalServerError());
 

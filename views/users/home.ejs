@@ -54,6 +54,11 @@
         </div>
         <div class="column right">
             <h2>Trending Hashtags</h2>
+            <% hashtags.forEach(hashtag => { %>
+                <p>
+                    #<%= hashtag.hashtag %>
+                </p>
+            <% }) %>
         </div>
     </div>
 </body>
