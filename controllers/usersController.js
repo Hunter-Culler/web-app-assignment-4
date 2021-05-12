@@ -182,7 +182,7 @@ module.exports = {
                 let messages = error.array().map(e => e.msg);
                 req.flash("error", messages.join(" and "));
                 req.skip = true;
-                res.local.redirect = "/homepage";
+                res.local.redirect = "/signup";
                 next();
             }
             else
@@ -191,6 +191,14 @@ module.exports = {
     },
 
 //----------------------------------------------------------------------------------------------//
+    authenticate: passport.authenticate("local", {
+        failureRedirect: "/login",
+        failureFlash: "Incorrect Info! Please check your username and password and try again",
+        successRedirect: `/users/home/${user._id}`,
+        successFlash: "Login Successful!"
+    }),
+
+    /*  OLD authenticate
     authenticate: (req, res, next) => {
         console.log("authenticating");
         User.findOne({
@@ -213,7 +221,7 @@ module.exports = {
                 next(error);
             });
     },
-
+    */
 //----------------------------------------------------------------------------------------------//
     delete: (req, res, next) => {
         let userId = req.params.id;
