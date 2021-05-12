@@ -195,15 +195,19 @@ module.exports = {
                 .then(passwordsMatch => {
                     if(passwordsMatch) {
                         res.locals.redirect = `/home/${user._id}`;
-                    req.flash("success", `${user.firstname} logged in successfully!`);
-                    res.locals.user = user;
-                    next();
-                } else {
-                    req.flash("error", "Failed to authenticate. Please check your username and password.");
-                    res.locals.redirect = "/login";
-                    next();
-                }
-                })
+                        req.flash("success", `${user.firstname} logged in successfully!`);
+                        res.locals.user = user;
+                        next();
+                    } else {
+                        req.flash("error", "Failed to authenticate. Please check your username and password.");
+                        res.locals.redirect = "/login";
+                        next();
+                    }
+                });
+            } else {
+                req.flash("error", "Login failed, User not registered");
+                res.locals.redirect = "/login";
+                next();
             }
         })
         .catch(error => {
