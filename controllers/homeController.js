@@ -4,7 +4,7 @@
 	Web Application Developement
 	Group Assignment 4
 
-	March 31st, 2021
+	May 12th, 2021
 
 	Status = Functional
 
@@ -17,9 +17,13 @@ module.exports = {
         console.log("homecontroller rendered login page");
         res.render("users/login");
     },
+
+    //----------------------------------------------------------------------------------------------//
     showHomepage: (req, res) => {
         res.render("home");
     },
+
+    //----------------------------------------------------------------------------------------------//
     showSignUp: (req, res) => {
         res.render("signup");
     },
