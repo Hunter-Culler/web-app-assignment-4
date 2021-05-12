@@ -3,6 +3,7 @@
 const { reset } = require("nodemon");
 const User = require("../models/user");
 const Post = require("../models/post");
+const Hashtag = require("../models/hashtag");
 
 module.exports = {
     index: (req, res, next) => {
@@ -55,6 +56,7 @@ module.exports = {
                     for (var i = 0; i < hashtags.length; i++){
                         console.log(hashtags[i]);
                         newPost.hashtags.push(hashtags[i]);
+                        Hashtag.updateOne({hashtag: hashtags[i]}, {$inc : {occurrences : 1}}, {upsert : true}, function(){});
                     }
                 }
                 newPost.save();
