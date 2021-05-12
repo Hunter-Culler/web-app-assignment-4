@@ -22,7 +22,7 @@
                 <div class="card-body">
                     <% users.forEach(user => { %>
                         <p>
-                            <%= user.firstname %> <%=user.lastname %>
+                            <a href="<%=`/users/${user._id}/page`%>"><%= user.firstname %> <%= user.lastname %></a>
                         </p>
                     <% }) %>
                 </div>
