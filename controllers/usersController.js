@@ -193,6 +193,10 @@ module.exports = {
             if (user) {
                 user.passwordComparison(req.body.password)
                 .then(passwordsMatch => {
+                    //debug checking
+                    console.log("Do passwords match?");
+                    console.log(passwordsMatch);
+                    
                     if(passwordsMatch) {
                         res.locals.redirect = `/home/${user._id}`;
                         req.flash("success", `${user.firstname} logged in successfully!`);
