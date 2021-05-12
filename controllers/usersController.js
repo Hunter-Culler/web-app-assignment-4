@@ -187,7 +187,32 @@ module.exports = {
     },
 
     //----------------------------------------------------------------------------------------------//
-    /*
+    authenticate: (req, res, next) => {
+        User.findOne({username: req.body.username})
+        .then(user => {
+            if (user) {
+                user.passwordComparison(req.body.password)
+                .then(passwordsMatch => {
+                    if(passwordsMatch) {
+                        res.locals.redirect = `/home/${user._id}`;
+                    req.flash("success", `${user.firstname} logged in successfully!`);
+                    res.locals.user = user;
+                    next();
+                } else {
+                    req.flash("error", "Failed to authenticate. Please check your username and password.");
+                    res.locals.redirect = "/login";
+                    next();
+                }
+                })
+            }
+        })
+        .catch(error => {
+            console.log(`Error logging in user: ${error.message}`);
+            next(error);
+        });
+    },
+    
+    /* V2 of aunthenticate (too fancy doesn't work)
     authenticate: (req, res, next) => {
         passport.authenticate("local", (errors, user) => {
             if (user) {
@@ -215,7 +240,7 @@ module.exports = {
     },
     */
 
-    //  OLD authenticate
+    /*  OLD authenticate without hashing
     authenticate: (req, res, next) => {
         console.log("authenticating");
         User.findOne({
@@ -238,6 +263,7 @@ module.exports = {
                 next(error);
             });
     },
+    */
 
 //----------------------------------------------------------------------------------------------//
 /*
