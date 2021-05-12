@@ -234,7 +234,7 @@ module.exports = {
                     next();
                 } else {
                     req.flash("error", "Failed to authenticate. Please check your username and password.");
-                    res.locals.redirect = "/users/login";
+                    res.locals.redirect = "/login";
                     next();
                 }
             })
@@ -311,7 +311,7 @@ module.exports = {
                     next();
                 } else {
                     console.log("No document matches the provided query.");
-                    res.render("/login");
+                    res.render("users/login");
                     next();
                 }
             })
