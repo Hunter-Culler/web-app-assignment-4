@@ -150,6 +150,10 @@ module.exports = {
     },
     validate: (req, res, next) => {
 
+        req.sanitizeBody("email".normalizeEmail({
+            all_lowercase: true
+        })).trim();
+
         req.check("email", "email is not valid!").isEmail();
 
         req.check("password", "Password can not be empty.").notEmpty();
