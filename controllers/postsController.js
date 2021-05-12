@@ -17,9 +17,13 @@ module.exports = {
             next(error);
         })
     },
+
+    //----------------------------------------------------------------------------------------------//
     indexView: (req, res) => {
         res.render("posts/index");
     },
+
+    //----------------------------------------------------------------------------------------------//
     new: (req, res) => {
         let userId = req.params.id;
 
@@ -32,6 +36,8 @@ module.exports = {
                 next(error);
             })
     },
+
+    //----------------------------------------------------------------------------------------------//
     create: (req, res, next) => {
         let userId = req.params.id;
         var username = '';
@@ -71,6 +77,8 @@ module.exports = {
             console.log(`(create post) Error fetching user by ID: ${error.message}`);
         })
     },
+
+    //----------------------------------------------------------------------------------------------//
     show: (req, res, next) => {
         let postId = req.params.id;
         Post.findById(postId)
@@ -82,9 +90,13 @@ module.exports = {
             console.log(`Error fetching course by ID: ${error.message}`);
         })
     },
+
+    //----------------------------------------------------------------------------------------------//
     showView: (req, res) => {
         res.render("posts/show");
     },
+
+    //----------------------------------------------------------------------------------------------//
     delete: (req, res, next) => {
         let postId = req.params.id;
         let creatorID = req.params.posterId;
@@ -105,6 +117,8 @@ module.exports = {
         })
         
     },
+
+    //----------------------------------------------------------------------------------------------//
     redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;
         if (redirectPath != undefined) res.redirect(redirectPath);
