@@ -182,7 +182,7 @@ module.exports = {
                 let messages = error.array().map(e => e.msg);
                 req.flash("error", messages.join(" and "));
                 req.skip = true;
-                res.local.redirect = "/homepage";
+                res.local.redirect = "/signup";
                 next();
             }
             else
