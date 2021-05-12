@@ -278,7 +278,7 @@ module.exports = {
                         next();
                     })
                     .catch(error => {
-                        console.log(`Error fetching course data: ${error.message}`);
+                        console.log(`Error fetching user table data: ${error.message}`);
                         next(error);
                     })
             })
@@ -308,12 +308,12 @@ module.exports = {
                         next();
                     })
                     .catch(error => {
-                        console.log(`Error fetching course data: ${error.message}`);
+                        console.log(`Error fetching post data: ${error.message}`);
                         next(error);
                     })
             })
             .catch(error => {
-                console.log(`(showPosts) Error fetching user by ID: ${error.message}`);
+                console.log(`(showPosts) Error fetching post by ID: ${error.message}`);
             })
     },
     showViewPosts: (req, res) => {
