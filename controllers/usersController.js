@@ -444,6 +444,7 @@ module.exports = {
             })
             .catch(error => {
                 console.log(`(showPosts) Error fetching post by ID: ${error.message}`);
+                next(error);
             })
     },
 
@@ -455,21 +456,27 @@ module.exports = {
     //----------------------------------------------------------------------------------------------//
     addFriend: (req, res, next) => {
         let userId = req.params.id;
-
+        
         User.findById(userId)
             .then(user => {
-                user.friends.push()
+                console.log(user.username);
+                user.friends.push();
+                next();
+            })
+            .catch(error => {
+                console.log(`Error fetching user by ID: ${error.message}`);
+                next(error);
             })
     },
 
     //----------------------------------------------------------------------------------------------//
     getLogInPage: (req, res) => {
-    res.render("/login");
+        res.render("/login");
     },
 
     //----------------------------------------------------------------------------------------------//
     getSignUpPage: (req, res) => {
-    res.render("/signup");
+        res.render("/signup");
     },
 
     //----------------------------------------------------------------------------------------------//

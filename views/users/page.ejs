@@ -9,8 +9,8 @@
 	Status = Functional
 -->
 
-<div class="row d-flex maindiv">
-    <div class="container-fluid rounded profileHeader">
+<div class="row d-flex">
+    <div class="container-fluid profileHeader">
         <div class="row justify-content-center pt-4 pb-3">
             <img src="/images/avatar.png" class="avatar" alt="">
         </div>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="row justify-content-center pt-2 pb-4">
-            <a type="button" class=" col-2 btn btn-primary">Add Friend</a>
+            <a href="<%= `/users/${currentUser._id}/addFriend` %>" type="button" class="col-2 btn btn-primary">Add Friend</a>
             <a href="<%= `/users/${currentUser._id}/edit` %>" type="button" class="col-2 btn btn-primary">Edit</a>
         </div>
     </div>
