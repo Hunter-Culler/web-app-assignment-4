@@ -23,6 +23,11 @@ postSchema = new Schema(
             {
                 type: String
             }
+        ],
+        hashtags: [
+            {
+                type: String
+            }
         ]
     },
     {
