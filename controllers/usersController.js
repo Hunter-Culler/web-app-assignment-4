@@ -544,7 +544,7 @@ module.exports = {
     }
 }
 
-/*  MOVED ALL THE BELOW FUNCTIONS INTO THE MODULE.EXPORTS FOR CONSISTANCY
+/*  !!TO HUNTER!!: MOVED ALL THE BELOW FUNCTIONS INTO THE MODULE.EXPORTS FOR CONSISTANCY
 //----------------------------------------------------------------------------------------------//
 exports.getLogInPage = (req, res) => {
     res.render("/login");
