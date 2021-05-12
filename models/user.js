@@ -60,6 +60,7 @@ userSchema = new mongoose.Schema(
             },
             zipCode: {
                 type: Number,
+            //!!FIXME!!: potentially will exclude some valide zipCodes
             min: [10000, "Zip code too short"],
             max: 99999
             }
