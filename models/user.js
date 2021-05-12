@@ -15,6 +15,7 @@
 const mongoose = require("mongoose"),
 { Schema } = require("mongoose"),
 passport = require('passport'),
+bcrypt = require("bcrypt"),
 user = require("./user"),
 passportLogicalMongoose = require("passport-local-mongoose"),
 userSchema = new mongoose.Schema(
@@ -40,13 +41,6 @@ userSchema = new mongoose.Schema(
             required: true,
             unique: true
         },
-        /* unused ID
-        id: {
-            type: Number,
-            unique: true,
-            default: 0
-        },
-        */
         address: {
             street: {
                 type: String,
