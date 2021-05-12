@@ -53,12 +53,16 @@
                 </div>
         </div>
         <div class="column right">
-            <h2>Trending Hashtags</h2>
-            <% hashtags.forEach(hashtag => { %>
-                <p>
-                    #<%= hashtag.hashtag %>
-                </p>
-            <% }) %>
+            <div class="card">
+                <div class="card-header hashtagHeader">Trending Hashtags</div>
+                <div class="card-body">
+                    <% hashtags.forEach(hashtag => { %>
+                        <p>
+                            #<%= hashtag.hashtag %>
+                        </p>
+                    <% }) %>
+                </div>
+            </div>
         </div>
     </div>
 </body>

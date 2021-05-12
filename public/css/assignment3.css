@@ -145,8 +145,9 @@ textarea {
 
 .right {
 	text-align: right;
-	width: 25%;
+	width: 24%;
 	float: right;
+	margin-left: 15px;
 }
 
 .middle {
@@ -186,4 +187,11 @@ textarea {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	background-color: white;
+}
+
+.hashtagHeader {
+	font-size: 2.0em;
+	font-family: system-ui;
+	color: cornflowerblue;
+	border-bottom: black;
 }
