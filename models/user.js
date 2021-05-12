@@ -89,6 +89,7 @@ userSchema.virtual("fullName").get(function() {
     return `${this.firstname} ${this.lastname}`;
 });
 
+/*  !!FIXME!! Hash comparisons never match properly
 userSchema.pre("save", function(next) {
     let user = this;
     bcrypt
@@ -102,6 +103,7 @@ userSchema.pre("save", function(next) {
             next(error);
         });
 });
+*/
 
 userSchema.methods.passwordComparison = function(inputPassword) {
     let user = this;

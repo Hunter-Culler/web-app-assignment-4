@@ -170,7 +170,6 @@ module.exports = {
         })).trim();
 
         req.check("email", "email is not valid!").isEmail();
-
         req.check("password", "Password can not be empty.").notEmpty();
 
         req.getValidationResult().then((error) => {
@@ -187,6 +186,7 @@ module.exports = {
     },
 
     //----------------------------------------------------------------------------------------------//
+    /* !!FIXME!! function compiles, but hashes never match properly
     authenticate: (req, res, next) => {
         User.findOne({username: req.body.username})
         .then(user => {
@@ -196,7 +196,7 @@ module.exports = {
                     //debug checking
                     console.log("Do passwords match?");
                     console.log(passwordsMatch);
-                    
+
                     if(passwordsMatch) {
                         res.locals.redirect = `/home/${user._id}`;
                         req.flash("success", `${user.firstname} logged in successfully!`);
@@ -219,6 +219,7 @@ module.exports = {
             next(error);
         });
     },
+    */
     
     /* V2 of aunthenticate (too fancy doesn't work)
     authenticate: (req, res, next) => {
@@ -248,7 +249,7 @@ module.exports = {
     },
     */
 
-    /*  OLD authenticate without hashing
+    //  OLD authenticate without hashing
     authenticate: (req, res, next) => {
         console.log("authenticating");
         User.findOne({
@@ -271,7 +272,7 @@ module.exports = {
                 next(error);
             });
     },
-    */
+    
 
 //----------------------------------------------------------------------------------------------//
 /*
