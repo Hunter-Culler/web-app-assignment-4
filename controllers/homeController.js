@@ -15,7 +15,7 @@
 module.exports = {
     showSignIn: (req, res) => {
         console.log("homecontroller rendered login page");
-        res.render("login");
+        res.render("users/login");
     },
     showHomepage: (req, res) => {
         res.render("home");

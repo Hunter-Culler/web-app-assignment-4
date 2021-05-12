@@ -233,7 +233,7 @@ module.exports = {
                     res.locals.user = user;
                     next();
                 } else {
-                    req.flash("error", "Failed to suthenticate. Please check your username and password.");
+                    req.flash("error", "Failed to authenticate. Please check your username and password.");
                     res.locals.redirect = "/users/login";
                     next();
                 }
@@ -300,8 +300,8 @@ module.exports = {
         var dbo = db
 
         var queryUsername = { username: req.body.username, password: req.body.password };
-        var queryPassword = { password: req.body.password };
-        var queryResult;
+        //var queryPassword = { password: req.body.password };
+        //var queryResult;
         console.log(queryUsername);
         dbo.collection("users").findOne(queryUsername)
             .then(result => {
