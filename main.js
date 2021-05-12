@@ -98,6 +98,7 @@ router.use((req, res, next) => {
 });
 
 router.use(express.static("public"));
+//!!FIXME!! exoressValidator isnt a function error
 //router.use(expressValidator());
 
 router.get("/", homeController.showSignIn);
@@ -129,7 +130,6 @@ router.put("/users/:id/update", usersController.update, usersController.redirect
 
 //router.use(errorController.pageNotFoundError());
 //router.use(errorController.internalServerError());
-
 
 app.use("/", router);
 

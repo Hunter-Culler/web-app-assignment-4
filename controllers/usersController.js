@@ -28,7 +28,6 @@ const User = require("../models/user"),
             gender: body.gender,
             telephone: body.telephone,
             email: body.email,
-            id: body.id,
             address: {
                 street: body.street,
                 city: body.city,
@@ -144,7 +143,7 @@ module.exports = {
         let userParams = getUserParams(req.body);
 
         let newUser = new User(userParams);
-        newUser.Handle = newUser.Username;
+        //newUser.Handle = newUser.Username;
         User.register(newUser, req.body.password, (error, user) => {
             if (user) {
                 //display flash message
@@ -307,7 +306,7 @@ module.exports = {
                     next();
                 } else {
                     console.log("No document matches the provided query.");
-                    res.render("users/login");
+                    res.render("/login");
                     next();
                 }
             })
@@ -441,7 +440,7 @@ module.exports = {
                 console.log("Successfully signed in!");
             }
             else {
-                res.render("login");
+                res.render("/login");
             }
         });
     },
