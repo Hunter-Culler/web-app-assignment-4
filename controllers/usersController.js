@@ -53,13 +53,17 @@ module.exports = {
             })
     },
 
+//----------------------------------------------------------------------------------------------//
     indexView: (req, res) => {
         res.render("users/index");
     },
 
+
     new: (req, res) => {
         res.render("users/new");
     },
+
+//----------------------------------------------------------------------------------------------//
     redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;
         if (redirectPath != undefined) {
@@ -69,6 +73,8 @@ module.exports = {
             next();
         }
     },
+
+//----------------------------------------------------------------------------------------------//
     show: (req, res, next) => {
         let userId = req.params.id;
         User.findById(userId)
@@ -80,9 +86,13 @@ module.exports = {
                 console.log(`(show) Error fetching user by ID: ${error.message}`);
             })
     },
+
+//----------------------------------------------------------------------------------------------//
     showView: (req, res) => {
         res.render(users / show);
     },
+
+//----------------------------------------------------------------------------------------------//
     edit: (req, res) => {
         let userId = req.params.id;
         User.findById(userId)
@@ -95,9 +105,13 @@ module.exports = {
                 next(error);
             })
     },
+
+//----------------------------------------------------------------------------------------------//
     showEdit: (req, res) => {
         res.render("users/edit");
     },
+
+//----------------------------------------------------------------------------------------------//
     update: (req, res, next) => {
         let userId = req.params.id,
             userParams = getUserParams(req.body);
@@ -122,6 +136,8 @@ module.exports = {
                 next(error);
             });
     },
+
+//----------------------------------------------------------------------------------------------//
     create: (req, res, next) => {
         if (req.skip) return next();
         let userParams = getUserParams(req.body);
@@ -148,6 +164,8 @@ module.exports = {
             }
         });
     },
+
+//----------------------------------------------------------------------------------------------//
     validate: (req, res, next) => {
 
         req.sanitizeBody("email".normalizeEmail({
@@ -170,6 +188,8 @@ module.exports = {
                 next();
         });
     },
+
+//----------------------------------------------------------------------------------------------//
     authenticate: (req, res, next) => {
         console.log("authenticating");
         User.findOne({
@@ -192,6 +212,8 @@ module.exports = {
                 next(error);
             });
     },
+
+//----------------------------------------------------------------------------------------------//
     delete: (req, res, next) => {
         let userId = req.params.id;
         User.findByIdAndRemove(userId)
@@ -205,6 +227,8 @@ module.exports = {
                 next(error);
             })
     },
+
+//----------------------------------------------------------------------------------------------//
     login: (req, res, next) => {
         const db = mongoose.connection;
         var dbo = db
@@ -227,6 +251,8 @@ module.exports = {
             })
             .catch(err => console.error(`Failed to find document: ${err}`));
     },
+
+//----------------------------------------------------------------------------------------------//
     logout: (req, res, next) => {
         req.logout();
         req.flash("success", "You have been logged out!");
@@ -234,6 +260,8 @@ module.exports = {
         console.log(res.locals.redirect);
         next();
     },
+
+//----------------------------------------------------------------------------------------------//
     showUserPage: (req, res, next) => {
         let userId = req.params.id;
         User.findById(userId)
@@ -245,9 +273,13 @@ module.exports = {
                 console.log(`(showUserPage) Error fetching user by ID: ${error.message}`);
             })
     },
+
+//----------------------------------------------------------------------------------------------//
     showViewUserPage: (req, res) => {
         res.render("users/page");
     },
+
+//----------------------------------------------------------------------------------------------//
     showHome: (req, res, next) => {
         let userId = req.params.id;
         User.findById(userId)
@@ -267,9 +299,13 @@ module.exports = {
                 console.log(`Error fetching user by ID: ${error.message}`);
             })
     },
+
+//----------------------------------------------------------------------------------------------//
     showViewHome: (req, res) => {
         res.render("users/home");
     },
+
+//----------------------------------------------------------------------------------------------//
     showPosts: (req, res, next) => {
         let userId = req.params.id;
 
@@ -296,9 +332,13 @@ module.exports = {
                 console.log(`(showPosts) Error fetching post by ID: ${error.message}`);
             })
     },
+
+//----------------------------------------------------------------------------------------------//
     showViewPosts: (req, res) => {
         res.render("/users/myPosts");
     },
+
+//----------------------------------------------------------------------------------------------//
     addFriend: (req, res, next) => {
         let userId = req.params.id;
 
@@ -309,14 +349,17 @@ module.exports = {
     }
 }
 
+//----------------------------------------------------------------------------------------------//
 exports.getLogInPage = (req, res) => {
     res.render("/login");
 }
 
+//----------------------------------------------------------------------------------------------//
 exports.getSignUpPage = (req, res) => {
     res.render("/signup");
 }
 
+//----------------------------------------------------------------------------------------------//
 // Function for signing into the site
 exports.signIn = (req, res) => {
 
@@ -343,6 +386,7 @@ exports.signIn = (req, res) => {
     });
 }
 
+//----------------------------------------------------------------------------------------------//
 exports.getAllUsers = (req, res) => {
     user.find([])
         .exec()
@@ -358,6 +402,7 @@ exports.getAllUsers = (req, res) => {
         })
 }
 
+//----------------------------------------------------------------------------------------------//
 // Function for signing up
 exports.signUp = (req, res) => {
     // Make user object with entered parameters
