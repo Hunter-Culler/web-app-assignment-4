@@ -87,6 +87,10 @@ module.exports = {
     },
     delete: (req, res, next) => {
         let postId = req.params.id;
+        let creatorID = req.params.posterId;
+        //Use creatorID to add an if statement checking if the user that 
+        //deltes the comment is the user that created it.  Currently
+        //anyone can delete any post.  Also add flash error messages.
         Post.findById(postId)
         .then(post => {
             res.locals.redirect = `/home/${post.posterId}`;
