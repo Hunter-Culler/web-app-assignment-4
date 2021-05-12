@@ -156,12 +156,14 @@ module.exports = {
         newUser.id = Math.floor(Math.random() * (max - min + 1)) + min;
         User.register(newUser, req.body.password, (error, user) => {
             if (user) {
+                //display flash message
               req.flash("success", 'User Account Successfully Created!');
               newUser.save();
               res.locals.redirect = "/login";
               next();
             }
             else {
+                //display flash message
               req.flash("error", `Failed to create user account: ${error.message}`);
               res.locals.redirect = "/signup";
               next();
