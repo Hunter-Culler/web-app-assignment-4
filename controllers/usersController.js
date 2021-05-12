@@ -144,9 +144,10 @@ module.exports = {
 
         let newUser = new User(userParams);
         newUser.Handle = newUser.Username;
-        var min = Math.ceil(10000);
-        var max = Math.floor(99999);
-        newUser.id = Math.floor(Math.random() * (max - min + 1)) + min;
+        //User Id generation determined to be unneccesary.
+        //var min = Math.ceil(10000);
+        //var max = Math.floor(99999);
+        //newUser.id = Math.floor(Math.random() * (max - min + 1)) + min;
         User.register(newUser, req.body.password, (error, user) => {
             if (user) {
                 //display flash message
