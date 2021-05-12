@@ -111,7 +111,6 @@ router.post("/users/login", usersController.authenticate, usersController.redire
 //router.use(usersController.verifyJWT);
 
 router.get("/logout", usersController.logout, usersController.redirectView);
-//router.get("/users/logout", usersController.logout, usersController.redirectView);
 
 router.get("/home/:id", usersController.showHome, usersController.showViewHome);
 
