@@ -182,7 +182,6 @@ module.exports = {
                 let messages = error.array().map(e => e.msg);
                 req.flash("error", messages.join(" and "));
                 req.skip = true;
-                //console.log("here1");
                 res.local.redirect = "/homepage";
                 next();
             }
@@ -198,11 +197,11 @@ module.exports = {
             .then(user => {
                 if (user && user.password === req.body.password) {
                     res.locals.redirect = `/home/${user._id}`;
-                    req.flash("success", `${user.firstname}'s logged in successfully!`);
+                    req.flash("success", `${user._id} logged in successfully!`);
                     res.locals.user = user;
                     next();
                 } else {
-                    req.flash("error", "Your username or password is incorrect.");
+                    req.flash("error", "Failed to suthenticate. Please check your username and password.");
                     res.locals.redirect = "/users/login";
                     next();
                 }
@@ -216,6 +215,7 @@ module.exports = {
         let userId = req.params.id;
         User.findByIdAndRemove(userId)
             .then(() => {
+                req.flash("success", `User deleted successfully`);
                 res.locals.redirect = "/users";
                 next();
             })
