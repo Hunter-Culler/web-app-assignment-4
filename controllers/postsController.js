@@ -3,7 +3,6 @@
 const { reset } = require("nodemon");
 const User = require("../models/user");
 const Post = require("../models/post");
-const Hashtag = require("../models/hashtag");
 
 module.exports = {
     index: (req, res, next) => {
@@ -50,18 +49,15 @@ module.exports = {
             newPost.postId = Math.floor(Math.random() * (max - min + 1)) + min;
             Post.create(newPost)
             .then(post => {
-                newPost.save()
                 res.locals.post = post;
                 var hashtags = getHashTags(post.caption);
                 if (hashtags.length != 0){
                     for (var i = 0; i < hashtags.length; i++){
-                        let newHashtag = Hashtag({
-                            hashtag: hashtags[i],
-                            occurrences: 1
-                        });
-                        newHashtag.save();
+                        console.log(hashtags[i]);
+                        newPost.hashtags.push(hashtags[i]);
                     }
                 }
+                newPost.save();
                 res.redirect(`/home/${userId}`);
             })
             .catch(error => {
