@@ -16,7 +16,18 @@
 
 <body>
     <div class="row d-flex justify-content-center">
-        <div class="column left">Friend List</div>
+        <div class="column left">
+            <div class="card">
+                <div class="card-header usersHeader">Other Users</div>
+                <div class="card-body">
+                    <% users.forEach(user => { %>
+                        <p>
+                            <%= user.firstname %> <%=user.lastname %>
+                        </p>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
         <div class="column middle">
             <div class="feed">
                 <div class="card post">
@@ -41,10 +52,10 @@
                             <a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure?')">Delete</a>
                         </div>
                         <div class="card-body">
-                            <p class="card-text" style="font-family: system-ui; font-size: 2em;">
+                            <p class="card-text post-text">
                                 <%= post.caption %>
                             </p>
-                            <div style="font-size: 0.8em;">
+                            <div class="post-published">
                                 Published: <%= post.createdAt %>
                             </div>
                         </div>

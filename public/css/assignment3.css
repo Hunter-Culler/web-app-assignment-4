@@ -80,6 +80,15 @@ textarea {
 	margin-top: 20px;
 }
 
+.post-text {
+	font-family: system-ui;
+	font-size: 2em;
+}
+
+.post-published {
+	font-size: 0.8em;
+}
+
 .post-header {
 	background-color: cornflowerblue;
 	border: none;
@@ -137,10 +146,12 @@ textarea {
 .column {
 	float: left;
 	padding: 10px;
+	border: none;
 }
 
 .left {
 	width: 25%;
+	margin-top: 20px;
 }
 
 .right {
@@ -148,6 +159,7 @@ textarea {
 	width: 24%;
 	float: right;
 	margin-left: 15px;
+	margin-top: 20px;
 }
 
 .middle {
@@ -190,6 +202,13 @@ textarea {
 }
 
 .hashtagHeader {
+	font-size: 2.0em;
+	font-family: system-ui;
+	color: cornflowerblue;
+	border-bottom: black;
+}
+
+.usersHeader {
 	font-size: 2.0em;
 	font-family: system-ui;
 	color: cornflowerblue;

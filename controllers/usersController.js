@@ -388,7 +388,15 @@ module.exports = {
                 hashtag.find().sort({occurrences: `descending`})
                 .then(hashtags => {
                     res.locals.hashtags = hashtags;
-                    next();
+                    User.find()
+                    .then(users => {
+                        res.locals.users = users;
+                        next();
+                    })
+                    .catch(error => {
+                        console.log(`Error fetching users data: ${error.message}`);
+                        next(error);
+                    })
                 })
                 .catch(error => {
                     console.log(`Error fetching hashtag data: ${error.message}`);
