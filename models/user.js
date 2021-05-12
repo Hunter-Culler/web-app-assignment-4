@@ -20,7 +20,10 @@ user = require("./user"),
 passportLogicalMongoose = require("passport-local-mongoose"),
 userSchema = new mongoose.Schema(
     {
-        username: String,
+        username: {
+            type: String,
+            required: true
+        },
         password: {
             type: String,
             required: true
