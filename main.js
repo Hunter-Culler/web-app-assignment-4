@@ -105,7 +105,7 @@ router.get("/logout", usersController.logout, usersController.redirectView);
 
 router.get("/home/:id", usersController.showHome, usersController.showViewHome);
 
-router.get("/users/:id/userPage", usersController.showUserPage, usersController.showViewUserPage);
+router.get("/users/:id/page", usersController.showUserPage, usersController.showViewUserPage);
 
 router.get("/users/:id/posts", usersController.showPosts, usersController.showViewPosts);
 

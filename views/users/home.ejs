@@ -5,38 +5,42 @@
 
 <body>
     <div class="row d-flex justify-content-center">
-        <div class="feed whiteText">
-            <div class="card post">
-                <div class="form-data card-body">
-                    <div class="row d-flex justify-content-center"></div>
-                    <form action="<%=`/posts/${currentUser._id}/create` %>" method="POST">
-                        <div row>
-                            <textarea style="resize: none;" class="form-control" type="text" name="caption" id="txtCaption" rows="1"
-                                placeholder="type your thoughts here" autofocus required></textarea>
-                            <hr style="margin-top: 10px;">
-                            <div>
-                                <button type="submit" class="btn btn-primary">Post</button>
+        <div class="column left">Friend List</div>
+        <div class="column middle">
+            <div class="feed">
+                <div class="card post">
+                    <div class="form-data card-body">
+                        <div class="row d-flex justify-content-center"></div>
+                        <form action="<%=`/posts/${currentUser._id}/create` %>" method="POST">
+                            <div row>
+                                <textarea style="resize: none;" class="form-control" type="text" name="caption" id="txtCaption" rows="1"
+                                    placeholder="type your thoughts here" autofocus required></textarea>
+                                <hr style="margin-top: 10px;">
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Post</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <% posts.forEach(post => { %>
+                    <div class="card post">
+                        <div class="card-header post-header text-start">
+                            <img src="/images/avatar.png" alt="Avatar" class="avatar"> <%=post.username %>
+                            <a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure?')">Delete</a>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text" style="font-family: system-ui; font-size: 2em;">
+                                <%= post.caption %>
+                            </p>
+                            <div style="font-size: 0.8em;">
+                                Published: <%= post.createdAt %>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-            <% posts.forEach(post => { %>
-                <div class="card post">
-                    <div class="card-header post-header text-start">
-                        <img src="/images/avatar.png" alt="Avatar" class="avatar"> <%=post.username %>
-                        <a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure?')">Delete</a>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text" style="font-family: system-ui; font-size: 2em;">
-                            <%= post.caption %>
-                        </p>
-                        <div style="font-size: 0.8em;">
-                            Published: <%= post.createdAt %>
-                        </div>
-                    </div>
+                <% }) %>
                 </div>
-            <% }) %>
-            </div>
+        </div>
+        <div class="column right">Something Else</div>
     </div>
 </body>

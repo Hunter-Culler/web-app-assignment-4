@@ -1,0 +1,47 @@
+<div class="row d-flex maindiv">
+    <div class="container-fluid rounded profileHeader">
+        <div class="row justify-content-center pt-4 pb-3">
+            <img src="/images/avatar.png" class="avatar" alt="">
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <span class="profileName"> <%= currentUser.firstname %> <%= currentUser.lastname %></span>
+            </div>
+        </div>
+        <div class="row justify-content-center pt-2 pb-4">
+            <a type="button" class=" col-2 btn btn-primary">Add Friend</a>
+            <a href="<%= `/users/${currentUser._id}/edit` %>" type="button" class="col-2 btn btn-primary">Edit</a>
+        </div>
+    </div>
+    <div class="container-fluid profileInfo">
+        <div class="col">
+            <div class="text-center border-bottom">
+                About
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6 d-flex justify-content-center">
+                Birthday: 
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6 d-flex justify-content-center">
+                <%= currentUser.dob %>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6 d-flex justify-content-center">
+                Lives in: 
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-6 d-flex justify-content-center">
+                <%= currentUser.address.city %> <%= currentUser.address.state %>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid profileInfo">
+        <div class="col">
+            <div class="text-center border-bottom">
+                Friends
+            </div>
+        </div>
+    </div>
+</div>

@@ -64,6 +64,12 @@ userSchema = new mongoose.Schema(
             max: 99999
             }
         },
+        friends: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "User"
+            }
+        ],
         sec_question: String,
         sec_answer: String
     }

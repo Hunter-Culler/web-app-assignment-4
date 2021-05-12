@@ -133,3 +133,51 @@ textarea {
 	height: calc(100vh - 75px - 50px);
 	overflow-y: scroll;
 }
+
+.column {
+	float: left;
+	padding: 10px;
+}
+
+.left, .right {
+	width: 25%;
+}
+
+.middle {
+	width: 50%;
+}
+
+.friendList {
+	width: 160px;
+	position: fixed;
+	z-index: 1;
+	top: 20px;
+	left: 10px;
+	background-color: cornflowerblue;
+	overflow-x: hidden;
+	padding-top: 8px 0;
+}
+
+.profileHeader {
+	background-color: cornflowerblue;
+	width: 70vw !important;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.profileName {
+	color: white;
+	font-size: 2em;
+	padding: 5px;
+	margin: 2px;
+	opacity: 90%;
+}
+
+.profileInfo {
+	margin: auto;
+	width: 70vw !important;
+	height: 250px !important;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background-color: white;
+}

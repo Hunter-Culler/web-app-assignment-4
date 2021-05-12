@@ -60,29 +60,6 @@ module.exports = {
     new: (req, res) => {
         res.render("users/new");
     },
-/*
-    create: (req, res, next) => {
-        let newUser = new User({
-            name: {
-                first: req.body.first,
-                last: req.body.last,
-            },
-            email: req.body.email,
-            password: req.body.password,
-            zipCode: req.body.zipCode
-        });
-        user.removeAllListeners(mewUser)
-        .then( user => {
-            res.locals.user = user;
-            res.locals.redirect = "/users";
-            next();
-        })
-        .catch(error =>{
-            console.log(`Error saving user: ${error.message}`);
-            next(error);
-        })
-    },
-*/
     redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;
         if (redirectPath != undefined){
@@ -262,7 +239,7 @@ module.exports = {
           })
     },
     showViewUserPage: (req, res) => {
-        res.render("users/userPage");
+        res.render("users/page");
     },
     showHome: (req, res, next) => {
         let userId = req.params.id;
@@ -287,35 +264,39 @@ module.exports = {
         res.render("users/home");
     },
     showPosts: (req, res, next) => {
-
         let userId = req.params.id;
-    
-        const db = mongoose.connection;
-        var dbo = db
-    
+
         User.findById(userId)
-          .then(user => {
+        .then(user => {
             res.locals.currentUser = user;
 
             var queryID = { posterID: userId };
     
             Post.find(queryID)
             .then(posts => {
-            res.locals.posts = posts;
-            next();
+                res.locals.posts = posts;
+                next();
             })
             .catch(error => {
-            console.log(`Error fetching course data: ${error.message}`);
-            next(error);
+                console.log(`Error fetching course data: ${error.message}`);
+                next(error);
             })
-          })
-          .catch(error => {
+        })
+        .catch(error => {
             console.log(`(showPosts) Error fetching user by ID: ${error.message}`);
-          })
+        })
     },
     showViewPosts: (req, res) => {
-        res.render("users/myPosts");
+        res.render("/users/myPosts");
     },
+    addFriend: (req, res, next) => {
+        let userId = req.params.id;
+
+        User.findById(userId)
+        .then(user => {
+            user.friends.push()
+        })
+    }
 }
 
 exports.getLogInPage = (req, res) => {
