@@ -10,21 +10,23 @@
 */
 
 const express = require("express"),
-app = express(),
-router = express.Router(),
-layouts = require("express-ejs-layouts"),
-mongoose = require("mongoose"),
-methodOverride = require("method-override"),
-expressSession = require("express-session"),
-cookieParser = require("cookie-parser"),
-connectFlash = require("connect-flash"),
-passport = require("passport"),
-usersController = require("./controllers/usersController"),
-homeController = require("./controllers/homeController"),
-postsController = require("./controllers/postsController"),
-errorController = require("./controllers/errorController"),
-User = require("./models/user"),
-Post = require("./models/post");
+  app = express(),
+  router = express.Router(),
+  layouts = require("express-ejs-layouts"),
+  mongoose = require("mongoose"),
+  methodOverride = require("method-override"),
+  expressSession = require("express-session"),
+  cookieParser = require("cookie-parser"),
+  connectFlash = require("connect-flash"),
+  morgan = require("morgan"),
+  expressValidator = require("express-validator"),
+  passport = require("passport"),
+  usersController = require("./controllers/usersController"),
+  homeController = require("./controllers/homeController"),
+  postsController = require("./controllers/postsController"),
+  errorController = require("./controllers/errorController"),
+  User = require("./models/user"),
+  Post = require("./models/post");
 
 
 mongoose.Promise = global.Promise;
@@ -47,11 +49,14 @@ db.once("open", () => {
 });
 
 app.set("port", process.env.PORT || 3000);
-
 app.set(
 	"view engine",
 	 "ejs"
 	 );
+app.set("token", process.env.TOKEN || "SoCiALT0k3n");
+
+router.use(morgan("combined"));
+
 router.use(layouts);
 router.use(
     express.urlencoded({
@@ -59,7 +64,7 @@ router.use(
     })
 );
 
-app.use(
+router.use(
 	methodOverride("_method", {
 	  methods: ["POST", "GET"]
 	})
@@ -80,19 +85,20 @@ router.use(
 
 router.use(passport.initialize());
 router.use(passport.session());
-router.use(connectFlash());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+router.use(connectFlash());
 router.use((req, res, next) => {
-  res.locals.flashMessages = req.flash();
   res.locals.loggedIn = req.isAuthenticated();
   res.locals.currentUser = req.user;
+  res.locals.flashMessages = req.flash();
   next();
 });
 
 router.use(express.static("public"));
+//router.use(expressValidator());
 
 router.get("/", homeController.showSignIn);
 router.get("/signup", homeController.showSignUp);
@@ -100,6 +106,7 @@ router.post("/signup", usersController.create, usersController.redirectView);
 
 router.get("/login", homeController.showSignIn);
 router.post("/login", usersController.authenticate, usersController.redirectView);
+//router.use(usersController.verifyJWT);
 
 router.get("/logout", usersController.logout, usersController.redirectView);
 
@@ -120,6 +127,7 @@ router.put("/users/:id/update", usersController.update, usersController.redirect
 
 //router.use(errorController.pageNotFoundError());
 //router.use(errorController.internalServerError());
+
 
 app.use("/", router);
 

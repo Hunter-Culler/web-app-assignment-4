@@ -1,0 +1,103 @@
+<!--
+	Hunter Culler and Ian Anderson
+	University of Colorado Denver CSCI 4800 E01
+	Web Application Developement
+	Group Assignment 3
+
+	March 31st, 2021
+
+	Status = Functional
+-->
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Social Media Webiste</title>
+        <link rel="stylesheet" href="css/assignment3.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <header>
+            <% if (currentUser) { %>
+                <nav class="navbar navbar-custom">
+                    <div id="nav">
+                        <a class="navbar-brand nav-align" style="color: white" href="#">Social Media Website</a>
+                        <ul class="navbar nav-align">
+                            <li class="nav-item active">
+                                <a href="/" class="nav-link" href="<%= `/users/home/${currentUser.id}` %>"
+                                    style="color:white">Home</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="<%= `/users/${currentUser.id}/page` %>"
+                                    style="color:white">Profile</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#" style="color:white">Friends</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="/logout" class="nav-link" style="color:white">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+    <!--
+                    <div class="login">
+                        <% if (loggedIn) { %>
+                            <p> Logged in as 
+                                <a href="<%=`/users/home/${currentUser.id} %>`">
+                                    <% currentUser.firstname %>
+                                </a>
+                            </p>
+                        <% } %>
+                    </div>
+    -->
+                </nav>
+                <% } else { %>
+                    <nav class="navbar navbar-custom">
+                        <div id="nav">
+                            <a class="navbar-brand nav-align" style="color: white" href="#">Social Media Website</a>
+                        </div>
+                    </nav>
+                <% } %>
+
+        </header>
+
+        <div>
+            <% if (flashMessages) { %>
+                <% if (flashMessages.success) { %>
+                    <div class="flash">
+                        <%= flashMessages.success %>
+                    </div>
+                <% } else if (flashMessages.error) { %>
+                    <div class="flash error">
+                        <%= flashMessages.error %>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+
+        <div class="container-fluid">
+            <%- body %>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="/script.js"></script>
+
+        <!--
+        <footer class="mt-auto">
+            <p><a href="#" class="text-primary">Contact Us</a></p>
+            <p><a href="#" class="text-primary">Another link</a></p>
+            <p><a href="#" class="text-primary">One More link</a></p>
+            Copyright @2021 Ian Anderson and Hunter Culler
+        </footer>
+        -->
+    </body>
+
+</html>

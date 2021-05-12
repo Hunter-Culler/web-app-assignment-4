@@ -16,6 +16,7 @@ const { reset } = require("nodemon");
 const User = require("../models/user"),
     Post = require("../models/post"),
     passport = require("passport"),
+    jsonWebToken = require("jsonwebtoken"),
     mongoose = require("mongoose"),
     getUserParams = body => {
         return {
@@ -191,14 +192,9 @@ module.exports = {
     },
 
     //----------------------------------------------------------------------------------------------//
+    /*
     authenticate: (req, res, next) => {
-        passport.authenticate("local", {
-            failureRedirect: "/login",
-            failureFlash: "Incorrect Info! Please check your username and password and try again",
-            successRedirect: `/users/home/${user._id}`,
-            successFlash: "Login Successful!"
-        },
-        (errors, user) => {
+        passport.authenticate("local", (errors, user) => {
             if (user) {
                 let signedToken = jsonWebToken.sign(
                     {
@@ -209,13 +205,22 @@ module.exports = {
                 );
                 res.json({
                     success: true,
-                    token: signedToken
+                    token: signedToken,
+                    successRedirect: `/users/home/${user._id}`,
+                    successFlash: "Login Successful!"
+                });
+            } else {
+                res.json({
+                    success: false,
+                    failureRedirect: "/login",
+                    failureFlash: "Incorrect Info! Please check your username and password and try again"
                 });
             }
         })
     },
+    */
 
-    /*  OLD authenticate
+    //  OLD authenticate
     authenticate: (req, res, next) => {
         console.log("authenticating");
         User.findOne({
@@ -224,7 +229,7 @@ module.exports = {
             .then(user => {
                 if (user && user.password === req.body.password) {
                     res.locals.redirect = `/home/${user._id}`;
-                    req.flash("success", `${user._id} logged in successfully!`);
+                    req.flash("success", `${user.firstname} logged in successfully!`);
                     res.locals.user = user;
                     next();
                 } else {
@@ -238,8 +243,43 @@ module.exports = {
                 next(error);
             });
     },
-    */
-    //----------------------------------------------------------------------------------------------//
+
+//----------------------------------------------------------------------------------------------//
+/*
+    verifyJWT: (req, res, next) => {
+        let token = req.headers.token;
+        if (token) {
+        jsonWebToken.verify(token, "secret_encoding_passphrase", (errors, payload) => {
+            if (payload) {
+            User.findById(payload.data).then(user => {
+                if (user) {
+                    next();
+                } else {
+                    res.status(httpStatus.FORBIDDEN).json({
+                        error: true,
+                        success: false,
+                        failureFlash: "Incorrect Info! Please check your username and password and try again"
+                        //message: "No User account found."
+                    });
+                }
+            });
+            } else {
+            res.status(httpStatus.UNAUTHORIZED).json({
+                error: true,
+                message: "Cannot verify API token."
+            });
+            next();
+            }
+            });
+        } else {
+            res.status(httpStatus.UNAUTHORIZED).json({
+                error: true,
+                message: "Provide Token"
+            });
+        }
+    },
+*/
+//----------------------------------------------------------------------------------------------//
     delete: (req, res, next) => {
         let userId = req.params.id;
         User.findByIdAndRemove(userId)
@@ -266,12 +306,12 @@ module.exports = {
         dbo.collection("users").findOne(queryUsername)
             .then(result => {
                 if (result) {
-                    res.locals.redirect = `/home/${result._id}`;
+                    res.locals.redirect = `users/home/${result._id}`;
                     res.locals.currentUser = result;
                     next();
                 } else {
                     console.log("No document matches the provided query.");
-                    res.render("login");
+                    res.render("/login");
                     next();
                 }
             })

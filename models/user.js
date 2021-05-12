@@ -40,11 +40,13 @@ userSchema = new mongoose.Schema(
             required: true,
             unique: true
         },
+        /* unused ID
         id: {
             type: Number,
             unique: true,
             default: 0
         },
+        */
         address: {
             street: {
                 type: String,
