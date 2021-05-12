@@ -70,8 +70,14 @@ userSchema = new mongoose.Schema(
                 ref: "User"
             }
         ],
-        sec_question: String,
-        sec_answer: String
+        sec_question: {
+            type: String,
+            required: true
+        },
+        sec_answer: {
+            type: String,
+            required: true
+        }
     }
 );
 
