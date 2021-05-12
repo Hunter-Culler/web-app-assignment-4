@@ -27,7 +27,7 @@
                         <a class="navbar-brand nav-align" style="color: white" href="#">Social Media Website</a>
                         <ul class="navbar nav-align">
                             <li class="nav-item active">
-                                <a href="/" class="nav-link" href="<%= `/home/${currentUser.id}` %>" style="color:white">Home</a>
+                                <a href="/" class="nav-link" href="<%= `/users/home/${currentUser.id}` %>" style="color:white">Home</a>
                             </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="<%= `/users/${currentUser.id}/page` %>" style="color:white">Profile</a>
@@ -39,6 +39,14 @@
                                 <a href="/logout" class="nav-link"  style="color:white">Logout</a>
                             </li>
                         </ul>
+                    </div>
+
+                    <div class="login">
+                        <% if (loggedIn) { %
+                            <p> Logged in as <a href="<%=`/users/home/${currentUser.id} %>`">
+                                <% currentUser.firstname %>
+                            </a>
+                        <% } %>
                     </div>
                 </nav>
             <% } else { %>
