@@ -1,12 +1,12 @@
 /*
-	Hunter Culler and Ian Anderson
-	University of Colorado Denver CSCI 4800 E01
-	Web Application Developement
-	Group Assignment 4
+    Hunter Culler and Ian Anderson
+    University of Colorado Denver CSCI 4800 E01
+    Web Application Developement
+    Group Assignment 4
 
-	March 31st, 2021
+    March 31st, 2021
 
-	Status = functional
+    Status = functional
 
 */
 "use strict"
@@ -14,43 +14,43 @@
 const { reset } = require("nodemon");
 
 const User = require("../models/user"),
-Post = require("../models/post"),
-passport = require("passport"),
-mongoose = require("mongoose"),
-getUserParams = body => {
-    return {
-        firstname: body.firstname,
-        lastname: body.lastname,
-        username: body.username,
-        password: body.password,
-        dob: body.dob,
-        gender: body.gender,
-        telephone: body.telephone,
-        email: body.email,
-        id: body.id,
-        address: {
-            street: body.street,
-            city: body.city,
-            state: body.state,
-            zipCode: body.zipCode
-        },
-        sec_question: body.sec_question,
-        sec_answer: body.sec_answer
+    Post = require("../models/post"),
+    passport = require("passport"),
+    mongoose = require("mongoose"),
+    getUserParams = body => {
+        return {
+            firstname: body.firstname,
+            lastname: body.lastname,
+            username: body.username,
+            password: body.password,
+            dob: body.dob,
+            gender: body.gender,
+            telephone: body.telephone,
+            email: body.email,
+            id: body.id,
+            address: {
+                street: body.street,
+                city: body.city,
+                state: body.state,
+                zipCode: body.zipCode
+            },
+            sec_question: body.sec_question,
+            sec_answer: body.sec_answer
+        };
     };
-};
 
 
 module.exports = {
     index: (req, res, next) => {
         User.find()
-        .then(users => {
-            res.locals.users = users;
-            next();
-        })
-        .catch(error => {
-            console.log(`(index) Error fetching user data: ${error.message}`);
-            next(error);
-        })
+            .then(users => {
+                res.locals.users = users;
+                next();
+            })
+            .catch(error => {
+                console.log(`(index) Error fetching user data: ${error.message}`);
+                next(error);
+            })
     },
 
     indexView: (req, res) => {
@@ -60,70 +60,70 @@ module.exports = {
     new: (req, res) => {
         res.render("users/new");
     },
-/*
-    create: (req, res, next) => {
-        let newUser = new User({
-            name: {
-                first: req.body.first,
-                last: req.body.last,
-            },
-            email: req.body.email,
-            password: req.body.password,
-            zipCode: req.body.zipCode
-        });
-        user.removeAllListeners(mewUser)
-        .then( user => {
-            res.locals.user = user;
-            res.locals.redirect = "/users";
-            next();
-        })
-        .catch(error =>{
-            console.log(`Error saving user: ${error.message}`);
-            next(error);
-        })
-    },
-*/
+    /*
+        create: (req, res, next) => {
+            let newUser = new User({
+                name: {
+                    first: req.body.first,
+                    last: req.body.last,
+                },
+                email: req.body.email,
+                password: req.body.password,
+                zipCode: req.body.zipCode
+            });
+            user.removeAllListeners(mewUser)
+            .then( user => {
+                res.locals.user = user;
+                res.locals.redirect = "/users";
+                next();
+            })
+            .catch(error =>{
+                console.log(`Error saving user: ${error.message}`);
+                next(error);
+            })
+        },
+    */
     redirectView: (req, res, next) => {
         let redirectPath = res.locals.redirect;
-        if (redirectPath != undefined){
+        if (redirectPath != undefined) {
             res.redirect(redirectPath);
         }
-        else{
+        else {
             next();
         }
     },
     show: (req, res, next) => {
         let userId = req.params.id;
         User.findById(userId)
-        .then(user => {
-            res.locals.user = user;
-            next();
-        })
-        .catch(error => {
-            console.log(`(show) Error fetching user by ID: ${error.message}`);
-        })
+            .then(user => {
+                res.locals.user = user;
+                next();
+            })
+            .catch(error => {
+                console.log(`(show) Error fetching user by ID: ${error.message}`);
+            })
     },
     showView: (req, res) => {
-        res.render(users/show);
+        res.render(users / show);
     },
     edit: (req, res) => {
         let userId = req.params.id;
         User.findById(userId)
-        .then(user => {
-            res.locals.currentUser = user;
-            next();
-        })
-        .catch(error => {
-            console.log(`(edit) Error fetching user by ID: ${error.message}`);
-            next(error);
-        })
+            .then(user => {
+                res.locals.currentUser = user;
+                next();
+            })
+            .catch(error => {
+                console.log(`(edit) Error fetching user by ID: ${error.message}`);
+                next(error);
+            })
     },
     showEdit: (req, res) => {
         res.render("users/edit");
     },
     update: (req, res, next) => {
         let userId = req.params.id,
-        userParams = getUserParams(req.body);
+            userParams = getUserParams(req.body);
         let updatedUser = new User({
             name: {
                 first: req.body.first,
@@ -136,14 +136,14 @@ module.exports = {
         User.findByIdAndUpdate(userId, {
             $set: userParams
         })
-        .then(user => {
-            res.locals.redirect = `/users/${user._id}/userPage`;
-            next();
-        })
-        .catch(error => {
-            console.log(`(update) Error updating user by ID: ${error.message}`);
-            next(error);
-        });
+            .then(user => {
+                res.locals.redirect = `/users/${user._id}/userPage`;
+                next();
+            })
+            .catch(error => {
+                console.log(`(update) Error updating user by ID: ${error.message}`);
+                next(error);
+            });
     },
     create: (req, res, next) => {
         if (req.skip) return next();
@@ -157,93 +157,94 @@ module.exports = {
         User.register(newUser, req.body.password, (error, user) => {
             if (user) {
                 //display flash message
-              req.flash("success", 'User Account Successfully Created!');
-              newUser.save();
-              res.locals.redirect = "/login";
-              next();
+                req.flash("success", 'User Account Successfully Created!');
+                newUser.save();
+                res.locals.redirect = "/login";
+                next();
             }
             else {
                 //display flash message
-              req.flash("error", `Failed to create user account: ${error.message}`);
-              res.locals.redirect = "/signup";
-              next();
+                req.flash("error", `Failed to create user account because 
+                of the follwoing errors: ${error.message}`);
+                res.locals.redirect = "/signup";
+                next();
             }
         });
     },
     validate: (req, res, next) => {
 
         req.check("email", "email is not valid!").isEmail();
-    
+
         req.check("password", "Password can not be empty.").notEmpty();
-    
+
         req.getValidationResult().then((error) => {
-          if (!error.isEmpty()) {
-            let messages = error.array().map(e => e.msg);
-            req.flash("error", messages.join(" and "));
-            req.skip = true;
-            //console.log("here1");
-            res.local.redirect = "/homepage";
-            next();
-          }
-          else
-            next();
+            if (!error.isEmpty()) {
+                let messages = error.array().map(e => e.msg);
+                req.flash("error", messages.join(" and "));
+                req.skip = true;
+                //console.log("here1");
+                res.local.redirect = "/homepage";
+                next();
+            }
+            else
+                next();
         });
     },
-    authenticate: (req, res, next) =>{
+    authenticate: (req, res, next) => {
         console.log("authenticating");
         User.findOne({
             username: req.body.username
         })
-        .then(user => {
-            if (user && user.password === req.body.password){
-                res.locals.redirect = `/home/${user._id}`;
-                req.flash("success", `${user.firstname}'s logged in successfully!`);
-                res.locals.user = user;
-                next();
-            }else {
-                req.flash("error", "Your username or password is incorrect.");
-                res.locals.redirect = "/users/login";
-                next();
-            }
-        })
-        .catch(error => {
-            console.log(`Error logging in user: ${error.message}`);
-            next(error);
-        });
+            .then(user => {
+                if (user && user.password === req.body.password) {
+                    res.locals.redirect = `/home/${user._id}`;
+                    req.flash("success", `${user.firstname}'s logged in successfully!`);
+                    res.locals.user = user;
+                    next();
+                } else {
+                    req.flash("error", "Your username or password is incorrect.");
+                    res.locals.redirect = "/users/login";
+                    next();
+                }
+            })
+            .catch(error => {
+                console.log(`Error logging in user: ${error.message}`);
+                next(error);
+            });
     },
     delete: (req, res, next) => {
         let userId = req.params.id;
         User.findByIdAndRemove(userId)
-        .then(() =>{
-            res.locals.redirect = "/users";
-            next();
-        })
-        .catch(error => {
-            console.log(`(delete) Error fetching user by ID: ${error.message}`);
-            next(error);
-        })
+            .then(() => {
+                res.locals.redirect = "/users";
+                next();
+            })
+            .catch(error => {
+                console.log(`(delete) Error fetching user by ID: ${error.message}`);
+                next(error);
+            })
     },
     login: (req, res, next) => {
         const db = mongoose.connection;
         var dbo = db
 
-        var queryUsername = { username: req.body.username , password: req.body.password };
+        var queryUsername = { username: req.body.username, password: req.body.password };
         var queryPassword = { password: req.body.password };
         var queryResult;
         console.log(queryUsername);
         dbo.collection("users").findOne(queryUsername)
-        .then(result => {
-            if (result) {
-                res.locals.redirect = `/home/${result._id}`;
-                res.locals.currentUser = result;
-                next();
-            } else {
-                console.log("No document matches the provided query.");
-                res.render("login");
-                next();
-            }
-        })
-        .catch(err => console.error(`Failed to find document: ${err}`));
+            .then(result => {
+                if (result) {
+                    res.locals.redirect = `/home/${result._id}`;
+                    res.locals.currentUser = result;
+                    next();
+                } else {
+                    console.log("No document matches the provided query.");
+                    res.render("login");
+                    next();
+                }
+            })
+            .catch(err => console.error(`Failed to find document: ${err}`));
     },
     logout: (req, res, next) => {
         req.logout();
@@ -255,13 +256,13 @@ module.exports = {
     showUserPage: (req, res, next) => {
         let userId = req.params.id;
         User.findById(userId)
-          .then(user => {
-            res.locals.currentUser = user;
-            next();
-          })
-          .catch(error => {
-            console.log(`(showUserPage) Error fetching user by ID: ${error.message}`);
-          })
+            .then(user => {
+                res.locals.currentUser = user;
+                next();
+            })
+            .catch(error => {
+                console.log(`(showUserPage) Error fetching user by ID: ${error.message}`);
+            })
     },
     showViewUserPage: (req, res) => {
         res.render("users/userPage");
@@ -269,51 +270,51 @@ module.exports = {
     showHome: (req, res, next) => {
         let userId = req.params.id;
         User.findById(userId)
-        .then(user => {
-            res.locals.currentUser = user;
-            Post.find().sort({ createdAt : `descending`})
-            .then(posts => {
-                res.locals.posts = posts;
-                next();
+            .then(user => {
+                res.locals.currentUser = user;
+                Post.find().sort({ createdAt: `descending` })
+                    .then(posts => {
+                        res.locals.posts = posts;
+                        next();
+                    })
+                    .catch(error => {
+                        console.log(`Error fetching course data: ${error.message}`);
+                        next(error);
+                    })
             })
             .catch(error => {
-                console.log(`Error fetching course data: ${error.message}`);
-                next(error);
+                console.log(`Error fetching user by ID: ${error.message}`);
             })
-        })
-        .catch(error => {
-            console.log(`Error fetching user by ID: ${error.message}`);
-        })
-      },
+    },
     showViewHome: (req, res) => {
         res.render("users/home");
     },
     showPosts: (req, res, next) => {
 
         let userId = req.params.id;
-    
+
         const db = mongoose.connection;
         var dbo = db
-    
-        User.findById(userId)
-          .then(user => {
-            res.locals.currentUser = user;
 
-            var queryID = { posterID: userId };
-    
-            Post.find(queryID)
-            .then(posts => {
-            res.locals.posts = posts;
-            next();
+        User.findById(userId)
+            .then(user => {
+                res.locals.currentUser = user;
+
+                var queryID = { posterID: userId };
+
+                Post.find(queryID)
+                    .then(posts => {
+                        res.locals.posts = posts;
+                        next();
+                    })
+                    .catch(error => {
+                        console.log(`Error fetching course data: ${error.message}`);
+                        next(error);
+                    })
             })
             .catch(error => {
-            console.log(`Error fetching course data: ${error.message}`);
-            next(error);
+                console.log(`(showPosts) Error fetching user by ID: ${error.message}`);
             })
-          })
-          .catch(error => {
-            console.log(`(showPosts) Error fetching user by ID: ${error.message}`);
-          })
     },
     showViewPosts: (req, res) => {
         res.render("users/myPosts");
@@ -330,7 +331,7 @@ exports.getSignUpPage = (req, res) => {
 
 // Function for signing into the site
 exports.signIn = (req, res) => {
-    
+
     // Make user object with the entered parameters
     let user = new User({
         username: req.body.username,
@@ -341,11 +342,11 @@ exports.signIn = (req, res) => {
     var myQuery = User.findOne({
         username: user.username
     })
-    .where("password", user.password);
+        .where("password", user.password);
 
     // Check if a user was found, if not then returns to login screen
     myQuery.exec((error, data) => {
-        if(data) {
+        if (data) {
             console.log("Successfully signed in!");
         }
         else {
@@ -354,19 +355,19 @@ exports.signIn = (req, res) => {
     });
 }
 
-exports.getAllUsers = (req,res) => {
+exports.getAllUsers = (req, res) => {
     user.find([])
-    .exec()
-    .then(users => {
-        res.render("users", {users: users})
-    })
-    .catch((error) => {
-        console.log(error);
-        return [];
-    })
-    .then(() => {
-        console.log("promise complete");
-    })
+        .exec()
+        .then(users => {
+            res.render("users", { users: users })
+        })
+        .catch((error) => {
+            console.log(error);
+            return [];
+        })
+        .then(() => {
+            console.log("promise complete");
+        })
 }
 
 // Function for signing up
@@ -389,10 +390,10 @@ exports.signUp = (req, res) => {
 
     // Save user to database
     user.save()
-    .then(() => {
-        res.render("thanks")
-    })
-    .catch(error => { res.send(error)});
+        .then(() => {
+            res.render("thanks")
+        })
+        .catch(error => { res.send(error) });
 
     //Below code is for checking if a user already exists with the entered email address, and if so stops the account from being made
     /*
