@@ -292,7 +292,7 @@ module.exports = {
             // If this function gets called, authentication was successful.
             // `req.user` contains the authenticated user.
             if(res){
-            //console.log(req),
+            console.log(res),
             res.locals.redirect = `/home/${res.user._id}`,
             console.log("authenticate success"),
             next();
