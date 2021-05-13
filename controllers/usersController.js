@@ -404,8 +404,8 @@ module.exports = {
 
     //----------------------------------------------------------------------------------------------//
     addFriend: (req, res, next) => {
-        let currUser = res.locals.currentUser;
-        let userId = req.params.id;
+        const currUser = res.locals.currentUser;
+        const userId = req.params.id;
         if (currUser) {
                 console.log("User:");
                 console.log(currUser);
@@ -426,12 +426,21 @@ module.exports = {
         }    
     },
     
+<<<<<<< Updated upstream
     /*
     addFriend: (req, res, next) => {
         let currUser = res.locals.currentUser;
         let userId = req.params.id;
         User.findById(userId)
             .then(user => {
+=======
+
+    //----------------------------------------------------------------------------------------------//
+    removeFriend: (req, res, next) => {
+        const currUser = res.locals.currentUser;
+        const userId = req.params.id;
+        if (currUser) {
+>>>>>>> Stashed changes
                 console.log("User:");
                 console.log(currUser);
                 console.log("Added Friend:");

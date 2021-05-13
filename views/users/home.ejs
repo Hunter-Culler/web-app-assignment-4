@@ -53,7 +53,11 @@
                             <% if (post.username == currentUser.username) { %> 
                                 <a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure?')">Delete</a>
                                 <% } else { %> 
+<<<<<<< Updated upstream
                                 <a href="<%=`/users/${post.posterId}/addFriend` %>" onclick="">Follow</a>
+=======
+                                <a href="<%= `/users/${post.posterId}/addFriend` %>" onclick="">Follow</a>
+>>>>>>> Stashed changes
                                 <% } %>
                         </div>
                         <div class="card-body">
