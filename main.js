@@ -106,12 +106,6 @@ router.get("/", homeController.showSignIn);
 router.get("/signup", homeController.showSignUp);
 router.post("/signup", usersController.create, usersController.redirectView);
 
-router.get("/login", homeController.showSignIn);
-//router.post("/login", usersController.authenticate, usersController.redirectView);
-router.post("/users/login", usersController.authenticate, usersController.redirectView);
-//router.post("/users/login", usersController.authenticate);
-
-
 //router.use(usersController.verifyJWT);
 
 router.get("/logout", usersController.logout, usersController.redirectView);
@@ -121,6 +115,9 @@ router.get("/home/:id", usersController.showHome, usersController.showViewHome);
 
 router.get("/users/:id/page", usersController.showUserPage, usersController.showViewUserPage);
 
+router.get("/users/login", homeController.showSignIn);
+router.post("/users/login", usersController.authenticate, usersController.redirectView);
+//router.post("/users/login", usersController.authenticate);
 
 router.get("/users/:id/posts", usersController.showPosts, usersController.showViewPosts);
 

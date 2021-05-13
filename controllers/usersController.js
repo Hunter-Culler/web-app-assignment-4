@@ -11,6 +11,7 @@
 */
 "use strict"
 
+const { error } = require("jquery");
 const { reset } = require("nodemon");
 const hashtag = require("../models/hashtag");
 
@@ -150,7 +151,7 @@ module.exports = {
                 //display flash message
                 req.flash("success", 'User Account Successfully Created!');
                 newUser.save();
-                res.locals.redirect = "/login";
+                res.locals.redirect = "/";
                 next();
             }
             else {
@@ -188,27 +189,37 @@ module.exports = {
 
     //----------------------------------------------------------------------------------------------//
     
-
-    // V3 of aunthenticate 
+    /*  Attempt with callback function
     authenticate: (req, res, next) => {
         console.log("authenticating");
         User.findOne({
             username: req.body.username,
-            password: req.body.password
+            //password: req.body.password
         })
             .then(user => {
                 if (user) {
                     console.log("User found in DB");
-                    passport.authenticate("local", {
-                        failureRedirect: "/login",
-                        failureFlash: "Failed to login!",
-                        successRedirect: `/home/${user._id}`,
-                        successFlash: "Logged in!"  
-                    })
-                    res.locals.redirect = `/home/${user._id}`;
-                    next();
+                    passport.authenticate("local", function (err, user, info) {
+                        if (err) {
+                            console.log("BLOCK 1");
+                            return next(err); 
+                        }
+                        if (!user) {
+                            console.log("BLOCK 2");
+                            return res.redirect("/login"); 
+                        }
+                        req.logIn(user, function(err) {
+                            if (err) {
+                                console.log("BLOCK 3");
+                                return next(err); 
+                            }
+                            console.log("BLOCK 4");
+                            //res.locals.redirect = `/home/${user._id}`;
+                            return res.redirect(`/home/${user._id}`);
+                        })
+                    });
                 } else {
-                    req.flash("error", "Failed to authenticate. Please check your username and password.");
+                    req.flash("error", "Failed to authenticate. User not found.");
                     res.locals.redirect = "/login";
                     next();
                 }
@@ -218,6 +229,55 @@ module.exports = {
                 next(error);
             });
     },
+    */
+    
+    // V3 of aunthenticate 
+    authenticate: (req, res, next) => {
+        console.log("authenticating");
+        User.findOne({
+            username: req.body.username,
+            //password: req.body.password
+        })
+            .then(user => {
+                if (user) {
+                    console.log("User found in DB");
+                    passport.authenticate("local", {
+                        failureRedirect: "/",
+                        failureFlash: "Failed to login!",
+                        successRedirect: "/home/:id",
+                        //successRedirect: `users/home/${user._id}`,
+                        successFlash: "Logged in!"  
+                    })
+                    res.locals.redirect = `/home/${user._id}`;
+                    next();
+                    /*
+                    console.log("authSuccess VALUE: ");
+                    console.log(authSuccess);
+                    if (authSuccess) {
+                        console.log("authSuccess TRUE");
+                        req.flash("success", `${user.firstname} logged in successfully!`);
+                        res.locals.redirect = `/home/${user._id}`;
+                    } else {
+                        console.log("authSuccess FALSE");
+                        req.flash("error", "Failed to authenticate. Please check your username and password.");
+                        res.locals.redirect = "/login";
+                    }
+                    */
+                    //next();
+                    
+                } else {
+                    req.flash("error", "Failed to authenticate. User not found.");
+                    res.locals.redirect = "/";
+                    next();
+                }
+            })
+            .catch(error => {
+                console.log(`Error logging in user: ${error.message}`);
+                next(error);
+            });
+    },
+    
+    
     
 
     /* Version provided by Matthew
@@ -225,10 +285,11 @@ module.exports = {
         failureRedirect: "/login",
         failureFlash: "Failed to login!",
         successRedirect: "/home/:id",
-        //successRedirect: "/home/",
+        //successRedirect: `/home/${user._id}`,
         successFlash: "Logged in!"
     }),
     */
+    
 
     /* !!FIXME!! function compiles, but hashes never match properly
     authenticate: (req, res, next) => {
@@ -386,7 +447,7 @@ module.exports = {
                     next();
                 } else {
                     console.log("No document matches the provided query.");
-                    res.render("/login");
+                    res.render("users/login");
                     next();
                 }
             })
@@ -397,7 +458,7 @@ module.exports = {
     logout: (req, res, next) => {
         req.logout();
         req.flash("success", "You have been logged out!");
-        res.locals.redirect = "/login";
+        res.locals.redirect = "/";
         console.log(res.locals.redirect);
         next();
     },
@@ -516,7 +577,7 @@ module.exports = {
 
     //----------------------------------------------------------------------------------------------//
     getLogInPage: (req, res) => {
-        res.render("/login");
+        res.render("users/login");
     },
 
     //----------------------------------------------------------------------------------------------//
