@@ -49,7 +49,15 @@
                     <div class="card post">
                         <div class="card-header post-header text-start">
                             <img src="/images/avatar.png" alt="Avatar" class="avatar"> <%=post.username %>
+<<<<<<< Updated upstream
                             <a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure?')">Delete</a>
+=======
+                            <% if (post.username == currentUser.username) { %> 
+                                <a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure?')">Delete</a>
+                                <% } else { %> 
+                                <a href="<%=`/users/${post.posterId}/addFriend` %>" onclick="">Follow</a>
+                                <% } %>
+>>>>>>> Stashed changes
                         </div>
                         <div class="card-body">
                             <p class="card-text post-text">
