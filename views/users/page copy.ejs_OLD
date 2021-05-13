@@ -51,9 +51,6 @@
             <div class="text-center border-bottom">
                 Friends
             </div>
-            <div class="card-body">
-                count: <%= currentUser.friends.length %>
-            </div>
         </div>
     </div>
 </div>
