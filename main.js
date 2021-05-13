@@ -18,9 +18,9 @@ const express = require("express"),
   expressSession = require("express-session"),
   cookieParser = require("cookie-parser"),
   connectFlash = require("connect-flash"),
+  expressValidator = require("express-validator"),
   morgan = require("morgan"),
   //bcrypt = require("bcrypt"),
-  expressValidator = require("express-validator"),
   passport = require("passport"),
   usersController = require("./controllers/usersController"),
   homeController = require("./controllers/homeController"),
@@ -56,8 +56,9 @@ app.set(
 	 );
 app.set("token", process.env.TOKEN || "SoCiALT0k3n");
 
-router.use(morgan("combined"));
+//router.use(morgan("combined"));
 
+router.use(express.static("public"));
 router.use(layouts);
 router.use(
     express.urlencoded({
@@ -98,9 +99,8 @@ router.use((req, res, next) => {
   next();
 });
 
-router.use(express.static("public"));
 //!!FIXME!! exoressValidator isnt a function error
-//router.use(expressValidator());
+router.use(expressValidator());
 
 router.get("/", homeController.showSignIn);
 router.get("/signup", homeController.showSignUp);
@@ -116,6 +116,7 @@ router.get("/home/:id", usersController.showHome, usersController.showViewHome);
 router.get("/users/:id/page", usersController.showUserPage, usersController.showViewUserPage);
 
 router.get("/users/login", homeController.showSignIn);
+
 router.post("/users/login", usersController.authenticate, usersController.redirectView);
 //router.post("/users/login", usersController.authenticate);
 

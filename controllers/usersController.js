@@ -247,23 +247,15 @@ module.exports = {
                         successRedirect: "/home/:id",
                         //successRedirect: `users/home/${user._id}`,
                         successFlash: "Logged in!"  
-                    })
+                    }),
                     res.locals.redirect = `/home/${user._id}`;
                     next();
                     /*
-                    console.log("authSuccess VALUE: ");
-                    console.log(authSuccess);
-                    if (authSuccess) {
-                        console.log("authSuccess TRUE");
-                        req.flash("success", `${user.firstname} logged in successfully!`);
+                    (req, res) => {
+                        console.log(`success: server.post login   req.user.username:${req.user.username}`)
                         res.locals.redirect = `/home/${user._id}`;
-                    } else {
-                        console.log("authSuccess FALSE");
-                        req.flash("error", "Failed to authenticate. Please check your username and password.");
-                        res.locals.redirect = "/login";
                     }
                     */
-                    //next();
                     
                 } else {
                     req.flash("error", "Failed to authenticate. User not found.");
@@ -282,14 +274,26 @@ module.exports = {
 
     /* Version provided by Matthew
     authenticate: passport.authenticate("local", {
-        failureRedirect: "/login",
+        failureRedirect: "/",
         failureFlash: "Failed to login!",
         successRedirect: "/home/:id",
         //successRedirect: `/home/${user._id}`,
         successFlash: "Logged in!"
     }),
     */
-    
+
+    /*CLOSEST SO FAR
+    authenticate: passport.authenticate('local',
+        { 
+            failureRedirect: "/",
+        },
+        (req, res) => {
+      // If this function gets called, authentication was successful.
+      // `req.user` contains the authenticated user.
+        console.log("authenticate success"),
+        res.locals.redirect = `/home/${req.user._id}`;
+    }),
+    */
 
     /* !!FIXME!! function compiles, but hashes never match properly
     authenticate: (req, res, next) => {
