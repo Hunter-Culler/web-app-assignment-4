@@ -119,11 +119,10 @@ router.get("/users/:id/page", usersController.showUserPage, usersController.show
 
 router.get("/users/login", homeController.showSignIn);
 
-router.post("/users/login", passport.authenticate('local' , {failureRedirect:'/', failureFlash: true}),
+router.post("/users/login", passport.authenticate('local' , {failureRedirect:'/', failureFlash: true, successFlash: "Logged in!"}),
 function(req, res) {
    res.redirect(`/home/${req.user._id}`);
 });
-//router.post("/users/login", usersController.authenticate);
 
 router.get("/users/:id/posts", usersController.showPosts, usersController.showViewPosts);
 
