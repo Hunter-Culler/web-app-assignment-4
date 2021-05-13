@@ -21,7 +21,6 @@ const express = require("express"),
   connectFlash = require("connect-flash"),
   expressValidator = require("express-validator"),
   morgan = require("morgan"),
-  //bcrypt = require("bcrypt"), MOT NEEDED ANYMORE
   passport = require("passport"),
   usersController = require("./controllers/usersController"),
   homeController = require("./controllers/homeController"),
