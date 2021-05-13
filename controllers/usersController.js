@@ -428,6 +428,30 @@ module.exports = {
     
 
     //----------------------------------------------------------------------------------------------//
+    removeFriend: (req, res, next) => {
+        let currUser = res.locals.currentUser;
+        let userId = req.params.id;
+        if (currUser) {
+                console.log("User:");
+                console.log(currUser);
+                console.log("Removed Friend:");
+                console.log(req.user.username);
+                User.findByIdAndUpdate(currUser, {
+                    $pull: {
+                        friends: userId
+                    }
+                })
+                .then(() => {
+                    next();
+                })
+                .catch(error => {
+                    console.log(`Error fetching user by ID: ${error.message}`);
+                    next(error);
+                });
+        }    
+    },
+
+    //----------------------------------------------------------------------------------------------//
     getLogInPage: (req, res) => {
         res.render("users/login");
     },
