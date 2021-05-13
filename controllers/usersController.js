@@ -532,6 +532,7 @@ module.exports = {
     //----------------------------------------------------------------------------------------------//
     showPosts: (req, res, next) => {
         let userId = req.params.id;
+        console.log("In show posts");
 
         const db = mongoose.connection;
         var dbo = db
@@ -544,6 +545,7 @@ module.exports = {
 
                 Post.find(queryID)
                     .then(posts => {
+                        console.log(posts);
                         res.locals.posts = posts;
                         next();
                     })
@@ -560,7 +562,8 @@ module.exports = {
 
     //----------------------------------------------------------------------------------------------//
     showViewPosts: (req, res) => {
-        res.render("/users/myPosts");
+        console.log("rendering posts page");
+        res.render("users/posts");
     },
 
     //----------------------------------------------------------------------------------------------//

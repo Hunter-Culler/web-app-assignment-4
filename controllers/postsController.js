@@ -16,6 +16,7 @@ const { reset } = require("nodemon");
 const User = require("../models/user");
 const Post = require("../models/post");
 const Hashtag = require("../models/hashtag");
+const { post } = require("jquery");
 
 module.exports = {
     index: (req, res, next) => {
@@ -94,7 +95,7 @@ module.exports = {
     show: (req, res, next) => {
         let postId = req.params.id;
         Post.findById(postId)
-        .then(course => {
+        .then(post => {
             res.locals.post = post;
             next();
         })

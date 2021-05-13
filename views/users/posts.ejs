@@ -8,3 +8,19 @@
 
 	Status = Functional
 -->
+<% posts.forEach(post => { %>
+	<div class="card post">
+		<div class="card-header post-header text-start">
+			<img src="/images/avatar.png" alt="Avatar" class="avatar"> <%=post.username %>
+			<a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure?')">Delete</a>
+		</div>
+		<div class="card-body">
+			<p class="card-text post-text">
+				<%= post.caption %>
+			</p>
+			<div class="post-published">
+				Published: <%= post.createdAt %>
+			</div>
+		</div>
+	</div>
+<% }) %>
