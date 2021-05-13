@@ -52,7 +52,7 @@
                             <% if (post.username == currentUser.username) { %> 
                                 <a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure?')">Delete</a>
                                 <% } else { %> 
-                                <a href="" onclick="">Follow</a>
+                                <a href="<%= `/users/${currentUser._id}/addFriend` %>" onclick="">Follow</a>
                                 <% } %>
                         </div>
                         <div class="card-body">

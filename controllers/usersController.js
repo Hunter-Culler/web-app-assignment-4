@@ -404,12 +404,39 @@ module.exports = {
 
     //----------------------------------------------------------------------------------------------//
     addFriend: (req, res, next) => {
+        let currUser = res.locals.currentUser;
         let userId = req.params.id;
-        
+        if (currUser) {
+                console.log("User:");
+                console.log(currUser);
+                console.log("Added Friend:");
+                console.log(req.user.username);
+                User.findByIdAndUpdate(currUser, {
+                    $addToSet: {
+                        friends: userId
+                    }
+                })
+                .then(() => {
+                    next();
+                })
+                .catch(error => {
+                    console.log(`Error fetching user by ID: ${error.message}`);
+                    next(error);
+                });
+        }    
+    },
+    
+     /*
+    addFriend: (req, res, next) => {
+        let currUser = res.locals.currentUser;
+        let userId = req.params.id;
         User.findById(userId)
             .then(user => {
+                console.log("User:");
+                console.log(currUser);
+                console.log("Added Friend:");
                 console.log(user.username);
-                user.friends.push();
+                currUser.friends.push(user._id);
                 next();
             })
             .catch(error => {
@@ -417,6 +444,7 @@ module.exports = {
                 next(error);
             })
     },
+    */
 
     //----------------------------------------------------------------------------------------------//
     getLogInPage: (req, res) => {

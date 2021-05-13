@@ -3,7 +3,9 @@
 	University of Colorado Denver CSCI 4800 E01
 	Web Application Developement
 	Group Assignment 4
+
 	May 12th, 2021
+
 	Status = Functional
 -->
 
@@ -50,6 +52,23 @@
         <div class="col">
             <div class="text-center border-bottom">
                 Friends
+            </div>
+            <div class="card-body">
+                count: <%= currentUser.friends.length %>
+                <!--
+                <% for (var i = 0; i < currentUser.friends.length; i++) { %>
+                    <% let currentFriendID = currentUser.friends[i]; %>
+                     <% User.findById(currentFriendID) %> 
+                        <% .then(user => { %>  
+                    <p>
+                        <a href="<%=`/users/${currentUser.friends[i]}/page`%>">
+                            <%= currentFriendID.firstname %> 
+                            <%= currentFriendID.lastname %>
+                        </a>
+                    </p>
+                        <% } %>  
+                 <% } %>  
+                -->
             </div>
         </div>
     </div>
