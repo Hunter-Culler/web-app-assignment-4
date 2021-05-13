@@ -231,7 +231,7 @@ module.exports = {
     },
     */
     
-    // V3 of aunthenticate 
+    // V3 of aunthenticate, currently lets anyone through, correct or incorrect password.
     authenticate: (req, res, next) => {
         console.log("authenticating");
         User.findOne({
@@ -248,6 +248,10 @@ module.exports = {
                         //successRedirect: `users/home/${user._id}`,
                         successFlash: "Logged in!"  
                     }),
+                    //!!Important!! this line it why is will always successfully redirect regardless of password,
+                    //however the server freezes without it.  I've tried to make it conditional with the function below it without success so far.
+                    //authenticate is supposed to execute the subceeding event handler only when successful but again it just causes
+                    //the server to freeze and even crash sometimes.
                     res.locals.redirect = `/home/${user._id}`;
                     next();
                     /*
@@ -271,6 +275,7 @@ module.exports = {
     
     
     
+    
 
     /* Version provided by Matthew
     authenticate: passport.authenticate("local", {
@@ -284,16 +289,46 @@ module.exports = {
 
     /*CLOSEST SO FAR
     authenticate: passport.authenticate('local',
-        { 
+        {
             failureRedirect: "/",
         },
-        (req, res) => {
-      // If this function gets called, authentication was successful.
-      // `req.user` contains the authenticated user.
-        console.log("authenticate success"),
-        res.locals.redirect = `/home/${req.user._id}`;
-    }),
+        (req, res, next) => {
+            // If this function gets called, authentication was successful.
+            // `req.user` contains the authenticated user.
+            if(res){
+            console.log(res),
+            res.locals.redirect = `/home/${res.user._id}`,
+            console.log("authenticate success"),
+            next();
+            }
+        }),
     */
+        
+    
+    /*
+    authenticate: (req, res, next) => {
+        User.findOne({ username: req.body.username })
+            .then(user => {
+                if (user) {
+                    passport.authenticate('local',
+                        {
+                            failureRedirect: "/",
+                        },
+                        (req, res, next) => {
+                            // If this function gets called, authentication was successful.
+                            // `req.user` contains the authenticated user.
+                            console.log("authenticate success"),
+                            res.locals.redirect = `/home/${req.user._id}`;
+                        })
+                } else {
+                    req.flash("error", "Login failed, User not registered");
+                    res.locals.redirect = "/";
+                    next();
+                }
+            }
+    },
+    */
+    
 
     /* !!FIXME!! function compiles, but hashes never match properly
     authenticate: (req, res, next) => {

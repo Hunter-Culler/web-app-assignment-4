@@ -56,7 +56,7 @@ app.set(
 	 );
 app.set("token", process.env.TOKEN || "SoCiALT0k3n");
 
-//router.use(morgan("combined"));
+router.use(morgan("combined"));
 
 router.use(express.static("public"));
 router.use(layouts);
