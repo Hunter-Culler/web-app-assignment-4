@@ -271,6 +271,7 @@ module.exports = {
     
     
     
+    
 
     /* Version provided by Matthew
     authenticate: passport.authenticate("local", {
@@ -284,16 +285,46 @@ module.exports = {
 
     /*CLOSEST SO FAR
     authenticate: passport.authenticate('local',
-        { 
+        {
             failureRedirect: "/",
         },
-        (req, res) => {
-      // If this function gets called, authentication was successful.
-      // `req.user` contains the authenticated user.
-        console.log("authenticate success"),
-        res.locals.redirect = `/home/${req.user._id}`;
-    }),
+        (req, res, next) => {
+            // If this function gets called, authentication was successful.
+            // `req.user` contains the authenticated user.
+            if(res){
+            //console.log(req),
+            res.locals.redirect = `/home/${res.user._id}`,
+            console.log("authenticate success"),
+            next();
+            }
+        }),
     */
+        
+    
+    /*
+    authenticate: (req, res, next) => {
+        User.findOne({ username: req.body.username })
+            .then(user => {
+                if (user) {
+                    passport.authenticate('local',
+                        {
+                            failureRedirect: "/",
+                        },
+                        (req, res, next) => {
+                            // If this function gets called, authentication was successful.
+                            // `req.user` contains the authenticated user.
+                            console.log("authenticate success"),
+                            res.locals.redirect = `/home/${req.user._id}`;
+                        })
+                } else {
+                    req.flash("error", "Login failed, User not registered");
+                    res.locals.redirect = "/";
+                    next();
+                }
+            }
+    },
+    */
+    
 
     /* !!FIXME!! function compiles, but hashes never match properly
     authenticate: (req, res, next) => {
