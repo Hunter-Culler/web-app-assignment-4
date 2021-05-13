@@ -52,9 +52,10 @@
                 Friends
             </div>
             <div class="card-body">
-                count: <%= currentUser.friends.length %>
+                friend count: <%= currentUser.friends.length %>
                 <% for (var i = 0; i < currentUser.friends.length; i++) { %>
                     <% let currentFriendID = currentUser.friends[i]; %>
+                    
                 <% } %>
             </div>
         </div>
