@@ -8,11 +8,11 @@ mongoose.connection;
 
 var users = [
     {
-        firstname: Hunter,
-        lastname: Culler,
-        username: hunterwc,
-        password: password1,
-        dob: 05/26/1994,
+        firstname: 'Hunter',
+        lastname: 'Culler',
+        username: 'hunterwc',
+        password: 'password1',
+        dob: '05/26/1994',
         gender: "Male",
         telephone: "720-440-3370",
         email: "hunterwc@gmail.com",

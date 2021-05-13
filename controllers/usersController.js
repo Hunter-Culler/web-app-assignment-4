@@ -142,7 +142,7 @@ module.exports = {
     create: (req, res, next) => {
         if (req.skip) return next();
         let userParams = getUserParams(req.body);
-
+        console.log(userParams);
         let newUser = new User(userParams);
         //newUser.Handle = newUser.Username;
         User.register(newUser, req.body.password, (error, user) => {
@@ -187,6 +187,49 @@ module.exports = {
     },
 
     //----------------------------------------------------------------------------------------------//
+    
+
+    // V3 of aunthenticate 
+    authenticate: (req, res, next) => {
+        console.log("authenticating");
+        User.findOne({
+            username: req.body.username,
+            password: req.body.password
+        })
+            .then(user => {
+                if (user) {
+                    console.log("User found in DB");
+                    passport.authenticate("local", {
+                        failureRedirect: "/login",
+                        failureFlash: "Failed to login!",
+                        successRedirect: `/home/${user._id}`,
+                        successFlash: "Logged in!"  
+                    })
+                    res.locals.redirect = `/home/${user._id}`;
+                    next();
+                } else {
+                    req.flash("error", "Failed to authenticate. Please check your username and password.");
+                    res.locals.redirect = "/login";
+                    next();
+                }
+            })
+            .catch(error => {
+                console.log(`Error logging in user: ${error.message}`);
+                next(error);
+            });
+    },
+    
+
+    /* Version provided by Matthew
+    authenticate: passport.authenticate("local", {
+        failureRedirect: "/login",
+        failureFlash: "Failed to login!",
+        successRedirect: "/home/:id",
+        //successRedirect: "/home/",
+        successFlash: "Logged in!"
+    }),
+    */
+
     /* !!FIXME!! function compiles, but hashes never match properly
     authenticate: (req, res, next) => {
         User.findOne({username: req.body.username})
@@ -250,7 +293,7 @@ module.exports = {
     },
     */
 
-    //  OLD authenticate without hashing
+    /*  OLD authenticate without hashing
     authenticate: (req, res, next) => {
         console.log("authenticating");
         User.findOne({
@@ -273,6 +316,7 @@ module.exports = {
                 next(error);
             });
     },
+    */
     
 
 //----------------------------------------------------------------------------------------------//
@@ -378,6 +422,7 @@ module.exports = {
 
     //----------------------------------------------------------------------------------------------//
     showHome: (req, res, next) => {
+        console.log(req.params);
         let userId = req.params.id;
         User.findById(userId)
         .then(user => {

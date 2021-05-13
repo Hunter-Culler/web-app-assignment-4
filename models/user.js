@@ -17,17 +17,19 @@ const mongoose = require("mongoose"),
 passport = require('passport'),
 bcrypt = require("bcrypt"),
 user = require("./user"),
-passportLogicalMongoose = require("passport-local-mongoose"),
+passportLocalMongoose = require("passport-local-mongoose"),
 userSchema = new mongoose.Schema(
     {
         username: {
             type: String,
             required: true
         },
+        /*
         password: {
             type: String,
             required: true
         },
+        */
         firstname: {
             type: String,
             required: true
@@ -81,9 +83,7 @@ userSchema = new mongoose.Schema(
     }
 );
 
-userSchema.plugin(passportLogicalMongoose, {
-    usernameField: "username"
-});
+
 
 userSchema.virtual("fullName").get(function() {
     return `${this.firstname} ${this.lastname}`;
@@ -103,7 +103,6 @@ userSchema.pre("save", function(next) {
             next(error);
         });
 });
-*/
 
 userSchema.methods.passwordComparison = function(inputPassword) {
     let user = this;
@@ -113,5 +112,11 @@ userSchema.methods.passwordComparison = function(inputPassword) {
 
     return bcrypt.compare(inputPassword, user.password);
 };
+*/
+
+userSchema.plugin(passportLocalMongoose, {
+    usernameField: "username",
+    passwordField: "password"
+});
 
 module.exports = mongoose.model("User", userSchema);
