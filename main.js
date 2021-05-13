@@ -101,7 +101,6 @@ router.use((req, res, next) => {
   next();
 });
 
-//!!FIXME!! exoressValidator isnt a function error
 router.use(expressValidator());
 
 router.get("/", homeController.showSignIn);
@@ -113,7 +112,6 @@ router.post("/signup", usersController.validate, usersController.create, usersCo
 router.get("/logout", usersController.logout, usersController.redirectView);
 
 router.get("/home/:id", usersController.showHome, usersController.showViewHome);
-//router.get("/home/", usersController.showHome, usersController.showViewHome);
 
 router.get("/users/:id/page", usersController.showUserPage, usersController.showViewUserPage);
 
