@@ -48,6 +48,7 @@ textarea {
 
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
+	font-size: 2em;
 	color: white;
 }
 

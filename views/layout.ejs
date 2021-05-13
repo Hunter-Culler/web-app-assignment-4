@@ -24,27 +24,27 @@
             <% if (currentUser) { %>
                 <nav class="navbar navbar-custom">
                     <div id="nav">
-                        <a class="navbar-brand nav-align" style="color: white" href="#">Social Media Website</a>
+                        <a class="navbar-brand nav-align" href="#">Social Media Website</a>
                         <ul class="navbar nav-align">
-                            <li class="nav-item active">
-                                <a href="/" class="nav-link" href="<%= `/home/${currentUser.id}` %>" style="color:white">Home</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#" style="color:white">Profile</a>
-                            </li>
-                            <li class="nav-item active">
+                            <div class="nav-item active">
+                                <a class="nav-link" href="<%= `/home/${currentUser.id}` %>" style="color:white">Home</a>
+                            </div>
+                            <div class="nav-item active">
+                                <a class="nav-link" href="<%= `/users/${currentUser._id}/page` %>" style="color:white">Profile</a>
+                            </div>
+                            <div class="nav-item active">
                                 <a class="nav-link" href="#" style="color:white">Friends</a>
-                            </li>
-                            <li class="nav-item active">
+                            </div>
+                            <div class="nav-item active">
                                 <a href="/logout" class="nav-link"  style="color:white">Logout</a>
-                            </li>
+                            </div>
                         </ul>
                     </div>
                 </nav>
             <% } else { %>
                 <nav class = "navbar navbar-custom">
                     <div id="nav">
-                        <a class="navbar-brand nav-align" style="color: white" href="#">Social Media Website</a>
+                        <a class="navbar-brand nav-align" href="#">Social Media Website</a>
                     </div>
                 </nav>
             <% } %>
