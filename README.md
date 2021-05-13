@@ -65,4 +65,18 @@ Post objects are stored in MongoDB. When a post is created it is parsed to see i
 #### Hashtags
 Hashtag objects are stored in the MongoDB. After a Post is created, its array of hashtags are looped through, and every hashtag that is already in the db are incremented and those that are not already included have an object created for them. These hashtags are displayed on the main page of every user in decrementing order of occurrences. 
 
+## To Run
+Download this repository and make sure npm and mongodb are installed. Then in the folder where the repository was downloaded, run the following commands:
+```
+npm install
+npm start
+```
+
+Then the site will be up and running on localhost at port 3000.
+
+## Breakdown of responsibilities
+Hunter Culler - Hashtag Implementation, Posts implementation, Authentication, CSS, Sign In, 
+
+Ian Anderson - Friending/Unfriending, Sign Up, 
+
 

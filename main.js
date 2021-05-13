@@ -12,6 +12,7 @@
 const express = require("express"),
   app = express(),
   router = express.Router(),
+  //router = require("./routes/index"),
   layouts = require("express-ejs-layouts"),
   mongoose = require("mongoose"),
   methodOverride = require("method-override"),
@@ -73,6 +74,7 @@ router.use(
   );
 
 router.use(express.json());
+router.use(expressValidator());
 router.use(cookieParser("secret_passcode"));
 router.use(
   expressSession({
@@ -86,7 +88,7 @@ router.use(
 );
 
 router.use(connectFlash());
-
+router
 router.use(passport.initialize());
 router.use(passport.session());
 passport.use(User.createStrategy());
@@ -101,7 +103,6 @@ router.use((req, res, next) => {
   next();
 });
 
-router.use(expressValidator());
 
 router.get("/", homeController.showSignIn);
 router.get("/signup", homeController.showSignUp);
@@ -138,6 +139,7 @@ router.get("")
 
 //router.use(errorController.pageNotFoundError());
 //router.use(errorController.internalServerError());
+
 
 app.use("/", router);
 
