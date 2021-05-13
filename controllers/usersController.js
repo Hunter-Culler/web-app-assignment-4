@@ -248,9 +248,9 @@ module.exports = {
                         //successRedirect: `users/home/${user._id}`,
                         successFlash: "Logged in!"  
                     }),
-                    //!!Important!! this line is why is will always successfully redirect, however the server freezes without it.
-                    //If tried to make it conditional with the function below it without success so far.
-                    //authenticate is supposed to execute the following event handler only when successful but again it just causes
+                    //!!Important!! this line it why is will always successfully redirect regardless of password,
+                    //however the server freezes without it.  I've tried to make it conditional with the function below it without success so far.
+                    //authenticate is supposed to execute the subceeding event handler only when successful but again it just causes
                     //the server to freeze and even crash sometimes.
                     res.locals.redirect = `/home/${user._id}`;
                     next();
