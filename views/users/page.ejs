@@ -53,6 +53,21 @@
             <div class="text-center border-bottom">
                 Friends
             </div>
+            <div class="card-body">
+                count: <%= currentUser.friends.length %>
+                <% for (var i = 0; i < currentUser.friends.length; i++) { %>
+                    <% let currentFriendID = currentUser.friends[i]; %>
+                    <% User.findById(currentFriendID) %>
+                        <% .then(user => { %>
+                    <p>
+                        <a href="<%=`/users/${currentUser.friends[i]}/page`%>">
+                            <%= user.firstname %> 
+                            <%= user.lastname %>
+                        </a>
+                    </p>
+                        <% } %>
+                <% } %>
+            </div>
         </div>
     </div>
 </div>
