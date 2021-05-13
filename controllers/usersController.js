@@ -94,7 +94,7 @@ module.exports = {
     },
 
     //----------------------------------------------------------------------------------------------//
-    edit: (req, res) => {
+    edit: (req, res, next) => {
         let userId = req.params.id;
         User.findById(userId)
             .then(user => {
@@ -128,7 +128,7 @@ module.exports = {
             $set: userParams
         })
             .then(user => {
-                res.locals.redirect = `/users/${user._id}/userPage`;
+                res.locals.redirect = `/users/${user._id}/page`;
                 next();
             })
             .catch(error => {

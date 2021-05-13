@@ -132,6 +132,8 @@ router.delete("/posts/:id/delete", postsController.delete, postsController.redir
 
 router.get("/users/:id/edit", usersController.edit, usersController.showEdit);
 router.put("/users/:id/update", usersController.update, usersController.redirectView);
+//router.put("/users/:id/userPage", usersController.showUserPage, usersController.showViewUserPage);
+
 router.get("/users/:id/addFriend", usersController.addFriend, usersController.showViewUserPage);
 
 router.get("")

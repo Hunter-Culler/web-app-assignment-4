@@ -20,10 +20,10 @@ router.get("/users/:id/page", usersController.showUserPage, usersController.show
 router.get("/users/:id/posts", usersController.showPosts, usersController.showViewPosts);
 
 //edit
-router.get("/users/:id/edit", usersController.edit, usersController.showEdit);
+//router.get("/users/:id/edit", usersController.edit, usersController.showEdit);
 
 //update
-router.put("/users/:id/update", usersController.update, usersController.redirectView);
+//router.put("/users/:id/update", usersController.update, usersController.redirectView);
 
 //add friend
 router.get("/users/:id/addFriend", usersController.addFriend, usersController.showViewUserPage);
