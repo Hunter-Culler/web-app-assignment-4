@@ -78,7 +78,7 @@ router.use(
   expressSession({
     secret: "secret_passcode",
     cookie: {
-      maxAge: 4000000
+      maxAge: 360000
     },
     resave: false,
     saveUninitialized: false
@@ -106,7 +106,7 @@ router.use(expressValidator());
 
 router.get("/", homeController.showSignIn);
 router.get("/signup", homeController.showSignUp);
-router.post("/signup", usersController.create, usersController.redirectView);
+router.post("/signup", usersController.validate, usersController.create, usersController.redirectView);
 
 //router.use(usersController.verifyJWT);
 
@@ -119,7 +119,10 @@ router.get("/users/:id/page", usersController.showUserPage, usersController.show
 
 router.get("/users/login", homeController.showSignIn);
 
-router.post("/users/login", usersController.authenticate, usersController.redirectView);
+router.post("/users/login", passport.authenticate('local' , {failureRedirect:'/', failureFlash: true}),
+function(req, res) {
+   res.redirect(`/home/${req.user._id}`);
+});
 //router.post("/users/login", usersController.authenticate);
 
 router.get("/users/:id/posts", usersController.showPosts, usersController.showViewPosts);

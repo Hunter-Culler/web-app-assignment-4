@@ -17,11 +17,21 @@
         <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <div id="flashMessages">
+            <% if (flashMessages) {%>
+                <% if (flashMessages.success) { %>
+                    <div class="flash"><%= flashMessages.success %></div>
+                <% } else if (flashMessages.error) { %>
+                    <div class="flash error"><%= flashMessages.error %></div>
+                <% } %>
+            <% } %>
+        </div>
     </head>
 
     <body>
         <header>
-            <% if (currentUser) { %>
+            <% if (loggedIn) { %>
                 <nav class="navbar navbar-custom">
                     <div id="nav">
                         <a class="navbar-brand nav-align" href="#">Social Media Website</a>
@@ -53,16 +63,6 @@
             <% } %>
             
         </header>
-
-        <div id="flashMessages">
-            <% if (flashMessages) {%>
-                <% if (flashMessages.success) { %>
-                    <div class="flash"><%= flashMessages.success %></div>
-                <% } else if (flashMessages.error) { %>
-                    <div class="flash error"><%= flashMessages.error %></div>
-                <% } %>
-            <% } %>
-        </div>
         
         <div class="container-fluid">
             <%- body %>

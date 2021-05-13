@@ -89,12 +89,13 @@ userSchema.virtual("fullName").get(function() {
     return `${this.firstname} ${this.lastname}`;
 });
 
-/*  !!FIXME!! Hash comparisons never match properly
+/*  !!FIXME!! Hash comparisons never match properly*/
+/*
 userSchema.pre("save", function(next) {
     let user = this;
-    bcrypt
-        .hash(user.password, 10)
-        .then(hash => {
+    console.log("Password to hash:");
+    console.log(user.password);
+    bcrypt.hash(user.password, 10).then(hash => {
             user.password = hash;
             next();
         })
@@ -103,6 +104,7 @@ userSchema.pre("save", function(next) {
             next(error);
         });
 });
+*/
 
 userSchema.methods.passwordComparison = function(inputPassword) {
     let user = this;
@@ -112,7 +114,7 @@ userSchema.methods.passwordComparison = function(inputPassword) {
 
     return bcrypt.compare(inputPassword, user.password);
 };
-*/
+
 
 userSchema.plugin(passportLocalMongoose, {
     usernameField: "username",

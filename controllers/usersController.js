@@ -25,7 +25,6 @@ const User = require("../models/user"),
             firstname: body.firstname,
             lastname: body.lastname,
             username: body.username,
-            password: body.password,
             dob: body.dob,
             gender: body.gender,
             telephone: body.telephone,
@@ -123,7 +122,6 @@ module.exports = {
                 last: req.body.last,
             },
             email: req.body.email,
-            password: req.body.password,
             zipCode: req.body.zipCode
         })
         User.findByIdAndUpdate(userId, {
@@ -167,11 +165,30 @@ module.exports = {
     //----------------------------------------------------------------------------------------------//
     validate: (req, res, next) => {
 
-        req.sanitizeBody("email".normalizeEmail({
-            all_lowercase: true
-        })).trim();
-
+        req
+            .sanitizeBody("email")
+            .normalizeEmail({
+                all_lowercase: true
+            })
+            .trim();
         req.check("email", "email is not valid!").isEmail();
+
+        req
+            .check("zipCode", "Zip code is invalid")
+            .notEmpty()
+            .isInt()
+            .isLength({
+                min: 5,
+                max: 5
+            })
+            .equals(req.body.zipCode);
+        
+        req.check("firstname", "First name can not be empty.").notEmpty();
+
+        req.check("lastname", "Last name can not be empty.").notEmpty();
+
+        req.check("username", "Username can not be empty.").notEmpty();
+
         req.check("password", "Password can not be empty.").notEmpty();
 
         req.getValidationResult().then((error) => {
@@ -232,35 +249,26 @@ module.exports = {
     */
     
     // V3 of aunthenticate, currently lets anyone through, correct or incorrect password.
+    /*
     authenticate: (req, res, next) => {
         console.log("authenticating");
         User.findOne({
             username: req.body.username,
-            //password: req.body.password
         })
             .then(user => {
                 if (user) {
-                    console.log("User found in DB");
-                    passport.authenticate("local", {
-                        failureRedirect: "/",
-                        failureFlash: "Failed to login!",
-                        successRedirect: "/home/:id",
-                        //successRedirect: `users/home/${user._id}`,
-                        successFlash: "Logged in!"  
-                    }),
-                    //!!Important!! this line it why is will always successfully redirect regardless of password,
-                    //however the server freezes without it.  I've tried to make it conditional with the function below it without success so far.
-                    //authenticate is supposed to execute the subceeding event handler only when successful but again it just causes
-                    //the server to freeze and even crash sometimes.
-                    res.locals.redirect = `/home/${user._id}`;
-                    next();
-                    /*
-                    (req, res) => {
-                        console.log(`success: server.post login   req.user.username:${req.user.username}`)
-                        res.locals.redirect = `/home/${user._id}`;
-                    }
-                    */
-                    
+                    user.passwordComparison(req.body.password)
+                        .then(passwordsMatch => {
+                            if (passwordsMatch) {
+                                res.locals.redirect = `/home/${user._id}`;
+                                req.flash("success", `${user.firstname}'s logged in`);
+                                res.locals.user = user;
+                            } else {
+                                req.flash("error", `Failed to log into user account: Incorrect password`);
+                                res.locals.redirect = "/";
+                            }
+                            next();
+                        });
                 } else {
                     req.flash("error", "Failed to authenticate. User not found.");
                     res.locals.redirect = "/";
@@ -272,20 +280,21 @@ module.exports = {
                 next(error);
             });
     },
+    */
     
     
     
     
 
-    /* Version provided by Matthew
+    /* Version provided by Matthew*/
     authenticate: passport.authenticate("local", {
         failureRedirect: "/",
-        failureFlash: "Failed to login!",
-        successRedirect: "/home/:id",
-        //successRedirect: `/home/${user._id}`,
+        failureFlash: true,
+        //successRedirect: "/home/:id",
+        successRedirect: "/",
         successFlash: "Logged in!"
     }),
-    */
+    
 
     /*CLOSEST SO FAR
     authenticate: passport.authenticate('local',
