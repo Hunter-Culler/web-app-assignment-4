@@ -165,6 +165,7 @@ module.exports = {
     //----------------------------------------------------------------------------------------------//
     validate: (req, res, next) => {
 
+        // validate email
         req
             .sanitizeBody("email")
             .normalizeEmail({
@@ -173,6 +174,7 @@ module.exports = {
             .trim();
         req.check("email", "email is not valid!").isEmail();
 
+        //validate zipcode
         req
             .check("zipCode", "Zip code is invalid")
             .notEmpty()
@@ -183,6 +185,7 @@ module.exports = {
             })
             .equals(req.body.zipCode);
         
+        //validate name, username and passsword
         req.check("firstname", "First name can not be empty.").notEmpty();
 
         req.check("lastname", "Last name can not be empty.").notEmpty();
@@ -191,6 +194,7 @@ module.exports = {
 
         req.check("password", "Password can not be empty.").notEmpty();
 
+        //get result of validation
         req.getValidationResult().then((error) => {
             if (!error.isEmpty()) {
                 let messages = error.array().map(e => e.msg);
@@ -205,7 +209,6 @@ module.exports = {
     },
 
     //----------------------------------------------------------------------------------------------//
-    /* Version provided by Matthew*/
     //not actually used since I couldn't figure out how to access the user object inside
     authenticate: passport.authenticate("local", {
         failureRedirect: "/",
@@ -271,8 +274,7 @@ module.exports = {
         var dbo = db
 
         var queryUsername = { username: req.body.username, password: req.body.password };
-        //var queryPassword = { password: req.body.password };
-        //var queryResult;
+
         console.log(queryUsername);
         dbo.collection("users").findOne(queryUsername)
             .then(result => {
@@ -318,17 +320,20 @@ module.exports = {
 
     //----------------------------------------------------------------------------------------------//
     showHome: (req, res, next) => {
-        console.log(req.params);
         let userId = req.params.id;
+        //get current user
         User.findById(userId)
         .then(user => {
             res.locals.currentUser = user;
+            //display posts with newest first
             Post.find().sort({ createdAt: `descending` })
             .then(posts => {
                 res.locals.posts = posts;
-                hashtag.find().sort({occurrences: `descending`})
+                //display top 10 occurring hashtags
+                hashtag.find().sort({occurrences: `descending`}).limit(10)
                 .then(hashtags => {
                     res.locals.hashtags = hashtags;
+                    //display all users on the site
                     User.find()
                     .then(users => {
                         res.locals.users = users;

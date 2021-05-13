@@ -55,6 +55,7 @@ module.exports = {
         let userId = req.params.id;
         var username = '';
 
+        //get user to associate to the post
         User.findById(userId)
         .then(user => {
             username = user.username
@@ -70,11 +71,14 @@ module.exports = {
             Post.create(newPost)
             .then(post => {
                 res.locals.post = post;
+                //search post for hashtags used
                 var hashtags = getHashTags(post.caption);
                 if (hashtags.length != 0){
                     for (var i = 0; i < hashtags.length; i++){
                         console.log(hashtags[i]);
                         newPost.hashtags.push(hashtags[i]);
+                        //increments the occurrences value of the hashtag by 1 if it exists in the db,
+                        //otherwise creates a new hashtag object in the db
                         Hashtag.updateOne({hashtag: hashtags[i]}, {$inc : {occurrences : 1}}, {upsert : true}, function(){});
                     }
                 }
@@ -140,6 +144,7 @@ module.exports = {
     }
 }
 
+//function for parsing the post's text for hashtags
 function getHashTags(inputText) {
     var regex = /(?:^|\s)(?:#)([a-zA-Z\d]+)/gm;
     var matches = [];

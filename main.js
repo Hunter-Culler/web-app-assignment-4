@@ -12,7 +12,7 @@
 const express = require("express"),
   app = express(),
   router = express.Router(),
-  //router = require("./routes/index"),
+  //router = require("./routes/index"), FOR WHEN WE GET /routes WORKING
   layouts = require("express-ejs-layouts"),
   mongoose = require("mongoose"),
   methodOverride = require("method-override"),
@@ -21,7 +21,7 @@ const express = require("express"),
   connectFlash = require("connect-flash"),
   expressValidator = require("express-validator"),
   morgan = require("morgan"),
-  //bcrypt = require("bcrypt"),
+  //bcrypt = require("bcrypt"), MOT NEEDED ANYMORE
   passport = require("passport"),
   usersController = require("./controllers/usersController"),
   homeController = require("./controllers/homeController"),
