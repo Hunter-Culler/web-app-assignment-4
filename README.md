@@ -39,10 +39,11 @@ This is the repository for our Social Media Website Project. This website allows
 +-- package.json
 +-- README.md
 +-- seed.js
+```
 
-##Design choices
+## Design choices
 
-###Display
+### Display
 Our site uses multiple pages for each user. Tehy begin on a login page which prompts for a username or password. The user has the option to create an account instead, which takes them to a signup page, prompting them for multiple fields. 
 
 After logging in, they are taken to a main homepage which displays a feed of all posts made by users on the site, a list of the top 10 trending hashtags, and a list of all users on the site, which link to their individual user pages. 
@@ -53,15 +54,15 @@ Each user also has a page that displays all of their own posts, where they can d
 
 Finally there is also a page to display a list of the user's friended users where they can unfriend them if they want.
 
-###Implementation choices
+### Implementation choices
 
-####Users
+#### Users
 User objects are stored in MongoDB. Upon creation their passwords are salted and hashed using passport authentication. Each user has a unique ID which is associated to any post they create. Users have a list of other users they have added as friends. 
 
-####Posts
+#### Posts
 Post objects are stored in MongoDB. When a post is created it is parsed to see if it contains any hashtags, any of which are stored in an array within the post object. These posts are displayed to the user in decrementing order of pubDate. 
 
-####Hashtags
+#### Hashtags
 Hashtag objects are stored in the MongoDB. After a Post is created, its array of hashtags are looped through, and every hashtag that is already in the db are incremented and those that are not already included have an object created for them. These hashtags are displayed on the main page of every user in decrementing order of occurrences. 
 
 
