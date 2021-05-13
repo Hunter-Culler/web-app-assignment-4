@@ -231,7 +231,7 @@ module.exports = {
     },
     */
     
-    // V3 of aunthenticate 
+    // V3 of aunthenticate, currently lets anyone through, correct or incorrect password.
     authenticate: (req, res, next) => {
         console.log("authenticating");
         User.findOne({
@@ -248,6 +248,10 @@ module.exports = {
                         //successRedirect: `users/home/${user._id}`,
                         successFlash: "Logged in!"  
                     }),
+                    //!!Important!! this line is why is will always successfully redirect, however the server freezes without it.
+                    //If tried to make it conditional with the function below it without success so far.
+                    //authenticate is supposed to execute the following event handler only when successful but again it just causes
+                    //the server to freeze and even crash sometimes.
                     res.locals.redirect = `/home/${user._id}`;
                     next();
                     /*
