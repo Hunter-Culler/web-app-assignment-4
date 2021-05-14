@@ -215,3 +215,19 @@ textarea {
 	color: cornflowerblue;
 	border-bottom: black;
 }
+
+.unfollow {
+	color: red;
+}
+
+.follow {
+	color: green;
+}
+
+.user {
+	color: teal;
+}
+
+.userBlk {
+	color: black;
+}

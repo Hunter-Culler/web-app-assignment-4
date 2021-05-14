@@ -23,8 +23,8 @@
                     <% users.forEach(user => { %>
                         <% if ( currentUser.friends.indexOf( user._id ) > -1 ) { %>
                         <p>
-                            <a href="<%=`/users/${user._id}/page`%>" style='color:teal;'><%= user.firstname %> <%= user.lastname %>: </a>
-                            <a href="<%=`/users/${user._id}/removeFriend`%>" style='color:red;'>Unfollow</a>
+                            <a href="<%=`/users/${user._id}/page`%>" class="user"><%= user.firstname %> <%= user.lastname %>: </a>
+                            <a href="<%=`/users/${user._id}/removeFriend`%>" class="unfollow">Unfollow</a>
                         </p>
                         <% } %>
                     <% }) %>
@@ -34,8 +34,8 @@
                     <% users.forEach(user => { %>
                         <% if ( (currentUser.friends.indexOf( user._id ) <= -1) && ( user._id !== currentUser._id ) ) { %>
                         <p>
-                            <a href="<%=`/users/${user._id}/page`%>" style='color:teal;'><%= user.firstname %> <%= user.lastname %>: </a>
-                            <a href="<%=`/users/${user._id}/addFriend`%>" style='color:purple;'>Follow</a>
+                            <a href="<%=`/users/${user._id}/page`%>" class="user" ><%= user.firstname %> <%= user.lastname %>: </a>
+                            <a href="<%=`/users/${user._id}/addFriend`%>" class="follow">Follow</a>
                         </p>
                         <% } %>
                     <% }) %>
@@ -50,7 +50,7 @@
                         <form action="<%=`/posts/${currentUser._id}/create` %>" method="POST">
                             <div row>
                                 <textarea style="resize: none;" class="form-control" type="text" name="caption" id="txtCaption" rows="1"
-                                    placeholder="type your thoughts here" autofocus required></textarea>
+                                    placeholder="type your thoughts here, the world is waiting!" autofocus required></textarea>
                                 <hr style="margin-top: 10px;">
                                 <div>
                                     <button type="submit" class="btn btn-primary">Post</button>
