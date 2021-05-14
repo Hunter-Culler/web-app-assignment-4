@@ -45,7 +45,9 @@ module.exports = {
                 res.render("posts/new", { user: user });
             })
             .catch(error => {
-                console.log(`Error fetching course by ID: ${error.message}`);
+                req.flash("error", `Failed to create post because 
+                of the follwoing errors: ${error.message}`);
+                console.log(`Error creating post: ${error.message}`);
                 next(error);
             })
     },
@@ -86,12 +88,16 @@ module.exports = {
                 res.redirect(`/home/${userId}`);
             })
             .catch(error => {
+                req.flash("error", `Failed to save post because 
+                of the follwoing errors: ${error.message}`);
                 console.log(`Error saving post ${error.message}`)
                 next(error);
             })
         })
         .catch(error => {
-            console.log(`(create post) Error fetching user by ID: ${error.message}`);
+            req.flash("error", `Failed to create postt because 
+            of the follwoing errors: ${error.message}`);
+            console.log(`(create post) Error creating post: ${error.message}`);
         })
     },
 
@@ -104,7 +110,9 @@ module.exports = {
             next();
         })
         .catch(error => {
-            console.log(`Error fetching course by ID: ${error.message}`);
+            req.flash("error", `Failed to show postt because 
+            of the follwoing errors: ${error.message}`);
+            console.log(`Error fetching post by ID: ${error.message}`);
         })
     },
 
@@ -129,7 +137,9 @@ module.exports = {
                 next();
             })
             .catch(error => {
-                console.log(`(delete) Error fetching post by ID: ${error.message}`);
+                req.flash("error", `Failed to delete post because 
+                of the follwoing errors: ${error.message}`);
+                console.log(`(delete) Error deleting post by ID: ${error.message}`);
                 next(error);
             })
         })
