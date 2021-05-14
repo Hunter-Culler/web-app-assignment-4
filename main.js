@@ -9,6 +9,8 @@
 	Status = Functional
 */
 
+const { render } = require("ejs");
+
 const express = require("express"),
   app = express(),
   router = express.Router(),
@@ -104,6 +106,7 @@ router.use((req, res, next) => {
 
 
 router.get("/", homeController.showSignIn);
+router.get("/contact", homeController.showContactView);
 router.get("/signup", homeController.showSignUp);
 router.post("/signup", usersController.validate, usersController.create, usersController.redirectView);
 

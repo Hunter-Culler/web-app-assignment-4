@@ -1,0 +1,22 @@
+<head>
+    <h1>Contact Us</h1>
+</head>
+<body>
+    <p>
+        Ian Anderson: ian.anderson@ucdenver.com
+    </p>
+    <p>
+        Hunter Culler: hunter.culler@ucdenver.edu
+    </p>
+    <p>
+        Thanks for checking out our web app!
+    </p>
+    <p>
+        Developed as part of a Web Application Developement Class at University of Colorado Denver.
+    </p>
+    <% if (loggedIn) { %>
+        <a href="<%= `/users/${currentUser._id}/home` %>">Profile</a>
+    <% } else { %>
+        <a href="/">Return</a>
+    <% } %>
+</body>

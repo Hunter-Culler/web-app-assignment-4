@@ -9,40 +9,49 @@
 	Status = Functional
 -->
 
-<div class="container">
-    <div class="col-sm-6">
-        <h1>Sign In</h1>
-        <form action="users/login" method="post">
-            <div class="container">
-                <fieldset>
-                    <div class="form-group row">
-                        <div class="col-sm-3">
-                            <label for="txtUsername" class="col-form-label">
-                                <span>Username:</span>
-                            </label>
+<div class="row d-flex justify-content-center">
+    <div class="container">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header hashtagHeader">
+                    <h1>Sign In</h1>
+                    <form action="users/login" method="post">
+                </div>
+                <div class="container">
+
+                    <fieldset>
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label for="txtUsername" class="col-form-label">
+                                    <span>Username:</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" id="txtUsername" name="username" class="form-control"
+                                    placeholder="Username" required>
+                            </div>
                         </div>
-                        <div class="col-sm-6">
-                            <input type="text" id="txtUsername" name="username" class="form-control" placeholder="Username" required>
+
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label for="txtPassword" class="col-form-label">
+                                    <span>Password:</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="password" id="txtPassword" name="password" class="form-control"
+                                    placeholder="Password" required>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="form-group row">
-                        <div class="col-sm-3">
-                            <label for="txtPassword" class="col-form-label">
-                                <span>Password:</span>
-                            </label>
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="password" id="txtPassword" name="password" class="form-control" placeholder="Password" required>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <input type="submit" class="button" value="Sign In"></input>
-                        <a href="/signup" class="text-primary">Create Account</a>
-                    </div>
+                </div>
+
+                <div>
+                    <input type="submit" class="button" value="Sign In"></input>
+                    <a href="/signup" class="button">Create Account</a>
+                </div>
                 </fieldset>
             </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>

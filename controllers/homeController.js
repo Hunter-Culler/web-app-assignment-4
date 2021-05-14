@@ -27,4 +27,9 @@ module.exports = {
     showSignUp: (req, res) => {
         res.render("signup");
     },
+
+    //----------------------------------------------------------------------------------------------//
+    showContactView: (req, res) => {
+        res.render("contact");
+    }
 }
