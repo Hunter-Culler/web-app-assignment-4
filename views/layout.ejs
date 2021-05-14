@@ -37,22 +37,19 @@
                         <a class="navbar-brand nav-align" href="#">Social Media Website</a>
                         <ul class="navbar nav-align">
                             <div class="nav-item active">
-                                <a class="nav-link" href="<%= `/home/${currentUser.id}` %>" style="color:white">Home</a>
+                                <a class="nav-link navButton" href="<%= `/home/${currentUser.id}` %>" >Home</a>
                             </div>
                             <div class="nav-item active">
-                                <a class="nav-link" href="<%= `/users/${currentUser._id}/page` %>" style="color:white">Profile</a>
+                                <a class="nav-link navButton" href="<%= `/users/${currentUser._id}/page` %>" >Profile</a>
                             </div>
                             <div class="nav-item active">
-                                <a class="nav-link" href="<%= `/users/${currentUser._id}/posts` %>" style="color:white">Posts</a>
+                                <a class="nav-link navButton" href="<%= `/users/${currentUser._id}/posts` %>" >Posts</a>
                             </div>
-                            <div class="nav-item active">
-                                <a class="nav-link" href="#" style="color:white">Friends</a>
+                            <div class="nav-item active navButton">
+                                <a href="<%= `/users/${currentUser._id}/edit` %>" class="nav-link navButton" >Edit Account</a>
                             </div>
-                            <div class="nav-item active">
-                                <a href="<%= `/users/${currentUser._id}/edit` %>" class="nav-link"  style="color:white">Edit Account</a>
-                            </div>
-                            <div class="nav-item active">
-                                <a href="/logout" class="nav-link"  style="color:white">Logout</a>
+                            <div class="nav-item active navButton">
+                                <a href="/logout" class="nav-link navButton"  >Logout</a>
                             </div>
                         </ul>
                     </div>
