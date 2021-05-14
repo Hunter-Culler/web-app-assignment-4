@@ -59,34 +59,41 @@
                         </form>
                     </div>
                 </div>
-                <% posts.forEach(post => { %>
-                    <div class="card post">
-                        <div class="card-header post-header text-start">
-                            <img src="/images/avatar.png" alt="Avatar" class="avatar"> <%=post.username %>
-
-                            <% if (post.username == currentUser.username) { %> 
-                                <a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure?')">Delete</a>
-                            <% } else if ( currentUser.friends.indexOf(post.posterId) > -1) { %> 
-                                <a href="<%= `/users/${post.posterId}/removeFriend` %>" onclick="">Unfollow</a>
-                            <% } else { %> 
-                                <a href="<%= `/users/${post.posterId}/addFriend` %>" onclick="">Follow</a>
-                            <% } %>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text post-text">
-                                <%= post.caption %>
-                            </p>
-                            <div class="post-published">
-                                Published: <%= post.createdAt %>
+            </div>
+            <% posts.forEach(post=> { %>
+                    <!--  JS logic used to only display owned posts, follwed user's posts, and dynaically set button states -->
+                    <% if ( ( currentUser.friends.indexOf( post.posterId )> -1 ) || ( post.username == currentUser.username ) ) { %>
+                        <div class="card post">
+                            <div class="card-header post-header text-start">
+                                <img src="/images/avatar.png" alt="Avatar" class="avatar">
+                                <%=post.username %>
+                                    <% if (post.username==currentUser.username) { %>
+                                        <a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>"
+                                            onclick="return confirm('Are you sure?')">Delete
+                                        </a>
+                                        <% } else if ( currentUser.friends.indexOf(post.posterId)> -1) { %>
+                                            <a href="<%= `/users/${post.posterId}/removeFriend` %>" onclick="">Unfollow</a>
+                                        <% } else { %>
+                                            <a href="<%= `/users/${post.posterId}/addFriend` %>" onclick="">Follow</a>
+                                        <% } %>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text post-text">
+                                    <%= post.caption %>
+                                </p>
+                                <div class="post-published">
+                                    Published: <%= post.createdAt %>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <% } %>
                 <% }) %>
-                </div>
         </div>
         <div class="column right">
             <div class="card">
-                <div class="card-header hashtagHeader">Trending Hashtags</div>
+                <div class="card-header hashtagHeader">
+                    Trending Hashtags
+                </div>
                 <div class="card-body">
                     <% hashtags.forEach(hashtag => { %>
                         <p>
