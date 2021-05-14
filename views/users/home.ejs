@@ -52,6 +52,8 @@
 
                             <% if (post.username == currentUser.username) { %> 
                                 <a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure?')">Delete</a>
+                                <% } else if ( currentUser.friendsUsername.indexOf(post.posterId) > -1) { %> 
+                                <a href="<%= `/users/${post.posterId}/removeFriend` %>" onclick="">Unfollow</a>
                                 <% } else { %> 
                                 <a href="<%= `/users/${post.posterId}/addFriend` %>" onclick="">Follow</a>
                                 <% } %>

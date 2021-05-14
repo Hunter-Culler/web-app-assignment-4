@@ -138,7 +138,6 @@ router.get("/users/:id/addFriend", usersController.addFriend, usersController.sh
 router.get("/users/:id/removeFriend", usersController.removeFriend, usersController.showViewUserPage);
 router.get("/users/:id/home", usersController.showHome, usersController.showViewHome);
 
-
 router.get("")
 
 //router.use(errorController.pageNotFoundError());
