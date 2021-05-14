@@ -24,7 +24,7 @@
                         <% if ( currentUser.friends.indexOf( user._id ) > -1 ) { %>
                         <p>
                             <a href="<%=`/users/${user._id}/page`%>" style='color:teal;'><%= user.firstname %> <%= user.lastname %>: </a>
-                            <a href="<%=`/users/${user._id}/addFriend`%>" style='color:red;'>Unfollow</a>
+                            <a href="<%=`/users/${user._id}/removeFriend`%>" style='color:red;'>Unfollow</a>
                         </p>
                         <% } %>
                     <% }) %>
@@ -32,10 +32,10 @@
                 <div class="card-header usersHeader">Unfollowed Users</div>
                 <div class="card-body">
                     <% users.forEach(user => { %>
-                        <% if ( !(currentUser.friends.indexOf( user._id ) > -1) && ( user._id !== currentUser._id ) ) { %>
+                        <% if ( (currentUser.friends.indexOf( user._id ) <= -1) && ( user._id !== currentUser._id ) ) { %>
                         <p>
                             <a href="<%=`/users/${user._id}/page`%>" style='color:teal;'><%= user.firstname %> <%= user.lastname %>: </a>
-                            <a href="<%=`/users/${user._id}/removeFriend`%>" style='color:purple;'>Follow</a>
+                            <a href="<%=`/users/${user._id}/addFriend`%>" style='color:purple;'>Follow</a>
                         </p>
                         <% } %>
                     <% }) %>
