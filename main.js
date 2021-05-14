@@ -122,7 +122,7 @@ function(req, res) {
    res.redirect(`/home/${req.user._id}`);
 });
 
-router.get("/users/:id/posts", usersController.showPosts, usersController.showViewPosts);
+//router.get("/users/:id/posts", usersController.showViewPosts);
 
 router.get("/posts", postsController.index, postsController.indexView);
 router.get("/posts/new", postsController.new);

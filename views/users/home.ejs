@@ -66,11 +66,11 @@
 
                             <% if (post.username == currentUser.username) { %> 
                                 <a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure?')">Delete</a>
-                                <% } else if ( currentUser.friends.indexOf(post.posterId) > -1) { %> 
+                            <% } else if ( currentUser.friends.indexOf(post.posterId) > -1) { %> 
                                 <a href="<%= `/users/${post.posterId}/removeFriend` %>" onclick="">Unfollow</a>
-                                <% } else { %> 
+                            <% } else { %> 
                                 <a href="<%= `/users/${post.posterId}/addFriend` %>" onclick="">Follow</a>
-                                <% } %>
+                            <% } %>
                         </div>
                         <div class="card-body">
                             <p class="card-text post-text">
