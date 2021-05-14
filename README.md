@@ -89,8 +89,10 @@ npm start
 
 Then the site will be up and running on localhost at port 3000.
 
+The site is also hosted at https://secure-brook-86464.herokuapp.com/
+
 ## Breakdown of responsibilities
-Hunter Culler - Hashtag Implementation, post data structure design, user authentication, CSS initialization and styling, Sign In. 
+Hunter Culler - Hashtag Implementation, post data structure design, user authentication, CSS initialization and styling, Sign In, deployment. 
 
 Ian Anderson - User authentication and data encryption, User Schema, UserController, User Follow/Unfollow, Sign Up, Routing direction, CSS styling implementation, Nav bar, Dynamic buttons and page states
 account editing, passport, sessions, cookies, form validation and scrubbing, access control, error handling
