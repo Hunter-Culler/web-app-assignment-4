@@ -93,6 +93,6 @@ Then the site will be up and running on localhost at port 3000.
 Hunter Culler - Hashtag Implementation, post data structure design, user authentication, CSS initialization and styling, Sign In. 
 
 Ian Anderson - User authentication and data encryption, User Schema, UserController, User Follow/Unfollow, Sign Up, Routing direction, CSS styling implementation, Nav bar, Dynamic buttons and page states
-account editing, passport, sessions, cookies, form validation and scrubbing, access control, 
+account editing, passport, sessions, cookies, form validation and scrubbing, access control, error handling
 
 
