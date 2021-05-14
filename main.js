@@ -41,7 +41,12 @@ mongoose.connect(
 .then(() => {
   console.log('database connected')
 })
-.catch((err) => console.log(err.message));
+.catch((err) => {
+  req.flash("error", `Failed to create user account because 
+  of the follwoing errors: ${error.message}`),
+ console.log(err.message)
+});
+
 
 mongoose.set("useCreateIndex", true);
 
