@@ -18,7 +18,7 @@
     <div class="row d-flex justify-content-center">
         <div class="column left">
             <div class="card">
-                <div class="card-header usersHeader">Other Users</div>
+                <div class="card-header usersHeader">Active Users</div>
                 <div class="card-body">
                     <% users.forEach(user => { %>
                         <p>
@@ -53,11 +53,7 @@
                             <% if (post.username == currentUser.username) { %> 
                                 <a href="<%= `/posts/${post.id}/delete?_method=DELETE` %>" onclick="return confirm('Are you sure?')">Delete</a>
                                 <% } else { %> 
-<<<<<<< Updated upstream
-                                <a href="<%=`/users/${post.posterId}/addFriend` %>" onclick="">Follow</a>
-=======
-                                <a href="<%= `/users/${post.posterId}/addFriend` %>" onclick="">Follow</a>
->>>>>>> Stashed changes
+                                <a href="<%= `/users/${currentUser._id}/addFriend` %>" onclick="">Follow</a>
                                 <% } %>
                         </div>
                         <div class="card-body">

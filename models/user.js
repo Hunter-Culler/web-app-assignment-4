@@ -72,6 +72,14 @@ userSchema = new mongoose.Schema(
                 ref: "User"
             }
         ],
+        /*
+        friendsUsername: [
+            {
+                type: Schema.Types.String,
+                ref: "User.username"
+            }
+        ],
+        */
         sec_question: {
             type: String,
             required: true

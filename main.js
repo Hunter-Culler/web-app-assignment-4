@@ -135,6 +135,7 @@ router.put("/users/:id/update", usersController.update, usersController.redirect
 //router.put("/users/:id/userPage", usersController.showUserPage, usersController.showViewUserPage);
 
 router.get("/users/:id/addFriend", usersController.addFriend, usersController.showViewUserPage);
+router.get("/users/:id/removeFriend", usersController.removeFriend, usersController.showViewUserPage);
 
 router.get("")
 

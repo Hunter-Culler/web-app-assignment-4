@@ -404,16 +404,20 @@ module.exports = {
 
     //----------------------------------------------------------------------------------------------//
     addFriend: (req, res, next) => {
-        const currUser = res.locals.currentUser;
-        const userId = req.params.id;
+        console.log()
+        let currUser = res.locals.currentUser;
+        let userId = req.params.id;
+        User.findById(userId)
+            .then(user => {
         if (currUser) {
                 console.log("User:");
                 console.log(currUser);
                 console.log("Added Friend:");
-                console.log(req.user.username);
+                console.log(user.username);
                 User.findByIdAndUpdate(currUser, {
                     $addToSet: {
-                        friends: userId
+                        friends: userId,
+                        //friendsUsername: req.user.username
                     }
                 })
                 .then(() => {
@@ -423,37 +427,36 @@ module.exports = {
                     console.log(`Error fetching user by ID: ${error.message}`);
                     next(error);
                 });
-        }    
+        }})    
     },
     
-<<<<<<< Updated upstream
-    /*
-    addFriend: (req, res, next) => {
+
+    //----------------------------------------------------------------------------------------------//
+    removeFriend: (req, res, next) => {
         let currUser = res.locals.currentUser;
         let userId = req.params.id;
         User.findById(userId)
             .then(user => {
-=======
-
-    //----------------------------------------------------------------------------------------------//
-    removeFriend: (req, res, next) => {
-        const currUser = res.locals.currentUser;
-        const userId = req.params.id;
         if (currUser) {
->>>>>>> Stashed changes
                 console.log("User:");
                 console.log(currUser);
-                console.log("Added Friend:");
+                console.log("Removed Friend:");
                 console.log(user.username);
-                currUser.friends.push(user._id);
-                next();
-            })
-            .catch(error => {
-                console.log(`Error fetching user by ID: ${error.message}`);
-                next(error);
-            })
+                User.findByIdAndUpdate(currUser, {
+                    $pull: {
+                        friends: userId,
+                        //friendsUsername: req.user.username
+                    }
+                })
+                .then(() => {
+                    next();
+                })
+                .catch(error => {
+                    console.log(`Error fetching user by ID: ${error.message}`);
+                    next(error);
+                });
+        }})
     },
-    */
 
     //----------------------------------------------------------------------------------------------//
     getLogInPage: (req, res) => {
