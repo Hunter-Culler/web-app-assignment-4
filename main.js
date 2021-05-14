@@ -24,10 +24,10 @@ const express = require("express"),
   expressValidator = require("express-validator"),
   morgan = require("morgan"),
   passport = require("passport"),
+  //errorController = require("./controllers/errorController");
   usersController = require("./controllers/usersController"),
   homeController = require("./controllers/homeController"),
   postsController = require("./controllers/postsController"),
-  errorController = require("./controllers/errorController"),
   User = require("./models/user"),
   Post = require("./models/post");
 
@@ -146,10 +146,10 @@ router.get("/users/:id/addFriend", usersController.addFriend, usersController.sh
 router.get("/users/:id/removeFriend", usersController.removeFriend, usersController.showViewUserPage);
 router.get("/users/:id/home", usersController.showHome, usersController.showViewHome);
 
-router.get("")
+//router.use(errorController.respondNoResourceFound);
+//router.use(errorController.respondInternalError);
 
-//router.use(errorController.pageNotFoundError());
-//router.use(errorController.internalServerError());
+router.get("")
 
 app.use("/", router);
 
