@@ -417,7 +417,7 @@ module.exports = {
                 User.findByIdAndUpdate(currUser, {
                     $addToSet: {
                         friends: userId,
-                        //friendsUsername: req.user.username
+                        friendsUsername: user.username
                     }
                 })
                 .then(() => {
@@ -445,7 +445,7 @@ module.exports = {
                 User.findByIdAndUpdate(currUser, {
                     $pull: {
                         friends: userId,
-                        //friendsUsername: req.user.username
+                        friendsUsername: user.username
                     }
                 })
                 .then(() => {
