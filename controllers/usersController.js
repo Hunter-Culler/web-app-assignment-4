@@ -280,7 +280,7 @@ module.exports = {
         let userId = req.params.id;
         User.findById(userId)
             .then(user => {
-                res.locals.currentUser = user;
+                res.locals.pageUser = user;
                 next();
             })
             .catch(error => {

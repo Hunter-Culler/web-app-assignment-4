@@ -23,8 +23,8 @@
         <div class="row justify-content-center">
             <div class="col-12 text-center">
                 <span class="profileName">
-                    <%= currentUser.firstname %>
-                        <%= currentUser.lastname %>
+                    <%= pageUser.firstname %>
+                        <%= pageUser.lastname %>
                 </span>
             </div>
         </div>
@@ -44,7 +44,7 @@
                     Birthday:
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-6 d-flex justify-content-center">
-                    <%= currentUser.dob %>
+                    <%= pageUser.dob %>
                 </div>
             </div>
         </div>
@@ -57,12 +57,12 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-6 d-flex justify-content-center">
                     <div class="col">
                         <p>
-                            <%= currentUser.address.city %>,
+                            <%= pageUser.address.city %>,
                         </p>
                     </div>
                     <div class="col">
                         <p>
-                            <%= currentUser.address.state %>
+                            <%= pageUser.address.state %>
                         </p>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
         <div class="card">
             <div class="col">
                 <div class="text-center border-bottom">
-                    Friend count: <%= currentUser.friends.length %>
+                    Friend count: <%= pageUser.friends.length %>
                 </div>
             </div>
         </div>
