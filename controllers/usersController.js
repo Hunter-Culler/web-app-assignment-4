@@ -200,13 +200,17 @@ module.exports = {
 
         req.check("password", "Password can not be empty.").notEmpty();
 
+        //make sure password matched the confrim password field
+        req.check("password", "confirm password field did not match up")
+        .equals(req.body.confirmPassword);
+
         //get result of validation
         req.getValidationResult().then((error) => {
             if (!error.isEmpty()) {
                 let messages = error.array().map(e => e.msg);
                 req.flash("error", messages.join(" and "));
                 req.skip = true;
-                res.local.redirect = "/signup";
+                res.locals.redirect = "/signup";
                 next();
             }
             else
