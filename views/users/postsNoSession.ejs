@@ -1,0 +1,33 @@
+<!--
+	Hunter Culler and Ian Anderson
+	University of Colorado Denver CSCI 4800 E01
+	Web Application Developement
+	Group Assignment 4
+
+	May 12th, 2021
+
+	Status = Functional
+-->
+
+<head>
+    <link rel="stylesheet" href="/css/assignment3.css">
+    
+</head>
+
+<title>Public Posts</title>
+
+<% posts.forEach(post => { %>
+	<div class="card post">
+		<div class="card-header post-header text-start">
+			<img src="/images/avatar.png" alt="Avatar" class="avatar"> <%=post.username %>
+		</div>
+		<div class="card-body">
+			<p class="card-text post-text">
+				<%= post.caption %>
+			</p>
+			<div class="post-published">
+				Published: <%= post.createdAt %>
+			</div>
+		</div>
+	</div>
+<% }) %>

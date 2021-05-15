@@ -131,6 +131,7 @@ function(req, res) {
 });
 
 router.get("/users/:id/posts", usersController.showAllPosts, usersController.showViewPosts);
+router.get("/users/posts", usersController.showAllPostsNoSession, usersController.showViewPostsNoSession);
 
 router.get("/posts", postsController.index, postsController.indexView);
 router.get("/posts/new", postsController.new);

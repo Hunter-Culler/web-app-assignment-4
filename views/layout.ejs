@@ -11,75 +11,93 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Social Media Webiste</title>
-        <link rel="stylesheet" href="css/assignment3.css">
-        <link rel="stylesheet" href="css/styles.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-        <div id="flashMessages">
-            <% if (flashMessages) {%>
-                <% if (flashMessages.success) { %>
-                    <div class="flash"><%= flashMessages.success %></div>
+<head>
+    <title>Social Media Webiste</title>
+    <link rel="stylesheet" href="css/assignment3.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <div id="flashMessages">
+        <% if (flashMessages) {%>
+            <% if (flashMessages.success) { %>
+                <div class="flash">
+                    <%= flashMessages.success %>
+                </div>
                 <% } else if (flashMessages.error) { %>
-                    <div class="flash error"><%= flashMessages.error %></div>
+                    <div class="flash error">
+                        <%= flashMessages.error %>
+                    </div>
                 <% } %>
-            <% } %>
-        </div>
-    </head>
+        <% } %>
+    </div>
+</head>
 
-    <body>
-        <header>
-            <% if (loggedIn) { %>
+<body>
+    <header>
+        <% if (loggedIn) { %>
+            <nav class="navbar navbar-custom">
+                <div id="nav">
+                    <a class="navbar-brand nav-align" href="/contact">Social Media Website</a>
+                    <ul class="navbar nav-align">
+                        <div class="nav-item active">
+                            <a class="nav-link navButton" href="<%= `/home/${currentUser.id}` %>">Home</a>
+                        </div>
+                        <div class="nav-item active">
+                            <a class="nav-link navButton" href="<%= `/users/${currentUser._id}/page` %>">Profile</a>
+                        </div>
+
+                        <div class="nav-item active">
+                            <a class="nav-link navButton" href="<%= `/users/${currentUser._id}/posts` %>"> Public
+                                Posts</a>
+                        </div>
+
+                        <div class="nav-item active navButton">
+                            <a href="<%= `/users/${currentUser._id}/edit` %>" class="nav-link navButton">Edit
+                                Account</a>
+                        </div>
+                        <div class="nav-item active navButton">
+                            <a href="/logout" class="nav-link navButton">Logout</a>
+                        </div>
+                    </ul>
+                </div>
+            </nav>
+            <% } else { %>
                 <nav class="navbar navbar-custom">
                     <div id="nav">
-                        <a class="navbar-brand nav-align" href="#">Social Media Website</a>
+                        <a class="navbar-brand nav-align" href="/contact">Social Media Website</a>
                         <ul class="navbar nav-align">
                             <div class="nav-item active">
-                                <a class="nav-link navButton" href="<%= `/home/${currentUser.id}` %>" >Home</a>
+                                <a class="nav-link navButton" href="/">Sign In</a>
                             </div>
                             <div class="nav-item active">
-                                <a class="nav-link navButton" href="<%= `/users/${currentUser._id}/page` %>" >Profile</a>
-                            </div>
-                            
-                            <div class="nav-item active">
-                                <a class="nav-link navButton" href="<%= `/users/${currentUser._id}/posts` %>" > Public Posts</a>
-                            </div>
-                            
-                            <div class="nav-item active navButton">
-                                <a href="<%= `/users/${currentUser._id}/edit` %>" class="nav-link navButton" >Edit Account</a>
-                            </div>
-                            <div class="nav-item active navButton">
-                                <a href="/logout" class="nav-link navButton"  >Logout</a>
+                                <a class="nav-link navButton" href="/users/posts"> Public Posts</a>
                             </div>
                         </ul>
                     </div>
                 </nav>
-            <% } else { %>
-                <nav class = "navbar navbar-custom">
-                    <div id="nav">
-                        <a class="navbar-brand nav-align" href="#">Social Media Website</a>
-                    </div>
-                </nav>
             <% } %>
-            
-        </header>
-        
-        <div class="container-fluid">
-            <%- body %>
-        </div>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="/script.js"></script>
 
-        <footer class="mt-auto">
-            <div class="card">
+    </header>
+
+    <div class="container-fluid">
+        <%- body %>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="/script.js"></script>
+
+    <footer class="mt-auto">
+        <div class="card">
             <p><a href="/contact" class="text-primary">Contact Us</a></p>
-			<p>Copyright @2021 Ian Anderson and Hunter Culler</p>
-            </div>
-        </footer>
-    </body>
+            <p>Copyright @2021 Ian Anderson and Hunter Culler</p>
+        </div>
+    </footer>
+</body>
+
 </html>

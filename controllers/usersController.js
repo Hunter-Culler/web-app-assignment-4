@@ -384,6 +384,23 @@ module.exports = {
 
 
     //----------------------------------------------------------------------------------------------//
+    showAllPostsNoSession: (req, res, next) => {
+        console.log("In show posts");
+        Post.find()
+            .then(posts => {
+                console.log(posts);
+                res.locals.posts = posts;
+                next();
+            })
+            .catch(error => {
+                req.flash("error", `Failed to fetch post data because 
+                        of the follwoing errors: ${error.message}`);
+                console.log(`Error fetching post data: ${error.message}`);
+                next(error);
+            })
+    },
+
+    //----------------------------------------------------------------------------------------------//
     showViewHome: (req, res) => {
         res.render("users/home");
     },
@@ -425,6 +442,12 @@ module.exports = {
     showViewPosts: (req, res) => {
         console.log("rendering posts page");
         res.render("users/posts");
+    },
+
+    //----------------------------------------------------------------------------------------------//
+    showViewPostsNoSession: (req, res) => {
+        console.log("rendering posts page");
+        res.render("users/postsNoSession");
     },
 
     //----------------------------------------------------------------------------------------------//
