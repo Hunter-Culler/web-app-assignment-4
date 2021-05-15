@@ -15,7 +15,8 @@
         <img src="images/sign-up.png" alt="">
     </div>
     <div class="col-sm-6">
-        <h4>Editing User info for <%= currentUser.firstname %> <%= currentUser.lastname %></h4>
+        <h4>Editing User info for: <%= currentUser.firstname %> <%= currentUser.lastname %>,</h4>
+        <h8>(*) fields required</h8>
     </div>
     <div>
         <article>
@@ -30,7 +31,7 @@
                         </div>
                         <div class="col-sm-10">
                             <input type="text" id="txtFirstname" name="firstname" required class="form-control"
-                                placeholder="<%=`${currentUser.firstname}` %>">
+                                value="<%=`${currentUser.firstname}` %>">
                         </div>
                     </div>
 
@@ -42,7 +43,7 @@
                         </div>
                         <div class="col-sm-10">
                             <input type="text" id="txtLastname" name="lastname" required class="form-control"
-                                placeholder="<%=`${currentUser.lastname}` %>">
+                                value="<%=`${currentUser.lastname}` %>">
                         </div>
                     </div>
 
@@ -51,12 +52,13 @@
                             Date of Birth: *
                         </label>
                         <div class="col-sm-10">
-                            <input type="date" id=txtDOB name="dob" required class="form-control">
+                            <input type="date" id=txtDOB name="dob" required class="form-control" value="<%=`${currentUser.dob}` %>">
                             <div id="divDoBError" class="col-sm-5 invisible errorMessage"></div>
                         </div>
                     </div>
 
                     <fieldSet class="border-form-group">
+                        <!--
                         <div class="row">
                             <legend class="col-sm-2 col-form-label">Gender: </legend>
                             <div class="col-sm-2">
@@ -78,6 +80,7 @@
                                 </div>
                             </div>
                         </div>
+                        -->
                     </fieldSet>
 
                     <div class="row form-group">
@@ -86,7 +89,7 @@
                         </label>
                         <div class="col-sm-10">
                             <input type="tel" id="txtTel" name="telephone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                                class="form-control" placeholder="<%=`${currentUser.telephone}` %>"`>
+                                class="form-control" value="<%=`${currentUser.telephone}` %>"`>
                         </div>
                     </div>
 
@@ -96,7 +99,7 @@
                         </label>
                         <div class="col-sm-10">
                             <input type="email" id="txtEmail" name="email" required class="form-control"
-                                placeholder="<%=`${currentUser.email}` %>">
+                                value="<%=`${currentUser.email}` %>">
                         </div>
                     </div>
 
@@ -104,19 +107,19 @@
                         <label for="txtAddress" class="col-sm-2 col-form-label">Address: </label>
                         <div class="col-md-12 col-lg-6">
                             <input type="text" id="txtAddress" name="street" class="form-control"
-                                placeholder="<%=`${currentUser.address.street}` %>">
+                                value="<%=`${currentUser.address.street}` %>">
                         </div>
 
                         <div class="col">
-                            <input type="text" id="txtCity" name="city" class="form-control" placeholder="<%=`${currentUser.address.city}` %>">
+                            <input type="text" id="txtCity" name="city" class="form-control" value="<%=`${currentUser.address.city}` %>">
                         </div>
 
                         <div class="col">
-                            <input type="text" id="txtState" name="state" class="form-control" placeholder="<%=`${currentUser.address.state}` %>">
+                            <input type="text" id="txtState" name="state" class="form-control" value="<%=`${currentUser.address.state}` %>">
                         </div>
 
                         <div class="col">
-                            <input type="text" id="txtZipcode" name="zipCode" class="form-control" placeholder="<%=`${currentUser.zipCode}` %>"
+                            <input type="text" id="txtZipcode" name="zipCode" class="form-control" value=" <%=`${currentUser.address.zipCode}` %> " 
                                 pattern="[0-9]{5}">
                         </div>
                     </div>
@@ -129,10 +132,11 @@
                         </div>
                         <div class="col-sm-10">
                             <input type="text" id="txtUsername" name="username" required class="form-control"
-                                placeholder="<%=`${currentUser.username}` %>">
+                                value="<%=`${currentUser.username}` %>">
                         </div>
                     </div>
 
+                    <!--
                     <div class="form-group row">
                         <div class="col-sm-2">
                             <label for="txtPassword" class="col-form-label">
@@ -141,7 +145,7 @@
                         </div>
                         <div class="col-sm-10">
                             <input type="password" id="txtPassword" name="password" required class="form-control"
-                                placeholder="Password">
+                            value="<%= `${currentUser.password}` %>" >
                         </div>
                     </div>
 
@@ -153,10 +157,10 @@
                         </div>
                         <div class="col-sm-10">
                             <input type="password" id="txtConfirmPassword" name="confirmPassword" required
-                                class="form-control">
+                            value="<%=`${currentUser.password}` %>" class="form-control" >
                         </div>
                     </div>
-                    <!--
+                    
                     <div class="form-group-row">
                         <label for="dlSecurity">Security Question:</label>
                          Dropdown menu for picking a security question, reveals the text entry field for answer when a question is picked 
@@ -185,6 +189,7 @@
                         </div>
                     </div>
                     -->
+
                     <p>
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="reset" class="btn btn-secondary">Reset</button>
