@@ -346,6 +346,40 @@ module.exports = {
     },
 
     //----------------------------------------------------------------------------------------------//
+    showAllPosts: (req, res, next) => {
+        let userId = req.params.id;
+        console.log("In show posts");
+
+        const db = mongoose.connection;
+        var dbo = db
+
+        User.findById(userId)
+            .then(user => {
+                res.locals.currentUser = user;
+
+                //var queryID = { posterID: userId };
+
+                Post.find()
+                    .then(posts => {
+                        console.log(posts);
+                        res.locals.posts = posts;
+                        next();
+                    })
+                    .catch(error => {
+                        req.flash("error", `Failed to fetch post data because 
+                        of the follwoing errors: ${error.message}`);
+                        console.log(`Error fetching post data: ${error.message}`);
+                        next(error);
+                    })
+            })
+            .catch(error => {
+                console.log(`(showPosts) Error fetching post by ID: ${error.message}`);
+                next(error);
+            })
+    },
+
+
+    //----------------------------------------------------------------------------------------------//
     showViewHome: (req, res) => {
         res.render("users/home");
     },

@@ -42,11 +42,11 @@
                             <div class="nav-item active">
                                 <a class="nav-link navButton" href="<%= `/users/${currentUser._id}/page` %>" >Profile</a>
                             </div>
-                            <!--
+                            
                             <div class="nav-item active">
-                                <a class="nav-link navButton" href="<%= `/users/${currentUser._id}/posts` %>" >Posts</a>
+                                <a class="nav-link navButton" href="<%= `/users/${currentUser._id}/posts` %>" > Public Posts</a>
                             </div>
-                            -->
+                            
                             <div class="nav-item active navButton">
                                 <a href="<%= `/users/${currentUser._id}/edit` %>" class="nav-link navButton" >Edit Account</a>
                             </div>
@@ -74,9 +74,12 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="/script.js"></script>
+
         <footer class="mt-auto">
+            <div class="card">
             <p><a href="/contact" class="text-primary">Contact Us</a></p>
-			Copyright @2021 Ian Anderson and Hunter Culler
+			<p>Copyright @2021 Ian Anderson and Hunter Culler</p>
+            </div>
         </footer>
     </body>
 </html>
