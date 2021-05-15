@@ -9,6 +9,12 @@
 	Status = Functional
 -->
 
+<head>
+    <link rel="stylesheet" href="/css/assignment3.css">
+
+</head>
+
+
 <div class="row d-flex">
     <div class="container-fluid profileHeader">
         <div class="row justify-content-center pt-4 pb-3">
@@ -16,16 +22,14 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-12 text-center">
-                <span class="profileName"> <%= pageUser.firstname %> <%= pageUser.lastname %></span>
+                <span class="profileName">
+                    <%= pageUser.firstname %>
+                        <%= pageUser.lastname %>
+                </span>
             </div>
         </div>
         <div class="row justify-content-center pt-2 pb-4">
-            <% if ( (currentUser.friends.indexOf( pageUser._id ) <= -1) && ( pageUser._id !== currentUser._id ) ) { %>
-                <a href="<%= `/users/${pageUser._id}/addFriend` %>" type="button" class="col-2 btn btn-primary">Add Friend</a>
-            <% } else if ( currentUser.friends.indexOf( pageUser._id ) > -1 && ( pageUser._id !== currentUser._id ) ) { %>
-                <a href="<%=`/users/${pageUser._id}/removeFriend`%>" type="button" class="col-2 btn btn-primary">Unfollow</a>
-            <% } %>
-            <a href="<%= `/users/${currentUser._id}/home` %>" type="button" class="col-2 btn btn-primary">Retrun Home</a>
+            <a href="<%= `/users/${currentUser._id}/home` %>" type="button" class="col-2 btn btn-primary">Homepage</a>
         </div>
     </div>
     <div class="container-fluid profileInfo">
@@ -37,7 +41,10 @@
         <div class="card">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-6 d-flex justify-content-center">
-                    Birthday: <%= pageUser.dob %>
+                    Birthday:
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6 d-flex justify-content-center">
+                    <%= pageUser.dob %>
                 </div>
             </div>
         </div>
@@ -45,24 +52,28 @@
         <div class="card">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-6 d-flex justify-content-center">
-                    Lives in: <%= pageUser.address.city %>, <%= pageUser.address.state %>
+                    Lives in:
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6 d-flex justify-content-center">
+                    <div class="col">
+                        <p>
+                            <%= pageUser.address.city %>,
+                        </p>
+                    </div>
+                    <div class="col">
+                        <p>
+                            <%= pageUser.address.state %>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
     <div class="container-fluid profileInfo">
         <div class="card">
             <div class="col">
                 <div class="text-center border-bottom">
-                    Friends count: <%= pageUser.friends.length %>
-                </div>
-                <div class="card-body">
-                    <% for (var i=0; i < pageUser.friendsUsername.length; i++) { %>
-                        <p>
-                            <a href="<%=`/users/${pageUser.friends[i]}/page`%>">
-                                <%= pageUser.friendsUsername[i] %>
-                            </a>
-                        </p>
-                    <% } %>
+                    Friend count: <%= pageUser.friends.length %>
                 </div>
             </div>
         </div>

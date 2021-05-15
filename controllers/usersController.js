@@ -295,6 +295,21 @@ module.exports = {
     },
 
     //----------------------------------------------------------------------------------------------//
+    showCurrUserPage: (req, res, next) => {
+        let userId = res.locals.currentUser.id;
+        User.findById(userId)
+            .then(user => {
+                res.locals.pageUser = user;
+                next();
+            })
+            .catch(error => {
+                req.flash("error", `Failed to show user page because 
+                of the follwoing errors: ${error.message}`);
+                console.log(`(showUserPage) Error fetching user by ID: ${error.message}`);
+            })
+    },
+
+    //----------------------------------------------------------------------------------------------//
     showViewUserPage: (req, res) => {
         res.render("users/page");
     },
@@ -452,7 +467,6 @@ module.exports = {
 
     //----------------------------------------------------------------------------------------------//
     addFriend: (req, res, next) => {
-        console.log()
         let currUser = res.locals.currentUser;
         let userId = req.params.id;
         User.findById(userId)
