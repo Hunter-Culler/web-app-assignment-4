@@ -52,9 +52,11 @@ After logging in, they are taken to a main homepage which displays a feed of all
 
 and a list of all users on the site, devided into a followed and an unfollowed section which links to the specified user profiles as well as providing the option to change follow status.
 
-Users also have the option to delete their posts from thier homepage as well.
+Posts can be viewed from a "Public Posts" Page  as well, regardless of if a user is signed in or not.
 
-Each user has an "about me" page which shows a little information about the user including DoB, minimal address, and how many people they follow (aka thier 'friends').
+IF a user is signed in they will have appropriate access to follow/unfollow and post delete functionality on the "Public Posts" Page and their homepage feed.
+
+Each user has an "about me" page which shows a little information about the user including DoB, minimal address, and how many people they follow (aka thier 'friends') with a list of who their folowing.
 
 Users have the ability to edit their account info, logout, or quickly access thier homepage and profile page using the navbar which is omnipresent as long as the user is logged in and the session is valid.
 
