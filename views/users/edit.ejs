@@ -47,6 +47,7 @@
                         </div>
                     </div>
 
+                    <!--
                     <div class="row form-group">
                         <label for="txtDOB" class="col-sm-2 col-form-label">
                             Date of Birth: *
@@ -56,9 +57,10 @@
                             <div id="divDoBError" class="col-sm-5 invisible errorMessage"></div>
                         </div>
                     </div>
+                    
 
                     <fieldSet class="border-form-group">
-                        <!--
+                        
                         <div class="row">
                             <legend class="col-sm-2 col-form-label">Gender: </legend>
                             <div class="col-sm-2">
@@ -79,9 +81,9 @@
                                     <label for="rbOther" class="form-check-label">Other</label>
                                 </div>
                             </div>
-                        </div>
-                        -->
+                        </div>  
                     </fieldSet>
+                    -->
 
                     <div class="row form-group">
                         <label for="txtTel" class="col-sm-2 col-form-label">
@@ -119,7 +121,7 @@
                         </div>
 
                         <div class="col">
-                            <input type="text" id="txtZipcode" name="zipCode" class="form-control" value=" <%=`${currentUser.address.zipCode}` %>" 
+                            <input type="text" id="txtZipcode" name="zipCode" class="form-control" value=" <%=  String(`${currentUser.address.zipCode}`) %>" 
                             pattern="[0-9]{5}">
                         </div>
                     </div>

@@ -120,25 +120,22 @@ module.exports = {
 
     //----------------------------------------------------------------------------------------------//
     update: (req, res, next) => {
+        if (req.skip) return next();
         let userId = req.params.id,
             userParams = getUserParams(req.body);
-        let updatedUser = new User({
-            name: {
-                first: req.body.first,
-                last: req.body.last,
-            },
-            email: req.body.email,
-            zipCode: req.body.zipCode
-        })
         User.findByIdAndUpdate(userId, {
             $set: userParams
         })
             .then(user => {
+                req.flash("success", 'User Account Successfully Updated!');
                 res.locals.redirect = `/users/${user._id}/page`;
                 next();
             })
             .catch(error => {
+                req.flash("error", `Failed to update user account because 
+                of the follwoing errors: ${error.message}`);
                 console.log(`(update) Error updating user by ID: ${error.message}`);
+                res.locals.redirect = `/users/${currentUser._id}/edit`;
                 next(error);
             });
     },
@@ -211,6 +208,50 @@ module.exports = {
                 req.flash("error", messages.join(" and "));
                 req.skip = true;
                 res.locals.redirect = "/signup";
+                next();
+            }
+            else
+                next();
+        });
+    },
+
+    //----------------------------------------------------------------------------------------------//
+    validateUserEdit: (req, res, next) => {
+
+        // validate email
+        req
+            .sanitizeBody("email")
+            .normalizeEmail({
+                all_lowercase: true
+            })
+            .trim();
+        req.check("email", "email is not valid!").isEmail();
+
+        //validate zipcode
+        req
+            .check("zipCode", "Zip code is invalid")
+            .notEmpty()
+            //.isInt()
+            //.isLength({
+                //min: 5,
+                //max: 5
+            //});
+            //.equals(req.body.zipCode);
+        
+        //validate name, username and DoB
+        req.check("firstname", "First name can not be empty.").notEmpty();
+
+        req.check("lastname", "Last name can not be empty.").notEmpty();
+
+        req.check("username", "Username can not be empty.").notEmpty();
+
+        //get result of validation
+        req.getValidationResult().then((error) => {
+            if (!error.isEmpty()) {
+                let messages = error.array().map(e => e.msg);
+                req.flash("error", messages.join(" and "));
+                req.skip = true;
+                res.locals.redirect = `/users/${res.locals.currentUser.id}/edit`;
                 next();
             }
             else

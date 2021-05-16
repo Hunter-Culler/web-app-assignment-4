@@ -139,9 +139,8 @@ router.post("/posts/:id/create",  postsController.create);
 router.get("/posts/:id", postsController.show, postsController.showView);
 router.delete("/posts/:id/delete", postsController.delete, postsController.redirectView);
 
-router.get("/users/:id/edit", usersController.validate, usersController.edit,  usersController.showEdit);
-router.put("/users/:id/update", usersController.update, usersController.redirectView);
-//router.put("/users/:id/userPage", usersController.showUserPage, usersController.showViewUserPage);
+router.get("/users/:id/edit", usersController.edit,  usersController.showEdit);
+router.put("/users/:id/update", usersController.validateUserEdit, usersController.update, usersController.redirectView);
 
 router.get("/users/:id/addFriend", usersController.addFriend, usersController.showCurrUserPage, usersController.showViewUserPage);
 router.get("/users/:id/removeFriend", usersController.removeFriend, usersController.showCurrUserPage, usersController.showViewUserPage);
