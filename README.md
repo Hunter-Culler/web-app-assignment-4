@@ -91,7 +91,7 @@ npm start
 
 Then the site will be up and running on localhost at port 3000.
 
-The site is also hosted at https://secure-brook-86464.herokuapp.com/
+The site is also hosted at https://glacial-peak-73293.herokuapp.com/
 
 ## Breakdown of responsibilities
 Hunter Culler - Hashtag Implementation, post data structure design, user authentication, CSS initialization and styling, Sign In, deployment. 
