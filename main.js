@@ -139,7 +139,7 @@ router.post("/posts/:id/create",  postsController.create);
 router.get("/posts/:id", postsController.show, postsController.showView);
 router.delete("/posts/:id/delete", postsController.delete, postsController.redirectView);
 
-router.get("/users/:id/edit", usersController.edit, usersController.showEdit);
+router.get("/users/:id/edit", usersController.validate, usersController.edit,  usersController.showEdit);
 router.put("/users/:id/update", usersController.update, usersController.redirectView);
 //router.put("/users/:id/userPage", usersController.showUserPage, usersController.showViewUserPage);
 
